@@ -1,0 +1,31 @@
+{
+    "$schema": "./schemas/massive_profile_mapping.schema.json",
+    "MAPPING_KEY": {
+        "ZONE": [
+            "a",
+            "b"
+        ],
+        "PROC": [
+            {
+                "INDICATOR": "PROC_1",
+                "SELECTIONS": [
+                    "process1",
+                    "process2"
+                ]
+            },
+            {
+                "INDICATOR": "PROC_2",
+                "SELECTIONS": [
+                    "",
+                    "item1",
+                    "item2",
+                    "item3"
+                ]
+            }
+        ],
+        "PART": [
+            "part1",
+            "part2"
+        ]
+    }
+}

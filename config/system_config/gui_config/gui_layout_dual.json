@@ -1,0 +1,91 @@
+{
+    "$schema": "./schemas/gui_layout.schema.json",
+    "PROPERTIES": {
+        "HEIGHT": 870,
+        "WIDTH": 1300,
+        "REPEAT_BODY": 2
+    },
+    "VARIABLES": {
+        "ZONE_INFO": [
+            "SIDE A: Leader",
+            "SIDE B: Follower"
+        ]
+    },
+    "DEFAULT_VALUES": {
+        "PART_NAME": "Part",
+        "PART_IMG": "default_part.png"
+    },
+    "PROFILE": [
+        {
+            "BODY": [
+                {
+                    "LAYOUT_TYPE": "HORIZONTAL",
+                    "PROFILE_MSG": "VARIABLES",
+                    "WIDGETS": [
+                        {
+                            "TYPE": "QLabel",
+                            "DESCRIPTION": "$ZONE_INFO"
+                        }
+                    ]
+                },
+                {
+                    "LAYOUT_TYPE": "HORIZONTAL",
+                    "PROFILE_MSG": "",
+                    "WIDGETS": [
+                        {
+                            "TYPE": "QLabel",
+                            "DESCRIPTION": "Step 1: Please select process"
+                        }
+                    ]
+                },
+                {
+                    "LAYOUT_TYPE": "HORIZONTAL",
+                    "PROFILE_MSG": "PROC_ID",
+                    "INDICATOR": "PROC_1",
+                    "WIDGETS": [
+                        {
+                            "TYPE": "QPushButton",
+                            "DESCRIPTION": "Process 1"
+                        },
+                        {
+                            "TYPE": "QPushButton",
+                            "DESCRIPTION": "Process 2"
+                        }
+                    ]
+                },
+                {
+                    "LAYOUT_TYPE": "HORIZONTAL",
+                    "PROFILE_MSG": "",
+                    "WIDGETS": [
+                        {
+                            "TYPE": "QLabel",
+                            "DESCRIPTION": "Step 2: Please select part"
+                        }
+                    ]
+                },
+                {
+                    "LAYOUT_TYPE": "HORIZONTAL_SCROLL",
+                    "SCROLL_WIDTH": 500,
+                    "SCROLL_HEIGHT": 200,
+                    "PROFILE_MSG": "PART_ID",
+                    "WIDGETS": [
+                        {
+                            "TYPE": "PartBtnWidget",
+                            "DESCRIPTION": {
+                                "LABEL": "part1",
+                                "PATH": "default_part.png"
+                            }
+                        },
+                        {
+                            "TYPE": "PartBtnWidget",
+                            "DESCRIPTION": {
+                                "LABEL": "part2",
+                                "PATH": "default_part.png"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

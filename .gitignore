@@ -1,0 +1,8 @@
+.vscode/
+.idea/
+*.h5
+*.pt
+*.STL
+*.bin
+Image_Projection/
+X_Detection/Model/

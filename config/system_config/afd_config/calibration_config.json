@@ -1,0 +1,11 @@
+{
+    "$schema": "./schemas/calibration_config_schema.json",
+    "title": "AFD Calibration Config",
+    "max_num_try": 3,
+    "min_position": 0.5,
+    "max_position": 20,
+    "position_tollerance": 0.5,
+    "shift_tollerance": 0.5,
+    "min_position_force": -5,
+    "max_position_force": 5
+}

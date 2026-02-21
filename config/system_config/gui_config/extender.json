@@ -1,0 +1,16 @@
+{
+    "$schema": "./schemas/extender.schema.json",
+    "J7": {
+        "display_name": "Rail",
+        "extender_type": 0,
+        "min": 0,
+        "max": 4000
+    },
+    "J8": {
+        "display_name": "Roller",
+        "extender_type": 1,
+        "min": 0,
+        "max": 360
+    },
+    "J9": {}
+}

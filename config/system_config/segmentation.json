@@ -1,0 +1,363 @@
+{
+    "$schema": "/etc/ss/config/system_config/schemas/segmentation.schema.json",
+    "globals": {
+        "debug_mode": true
+    },
+    "functions": [
+        {
+            "function": "eucledian_clustering",
+            "params": {
+                "cluster_tolerance": 0.01,
+                "min_cluster_size": 100,
+                "max_cluster_size": 10000000,
+                "save_debug": false
+            }
+        }
+    ],
+    "examples": [
+        {
+            "function": "refine_normals",
+            "params": {
+                "k_neighbours": 200
+            }
+        },
+        {
+            "function": "downsample",
+            "params": {
+                "leaf_sizes": [
+                    0.004,
+                    0.004,
+                    0.004
+                ]
+            }
+        },
+        {
+            "function": "remove_outliers",
+            "params": {
+                "mean_k": 6,
+                "StddevMulThresh": 1.82
+            }
+        },
+        {
+            "function": "compute_normal",
+            "params": {
+                "use_pcl": true,
+                "use_jet": false,
+                "use_radius": true,
+                "K": 50,
+                "radius_normal": 0.03,
+                "viewpoint_normal": [
+                    1.0,
+                    1.5,
+                    2.0
+                ],
+                "flip_normals": false,
+                "maintain_normals": true,
+                "colourize": true,
+                "field": 1,
+                "eucledian_cluster": false,
+                "cluster_tolerance": 0.01,
+                "min_cluster_size": 10,
+                "max_cluster_size": 10000000
+            }
+        },
+        {
+            "function": "eucledian_clustering",
+            "params": {
+                "cluster_tolerance": 0.01,
+                "min_cluster_size": 100000,
+                "max_cluster_size": 10000000,
+                "save_debug": false
+            }
+        },
+        {
+            "function": "swept_cylinder",
+            "params": {
+                "radius": 0.05,
+                "height": 2.0,
+                "surface_offset": 0.03,
+                "include_high_curvature": false,
+                "downsample": false,
+                "include_euclidean_discard": false,
+                "include_self": true,
+                "leaf_size": [
+                    0.01,
+                    0.01,
+                    0.01
+                ],
+                "cluster": false,
+                "cluster_tolerance": 0.01,
+                "min_cluster_size": 3000,
+                "max_cluster_size": 10000000,
+                "fast_mode": false,
+                "use_old": false,
+                "save_debug": false
+            }
+        },
+        {
+            "function": "remove_colored_X_region",
+            "params": {
+                "masks": [
+                    255,
+                    0,
+                    0,
+                    0,
+                    0,
+                    255
+                ],
+                "mask_cluster": true,
+                "mask_cluster_tolerance": 0.015,
+                "mask_min_cluster_size": 50,
+                "mask_max_cluster_size": 100000000,
+                "mask_do_radius_search": true,
+                "mask_search_radius": 0.005,
+                "min_x_region_size": 500,
+                "boundary_detection_feature_size": 0.015,
+                "min_output_size": 500,
+                "normal_aware_radius_search_toggle": false,
+                "normal_aware_search_radius": 0.01,
+                "normal_aware_dot_pdt_threshold": 0.85,
+                "split_by_thin": false,
+                "thin_feature_measure": 0.1,
+                "boundary_detection_tol": 0.02,
+                "approx_density_measure": 0.01,
+                "combine_all_input": false
+            }
+        },
+        {
+            "function": "curvature_segmentation",
+            "params": {
+                "curvature_threshold": 0.00465,
+                "princ_curv_radius": 0.015,
+                "cluster_tolerance": 0.01,
+                "min_cluster_size": 250,
+                "max_cluster_size": 10000000,
+                "noise_max_size": 50,
+                "distribute": false,
+                "cluster": true,
+                "keep_only_high_curvatures": false,
+                "debug": true,
+                "ignore_lower_percentage": 0,
+                "ignore_top_percentage": 100,
+                "leaf_size": [
+                    0.01,
+                    0.01,
+                    0.01
+                ],
+                "split_by_thin": false,
+                "thin_feature_measure": 0.1,
+                "boundary_detection_tol": 0.02,
+                "preserve_corners": false,
+                "min_regular_cluster": 100,
+                "approx_density_measure": 0.01
+            }
+        },
+        {
+            "function": "remove_void_X_region",
+            "params": {
+                "cluster_tolerance": 0.01,
+                "min_cluster_size": 200,
+                "max_cluster_size": 10000000,
+                "boundary_search_radius": 0.016,
+                "boundary_cluster_tolerance": 0.025,
+                "boundary_min_cluster_size": 200,
+                "boundary_max_cluster_size": 10000000
+            }
+        },
+        {
+            "function": "bilateral_smoothening",
+            "params": {
+                "k_neighbours": 20,
+                "sharpness_angle": 25,
+                "iterations": 30
+            }
+        },
+        {
+            "function": "jet_smoothening",
+            "params": {
+                "k_neighbours": 50
+            }
+        },
+        {
+            "function": "vcm_segmentation",
+            "params": {
+                "convolution_radius": 0.012,
+                "offset_radius": 0.018,
+                "threshold_ratio": 0.06,
+                "distribute": false,
+                "cluster_tolerance": 0.01,
+                "min_cluster_size": 1000,
+                "max_cluster_size": 10000000,
+                "vis_minValRatio": 0.05,
+                "vis_maxValRatio": 0.1,
+                "algo_type": 1,
+                "no_of_segments": 36,
+                "direction": 1,
+                "min_width": 0.15
+            }
+        },
+        {
+            "function": "detect_helmet",
+            "params": {
+                "half_of_fixture_diagonal_dimension": 0.0762,
+                "midplane_offset": 0.01,
+                "percentage_threshold": 50
+            }
+        },
+        {
+            "function": "projection_segmentation",
+            "params": {
+                "algorithm": 3,
+                "maxAngleDeviation": 40,
+                "custom_seed_activate": false,
+                "custom_first_seed": [
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "cluster_tolerance": 0.014,
+                "min_cluster_size": 5000,
+                "max_cluster_size": 10000000,
+                "noise_max_size": 50,
+                "introduce_overlap": true,
+                "overlap_radius": 0.1,
+                "boundary_radius": 0.01,
+                "overlap_mode": 2,
+                "debug": true,
+                "remove_clouds_along": [
+                    5
+                ],
+                "leaf_size": [
+                    0.01,
+                    0.01,
+                    0.01
+                ],
+                "multiple_custom_seeds": [
+                    [
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    [
+                        1,
+                        0,
+                        0
+                    ]
+                ]
+            }
+        },
+        {
+            "function": "sharp_curvature_segmentation",
+            "params": {
+                "princ_curv_radius": 0.015,
+                "debug": true,
+                "ignore_lower_percentage": 0,
+                "ignore_top_percentage": 100,
+                "leaf_size": [
+                    0.01,
+                    0.01,
+                    0.01
+                ],
+                "sharp_curv_thresh": 0.00968,
+                "sharp_curv_search_rad": 0.03,
+                "sharp_curv_distribute": false,
+                "sharp_curv_cluster": true,
+                "sharp_curv_clstr_tol": 0.0075,
+                "sharp_curv_min_clstr_sz": 4000,
+                "sharp_curv_max_clstr_sz": 10000000,
+                "split_by_thin": false,
+                "thin_feature_measure": 0.1,
+                "boundary_detection_tol": 0.02,
+                "preserve_corners": false,
+                "min_regular_cluster": 100,
+                "approx_density_measure": 0.01
+            }
+        },
+        {
+            "function": "mask_filter_segmentation",
+            "params": {
+                "masks": [
+                    255,
+                    0,
+                    0,
+                    0,
+                    0,
+                    255
+                ],
+                "mask_cluster": true,
+                "mask_cluster_tolerance": 0.015,
+                "mask_min_cluster_size": 50,
+                "mask_max_cluster_size": 100000000,
+                "mask_do_radius_search": true,
+                "mask_search_radius": 0.005,
+                "normal_aware_radius_search_toggle": false,
+                "normal_aware_search_radius": 0.01,
+                "normal_aware_dot_pdt_threshold": 0.8
+            }
+        },
+        {
+            "function": "area_detection_filter",
+            "params": {
+                "masks": [
+                    255,
+                    0,
+                    0,
+                    0,
+                    0,
+                    255
+                ],
+                "mask_cluster_tolerance": 0.015,
+                "mask_min_cluster_size": 3,
+                "mask_search_radius": 0.015,
+                "boundary_detection_radius": 0.02,
+                "hidden_point_removal_radius": 300,
+                "outer_boundary_cluster_tolerance": 0.02,
+                "boundary_continuity_dist": 0.1,
+                "boundary_dist_2_nxt_pt": 0.01,
+                "min_dist_indv_boundary_pths": 0.05,
+                "translate_in_z": -2.0
+            }
+        },
+        {
+            "function": "remove_mask_filter",
+            "params": {
+                "masks": [
+                    255,
+                    0,
+                    0,
+                    0,
+                    0,
+                    255
+                ],
+                "mask_search_radius": false,
+                "search_radius": 0.01
+            }
+        },
+        {
+            "function": "remove_colored_X_region_2",
+            "params": {
+                "mask_cluster_tolerance": 0.015,
+                "mask_min_cluster_size": 150,
+                "mask_do_radius_search": false,
+                "mask_search_radius": 0.0,
+                "debug": true,
+                "segment_cluster_tolerance": 0.01,
+                "segment_min_cluster_size": 100,
+                "masks": [
+                    0,
+                    255,
+                    0
+                ],
+                "normal_aware_radius_search_toggle": false,
+                "normal_aware_search_radius": 0.01,
+                "normal_aware_dot_pdt_threshold": 0.85,
+                "combine_all_input": false,
+                "allow_non_X_boundaries": false,
+                "allow_non_X_noise": false,
+                "cluster_final_output": true,
+                "expand_non_x_masks": false,
+                "non_x_masks_expansion_radius": 0.01
+            }
+        }
+    ]
+}

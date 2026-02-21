@@ -1,0 +1,48 @@
+{
+    "$schema": "./schemas/tool_settings.schema.json",
+    "tool_info": [
+        {
+            "filename": "pushcorp_SM1503",
+            "tcp_count": 1
+        }
+    ],
+    "data": {
+        "0": {
+            "0": [
+                {
+                    "display_name": "5in_disk",
+                    "tool_id": 0,
+                    "tcp_id": 0
+                }
+            ],
+            "7": [
+                {
+                    "display_name": "default_tool",
+                    "tool_id": 0,
+                    "tcp_id": 0
+                }
+            ]
+        },
+        "1": {
+            "4": [
+                {
+                    "display_name": "Compound 1",
+                    "tool_id": 0,
+                    "tcp_id": 0
+                },
+                {
+                    "display_name": "Compound 2",
+                    "tool_id": 0,
+                    "tcp_id": 0
+                }
+            ],
+            "5": [
+                {
+                    "display_name": "default_tool",
+                    "tool_id": 0,
+                    "tcp_id": 0
+                }
+            ]
+        }
+    }
+}

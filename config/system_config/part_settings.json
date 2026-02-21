@@ -1,0 +1,116 @@
+{
+    "$schema": "./schemas/part_settings.schema.json",
+    "groups": {
+        "0": {
+            "display_name": "PCI Doors",
+            "colors": "Purple, Red, Silver, Yellow",
+            "path": "/settings/group_1.yml",
+            "planner_param_folder": [
+                {
+                    "display_name": "Top Region",
+                    "folder_path": "part_class_settings/PCI_Door_Top"
+                },
+                {
+                    "display_name": "Radius",
+                    "folder_path": "part_class_settings/PCI_Door_Radius"
+                },
+                {
+                    "display_name": "Side Region",
+                    "folder_path": "part_class_settings/PCI_Door_Side"
+                }
+            ],
+            "lmi_settings_path": "part_class_settings/PCI_Door_Top",
+            "stitch_config_path": "part_class_settings/PCI_Door_Top",
+            "intended_gsa_path": ""
+        },
+
+        "1": {
+            "display_name": "PCI Curved Pontoons",
+            "colors": "Purple, Red, Silver, Yellow",
+            "path": "/settings/group_1.yml",
+            "planner_param_folder": [
+                {
+                    "display_name": "Curved Regions",
+                    "folder_path": "part_class_settings/PCI_Pontoon_Curved"
+                },
+                                {
+                    "display_name": "Flat Regions",
+                    "folder_path": "part_class_settings/PCI_Pontoon_Flat"
+                }
+            ],
+            "lmi_settings_path": "part_class_settings/PCI_Pontoon_Flat",
+            "stitch_config_path": "part_class_settings/PCI_Pontoon_Flat",
+            "intended_gsa_path": ""
+        },
+
+        "2": {
+            "display_name": "PCI Flat Pontoons",
+            "colors": "Purple, Red, Silver, Yellow",
+            "path": "/settings/group_1.yml",
+            "planner_param_folder": [
+                {
+                    "display_name": "Curved Regions",
+                    "folder_path": "part_class_settings/PCI_Flat_Pontoon_Curves"
+                },
+                                {
+                    "display_name": "Flat Regions",
+                    "folder_path": "part_class_settings/PCI_Flat_Pontoon_Flats"
+                }
+            ],
+            "lmi_settings_path": "part_class_settings/PCI_Flat_Pontoon_Flats",
+            "stitch_config_path": "part_class_settings/PCI_Flat_Pontoon_Flats",
+            "intended_gsa_path": ""
+        },
+        "3": {
+            "display_name": "PCI Large Hoods",
+            "colors": "Purple, Red, Silver, Yellow",
+            "path": "/settings/group_1.yml",
+            "planner_param_folder": [
+                {
+                    "display_name": "Curved Regions",
+                    "folder_path": "part_class_settings/PCI_Large_Hood_Curved"
+                },
+                                {
+                    "display_name": "Flat Regions",
+                    "folder_path": "part_class_settings/PCI_Large_Hood_Flat"
+                }
+            ],
+            "lmi_settings_path": "part_class_settings/PCI_Large_Hood_Flat",
+            "stitch_config_path": "part_class_settings/PCI_Large_Hood_Flat",
+            "intended_gsa_path": ""
+        },
+        "4": {
+            "display_name": "PCI Small Hoods",
+            "colors": "Purple, Red, Silver, Yellow",
+            "path": "/settings/group_1.yml",
+            "planner_param_folder": [
+                {
+                    "display_name": "Curved Regions",
+                    "folder_path": "part_class_settings/PCI_Small_Hood_Curved"
+                },
+                                {
+                    "display_name": "Flat Regions",
+                    "folder_path": "part_class_settings/PCI_Small_Hood_Flat"
+                }
+            ],
+            "lmi_settings_path": "part_class_settings/PCI_Small_Hood_Flat",
+            "stitch_config_path": "part_class_settings/PCI_Small_Hood_Flat",
+            "intended_gsa_path": ""
+        },
+        "5": {
+            "display_name": "Calibration",
+            "colors": "Purple, Red, Silver, Yellow",
+            "path": "/settings/group_1.yml",
+            "planner_param_folder": [
+                {
+                    "display_name": "Calibration",
+                    "folder_path": "part_class_settings/Calibration"
+                }
+            ],
+            "lmi_settings_path": "part_class_settings/Calibration",
+            "stitch_config_path": "part_class_settings/PCI_Flat",
+            "intended_gsa_path": ""
+        }
+    },
+    "doc": "planner_param_folder = /etc/ss/config/system_config/ + folder_path"
+}

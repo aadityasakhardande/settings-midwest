@@ -1,0 +1,38 @@
+{
+    "$schema": "./schemas/SystemCheckFlags.schema.json",
+    "system": {
+        "skip_ext": false,
+        "pressure": true,
+        "SP_change": true,
+        "compound": false,
+        "nozzle_pressure": false,
+        "spindle_flow": false,
+        "afd_purge_pressure": false,
+        "fluid_level_sensor": false
+    },
+    "doc": {
+        "name_doc": "Each Device, has a flag associated with it, whether the robot system should do a pre-check for that system/device or not."
+    },
+    "inprocess_check": {
+        "spindle_flow": {
+            "required": false,
+            "stable_count": 0,
+            "alert_policy": 0
+        },
+        "afd_purge_pressure": {
+            "required": false,
+            "stable_count": 0,
+            "alert_policy": 0
+        },
+        "afd_force_sensor": {
+            "required": false,
+            "stable_count": 3,
+            "alert_policy": 0
+        },
+        "wet_sanding_nozzle_flow_sensor": {
+            "required": false,
+            "stable_count": 3,
+            "alert_policy": 0
+        }
+    }
+}

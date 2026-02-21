@@ -1,0 +1,157 @@
+{
+    "$schema": "../schema/poses_and_trajectories.schema.json",
+    "task_map": {
+        "0": "go_home",
+        "1": "go_home",
+        "10": "go_clean_home"
+    },
+    "joint_poses": {
+        "static": {
+            "global_home": [
+                1.5708,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "clean_home": [
+                1.5708,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "chng_sp_joint_home_r": [
+                0.14228,
+                -0.02307,
+                -0.75030,
+                -0.20904,
+                0.74398,
+                0.16774
+            ],
+            "tool_changer_local_home_jnt": [
+                0.14228,
+                -0.02307,
+                -0.75030,
+                -0.20904,
+                0.74398,
+                0.16774
+            ],
+            "pre_transition_pose": [
+                1.57,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "scan_transition_pose": [
+                1.57,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "reload_transition_pose": [
+                1.5708,
+                0,
+                1,
+                1,
+                0,
+                0
+            ],
+            "sand_transition_pose": [
+                1.57,
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "custom": {
+            "p1": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        }
+    },
+    "ext_poses": {
+        "static": {
+            "rail_home": [
+                0,
+                0,
+                0
+            ],
+            "chng_sp_rail_home": [
+                0.5,
+                0,
+                0
+            ],
+            "compound_application_rail_home": [
+                0,
+                0,
+                0
+            ],
+            "tool_changer_local_home_ext": [
+                0.5,
+                0,
+                0
+            ]
+        },
+        "custom": {
+            "e1": [
+                0,
+                0,
+                0
+            ]
+        }
+    },
+    "trajectories": {
+        "go_home": {
+            "path": [
+                {
+                    "joint_target": "static/global_home",
+                    "ext_target": "static/rail_home",
+                    "move_extender": false,
+                    "plan": true
+                },
+                {
+                    "joint_target": "static/global_home",
+                    "ext_target": "static/rail_home",
+                    "move_extender": true,
+                    "plan": false
+                }
+            ]
+        },
+        "go_clean_home": {
+            "path": [
+                {
+                    "joint_target": "static/global_home",
+                    "ext_target": "static/rail_home",
+                    "move_extender": false,
+                    "plan": true
+                },
+                {
+                    "joint_target": "custom/p1",
+                    "ext_target": "static/rail_home",
+                    "move_extender": true,
+                    "plan": false
+                },
+                {
+                    "joint_target": "static/clean_home",
+                    "ext_target": "custom/e1",
+                    "move_extender": true,
+                    "plan": true
+                }
+            ]
+        }
+    }
+}

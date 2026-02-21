@@ -1,0 +1,29 @@
+[camera_lens]
+### CHANGE THESE TO HAVE ACCURATE DATA SHEET REPORTING ###
+lens_focal_length = 4.0 # focal length of camera in mm 
+lens_f_stop = 8.0 # f stop (aperature) of camera 
+##########################################################
+
+[camera]
+PixelFormat = "VmbPixelFormatBgr8"
+ExposureAuto = 0 		# 0->Off, 1->Once, 2->Continuous
+ExposureTime = 20000.0 # initial exposure time (shutter speed) in us
+GainAuto = 0 			# 0->Off, 1->Once, 2->Continuous
+Gain = 8.0 				# inital gain on camera in dB 
+BalanceWhiteAuto = 0    # auto white balance mode: 0->Off, 1->Once, 2->Continuous
+GVSPPacketSize = 9190   # Limits:  min value = 1500, max value = 9190, for now keep this value to 9190
+
+[calibration]
+BinaryThreshold = 100   # This param is used to convert captured image into Binary (Black and White) Image for checking if checker board is present or not.
+Chessboard_X = 6
+Chessboard_Y = 7
+
+[image]
+image_file_extension = ".png" # type of image file to save 
+image_file_path = "/data/images/" # path to save images to 
+image_data_file_path = "/data/image_data/" # path to save image info files to
+image_base_name = "img" # base name of image for continuous capture 
+save_with_info = false # overrides image name passed to `take_single_image` with standard image detail format
+
+[debug_settings]
+display_features_on_startup = false # whether or not to print out all camera features on start up 

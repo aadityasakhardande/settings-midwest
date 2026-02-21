@@ -1,0 +1,94 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Process Tool Settings",
+    "description": "Define tool settings according to process definition heirarchy",
+    "type": "object",
+    "properties": {
+        "$schema": {
+            "type": "string"
+        },
+        "0": {
+            "description": "Section settings for sanding (processType = 0)",
+            "$ref": "#/definitions/section_properties"
+        },
+        "1": {
+            "description": "Section settings for polish (processType = 1)",
+            "$ref": "#/definitions/section_properties"
+        },
+        "255": {
+            "description": "Section settings for process independent task. Use for GoTarget, DynamicGoTarget, Scan.",
+            "$ref": "#/definitions/section_properties"
+        }
+    },
+    "definitions": {
+        "section_properties": {
+            "type": "object",
+            "properties": {
+                "0": {
+                    "description": "Config file name for sanding section (sectionType = 0)",
+                    "$ref": "#/definitions/tool_properties"
+                },
+                "1": {
+                    "description": "Config file name for change sandpaper section (sectionType = 1)",
+                    "$ref": "#/definitions/tool_properties"
+                },
+                "2": {
+                    "description": "Config file name for line scan section (sectionType = 2)",
+                    "$ref": "#/definitions/tool_properties"
+                },
+                "3": {
+                    "description": "Config file name for shot scan section (sectionType = 3)",
+                    "$ref": "#/definitions/tool_properties"
+                },
+                "4": {
+                    "description": "Config file name for spatter section (sectionType = 4)",
+                    "$ref": "#/definitions/tool_properties"
+                },
+                "5": {
+                    "description": "Config file name for polish section (sectionType = 5)",
+                    "$ref": "#/definitions/tool_properties"
+                },
+                "6": {
+                    "description": "Config file name for extn line scan section (sectionType = 6)",
+                    "$ref": "#/definitions/tool_properties"
+                },
+                "7": {
+                    "description": "Config file name for grind section (sectionType = 7)",
+                    "$ref": "#/definitions/tool_properties"
+                },
+                "255": {
+                    "description": "Config file name for process dependent type. Use for GoTarget, DynamicGoTarget, Scan.",
+                    "$ref": "#/definitions/tool_properties"
+                }
+            },
+            "additionalProperties": false
+        },
+        "tool_properties": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "description": "Info for different tools. (A list of object)",
+                "properties": {
+                    "display_name": {
+                        "description": "Displayed name on GUI",
+                        "type": "string"
+                    },
+                    "filename": {
+                        "description": "Filename (excluding extension) that can be found under tools/configs.",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "display_name",
+                    "filename"
+                ]
+            }
+        }
+    },
+    "required": [
+        "0",
+        "1",
+        "255"
+    ],
+    "additionalProperties": false
+}

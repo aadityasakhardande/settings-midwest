@@ -1,0 +1,4 @@
+{
+    "$schema": "./schemas/ui_manager_plugins.schema.json",
+    "profile_name_generator": "UIManager::ProfileNameFromPartAndProcs"
+}

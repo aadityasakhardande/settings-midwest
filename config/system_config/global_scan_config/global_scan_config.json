@@ -1,0 +1,33 @@
+{
+    "$schema": "./.schemas/global_scan_config.schema.json",
+    "setup_1": {
+        "template": "template_1",
+        "workpiece_frame_name": "base_link",
+        "workpiece_position": [
+            1.0,
+            2.0,
+            3.0
+        ],
+        "workpiece_orientation": [
+            0.0,
+            0.0,
+            0.7071,
+            0.7071
+        ]
+    },
+    "setup_2": {
+        "template": "template_2",
+        "workpiece_frame_name": "robot_base",
+        "workpiece_position": [
+            0.5,
+            1.5,
+            2.5
+        ],
+        "workpiece_orientation": [
+            0.7071,
+            0.0,
+            0.0,
+            0.7071
+        ]
+    }
+}

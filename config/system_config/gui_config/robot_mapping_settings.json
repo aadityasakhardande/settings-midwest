@@ -1,0 +1,32 @@
+{
+    "$schema": "./schemas/robot_mapping_settings.schema.json",
+    "robot_settings": [
+        {
+            "nickname": "Leader B5",
+            "topic_prefix": "",
+            "frame": "robot1_tf"
+        },
+        {
+            "nickname": "Follower A5",
+            "topic_prefix": "/follower_1",
+            "frame": "robot2_tf"
+        }
+    ],
+    "zone_settings": [
+        {
+            "profile_id": 0,
+            "robot_id": 0,
+            "zone_id": 255
+        },
+        {
+            "profile_id": 1,
+            "robot_id": 1,
+            "zone_id": 1
+        }
+    ],
+    "collaborative_mode": true,
+    "doc": {
+        "nickname": "The robot name to be display on screen",
+        "topic_prefix": "The prefix used in cmd/status remapping"
+    }
+}

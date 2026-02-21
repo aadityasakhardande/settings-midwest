@@ -1,0 +1,40 @@
+{
+    "$schema": "../schema/fixed_robot_scripts_schema.json",
+    "title": "Pickup Tool Entry Robot Joint Motion Script for Tool Index 0",
+    "path": [
+        {
+            "target": [
+                -97.993,
+                37.345,
+                -34.612,
+                -84.620,
+                88.236,
+                17.962
+            ],
+            "ext_state": [
+                2.615024,
+                0,
+                0
+            ],
+            "tool_status": false,
+            "force": 5
+        },
+        {
+            "target": [
+                -113.495,
+                46.577,
+                -32.587,
+                -69.173,
+                86.336,
+                7.833
+            ],
+            "ext_state": [
+                2.615024,
+                0,
+                0
+            ],
+            "tool_status": false,
+            "force": 5
+        }
+    ]
+}

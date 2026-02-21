@@ -1,0 +1,181 @@
+{
+    "$schema": "../../schemas/segmentation.schema.json",
+    "globals": {
+        "debug_mode": true,
+        "keep_debug_files": false
+    },
+    "bounding_box":{
+        "points":  [0.5, 3.1, -0.3, 6.5, -1, 1]
+    },
+    "mesh_params":
+    {
+        "meshCreation_LeafSize"                   : 0.009,
+        "meshCreation_SearchRadius"               : 0.12,
+        "meshCreation_Mu"                         : 9.0,
+        "meshCreation_MaximumNearestNeighbors"    : 100,
+        "meshCreation_MaximumSurfaceAngleDiv"     : 1.0,
+        "meshCreation_MinimumAngleDiv"            : 18,
+        "meshCreation_MaximumAngleDiv"            : 1.0
+    },
+    "functions": [
+        
+        {
+            "function": "compute_normal",
+            "include_discarded": false,
+            "params": {
+                "use_pcl": false,
+                "use_jet": false,
+                "use_radius": true,
+                "K": 1000,
+                "radius_normal": 0.01,
+                "viewpoint_normal": [
+                    100.0,
+                    0.0,
+                    0.0
+                ],
+                "flip_normals": false,
+                "maintain_normals": true,
+                "colourize": true,
+                "field": 1,
+                "eucledian_cluster": true,
+                "cluster_tolerance": 0.01,
+                "min_cluster_size": 1000,
+                "max_cluster_size": 10000000
+            }
+        }, 
+        
+        {
+            "function": "projection_segmentation",
+            "include_discarded": false,
+            "params": {
+                "min_width": -1,
+                "min_width_along": [
+                ],
+                "do_alignment_correction": false,
+                
+                "algorithm": 3,
+                "maxAngleDeviation": 40,
+                "custom_seed_activate": false,
+                "custom_first_seed": [],
+                "cluster_tolerance": 0.01,
+                "min_cluster_size": 2000,
+                "max_cluster_size": 10000000,
+                "noise_max_size": 50,
+                "custom_seeds": [],
+                "introduce_overlap": false,
+                "overlap_radius": 0.055,
+                "boundary_radius": 0.01,
+                "overlap_mode": 2,
+                "remove_clouds_along": [
+                  0,5
+                ],
+                "multiple_custom_seeds": [
+                    [
+                        1.0,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        -1.0,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        1.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        -1.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    [
+                        0,
+                        0,
+                        -1.0
+                    ]
+                   
+                ],
+                "debug": true,
+                "leaf_size": [
+                    0.005,
+                    0.005,
+                    0.005
+                ]
+            }
+        },
+        
+       
+        {
+            "function": "projection_segmentation",
+            "include_discarded": true,
+            "params": {
+                "min_width": -1,
+                "min_width_along": [
+                ],
+                "do_alignment_correction": false,
+                
+                "algorithm": 4,
+                "maxAngleDeviation": 40,
+                "custom_seed_activate": false,
+                "custom_first_seed": [],
+                "cluster_tolerance": 0.01,
+                "min_cluster_size": 2000,
+                "max_cluster_size": 10000000,
+                "noise_max_size": 50,
+                "custom_seeds": [],
+                "introduce_overlap": false,
+                "overlap_radius": 0.055,
+                "boundary_radius": 0.01,
+                "overlap_mode": 2,
+                "remove_clouds_along": [
+                   2,4
+                ],
+                "multiple_custom_seeds": [
+                    [
+                        1.0,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        -1.0,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        1.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        -1.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    [
+                        0,
+                        0,
+                        -1.0
+                    ]
+                ],
+                "debug": true,
+                "leaf_size": [
+                    0.005,
+                    0.005,
+                    0.005
+                ]
+            }
+        }
+    ]
+}

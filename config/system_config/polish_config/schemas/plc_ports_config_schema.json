@@ -1,0 +1,92 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Ports Config of Compound Manager PLC",
+    "description": "The configuration for mapping the names and ports of the modbus coils and registers on the PLC that controls the compound dispensing",
+    "type": "object",
+    "properties": {
+        "coil": {
+            "description": "Array of name-address mappings for devices connected via coils",
+            "type": "array",
+            "items": {
+                "description": "Name to Modbus Address mapping for digital inputs or outputs",
+                "type": "object",
+                "required": [
+                    "name",
+                    "address"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Name of the port/device.\nSoftware can handle only one of the available options or the ones that have syntax as: 'PUSH_STAGE{port-number}_PORT'.\nOther names will be ignored.",
+                        "type": "string",
+                        "enum": [
+                            "START_SYSTEM",
+                            "ENABLE_DISPENSING_1",
+                            "ENABLE_DISPENSING_2",
+                            "REFILL_ONGOING",
+                            "RESET",
+                            "WATCHDOG",
+                            "ENABLE_OVERPRESSURE_PURGE_1",
+                            "ENABLE_OVERPRESSURE_PURGE_2",
+                            "ENABLE_PUMPHEAD_PURGE_1",
+                            "ENABLE_PUMPHEAD_PURGE_2"
+                        ]
+                    },
+                    "address": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 65535,
+                        "description": "Coil Address"
+                    }
+                }
+            }
+        },
+        "register": {
+            "description": "Array of name-address mappings for devices connected via registers",
+            "type": "array",
+            "items": {
+                "description": "Name to Modbus Address mapping for analog inputs or outputs",
+                "type": "object",
+                "required": [
+                    "name",
+                    "address"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Name of the port/device.\nSoftware can handle only one of the available options.\nOther names will be ignored.",
+                        "type": "string",
+                        "enum": [
+                            "DESIRED_COMPOUND_PRESSURE",
+                            "MAX_COMPOUND_SENSOR_DISTANCE_1",
+                            "DESIRED_COMPOUND_FLOW_1",
+                            "MAX_COMPOUND_SENSOR_DISTANCE_2",
+                            "DESIRED_COMPOUND_FLOW_2",
+                            "CURRENT_COMPOUND_PRESSURE",
+                            "CURRENT_COMPOUND_DISTANCE_1",
+                            "COMPOUND_SYSTEM_ERROR_1",
+                            "COMPOUND_SYSTEM_STATE_1",
+                            "CURRENT_COMPOUND_DISTANCE_2",
+                            "COMPOUND_SYSTEM_ERROR_2",
+                            "COMPOUND_SYSTEM_STATE_2",
+                            "WATCHDOG_TIME_DURATION",
+                            "WATCHDOG_ELAPSED_TIME",
+                            "COMPOUND_SYSTEM_MAINTENANCE_STATE_1",
+                            "COMPOUND_SYSTEM_MAINTENANCE_STATE_2",
+                            "COMPOUND_SYSTEM_MAX_PRESSURE_LIMIT_1",
+                            "COMPOUND_SYSTEM_MAX_PRESSURE_LIMIT_2",
+                            "COMPOUND_SYSTEM_PURGE_TARGET_PRESSURE_1",
+                            "COMPOUND_SYSTEM_PURGE_TARGET_PRESSURE_2",
+                            "COMPOUND_SYSTEM_NOZZLE_PRESSURE_1",
+                            "COMPOUND_SYSTEM_NOZZLE_PRESSURE_2"
+                        ]
+                    },
+                    "address": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 65535,
+                        "description": "Register Address"
+                    }
+                }
+            }
+        }
+    }
+}

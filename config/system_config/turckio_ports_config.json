@@ -1,0 +1,273 @@
+{
+	"$schema": "./schemas/turckio_ports_config.schema.json",
+	"device_list": {
+		"VACUUM": {
+			"required": true,
+			"type": 0
+		},
+		"TOOL": {
+			"required": true,
+			"type": 0
+		},
+		"ANDON_LIGHT": {
+			"required": true,
+			"type": 0
+		},
+		"STAGE": {
+			"required": true,
+			"type": 0
+		},
+		"TOOL_CHANGER": {
+			"required": false,
+			"type": 0
+		},
+		"AMBIENT_LIGHT": {
+			"required": false,
+			"type": 0
+		},
+		"AFD_PURGE_PRESSURE": {
+			"required": false,
+			"type": 0
+		},
+		"SPINDLE_FLOW_SENSOR": {
+			"required": false,
+			"type": 0
+		},
+		"FIXTURE_SENSOR_1": {
+			"required": false,
+			"type": 0
+		},
+		"FIXTURE_SENSOR_2": {
+			"required": false,
+			"type": 0
+		},
+		"WET_SANDING_NOZZLE_FLOW_SENSOR": {
+			"required": false,
+			"type": 0
+		},
+		"UNIVERSAL_FLUID_LEVEL_SENSOR": {
+			"required": false,
+			"type": 0
+		},
+		"SENSOR_ENCLOSURE": {
+			"required": false,
+			"type": 0
+		},
+		"DUST_COLLECTOR_SENSOR": {
+			"required": false,
+			"type": 0
+		},
+		"RECLAMATION_SYSTEM_SENSOR": {
+			"required": false,
+			"type": 0
+		},
+		"BUCKET_ELEVATOR_SENSOR": {
+			"required": false,
+			"type": 0
+		},
+		"AWAC_SYSTEM_SENSOR": {
+			"required": false,
+			"type": 0
+		},
+		"CONVEYOR_SENSOR": {
+			"required": false,
+			"type": 0
+		}
+	},
+	"coil": [
+		{
+			"name": "VACUUM_PORT",
+			"address": 0
+		},
+		{
+			"name": "SANDER_PORT",
+			"address": 1
+		},
+		{
+			"name": "ANDON_RED_PORT",
+			"address": 2
+		},
+		{
+			"name": "ANDON_AMBER_PORT",
+			"address": 3
+		},
+		{
+			"name": "ANDON_GREEN_PORT",
+			"address": 4
+		},
+		{
+			"name": "ANDON_BLUE_PORT",
+			"address": 5
+		},
+		{
+			"name": "ANDON_BUZZER_PORT",
+			"address": 6
+		},
+		{
+			"name": "WATER_SOLENOID_PORT",
+			"address": 999
+		},
+		{
+			"name": "AIR_SOLENOID_PORT",
+			"address": 999
+		},
+		{
+			"name": "PUMP1_PORT",
+			"address": 999
+		},
+		{
+			"name": "PUMP2_PORT",
+			"address": 999
+		},
+		{
+			"name": "NOZZLE1_PORT",
+			"address": 999
+		},
+		{
+			"name": "NOZZLE2_PORT",
+			"address": 999
+		},
+		{
+			"name": "PUSH_STAGE1_PORT",
+			"address": 7
+		},
+		{
+			"name": "PUSH_STAGE2_PORT",
+			"address": 8
+		},
+		{
+			"name": "PUSH_STAGE3_PORT",
+			"address": 9
+		},
+		{
+			"name": "PUSH_STAGE4_PORT",
+			"address": 10
+		},
+		{
+			"name": "AMBIENT_LIGHT_PORT",
+			"address": 999
+		},
+		{
+			"name": "FIXTURE_1_BIT",
+			"address": 999
+		},
+		{
+			"name": "FIXTURE_2_BIT",
+			"address": 999
+		},
+		{
+			"name": "SENSOR_ENCLOSURE_LID_PORT",
+			"address": 999
+		},
+		{
+			"name": "DUST_COLLECTOR_BIT",
+			"address": 999
+		},
+		{
+			"name": "RECLAMATION_SYSTEM_BIT",
+			"address": 999
+		},
+		{
+			"name": "BUCKET_ELEVATOR_BIT",
+			"address": 999
+		},
+		{
+			"name": "AWAC_SYSTEM_BIT",
+			"address": 999
+		},
+		{
+			"name": "CONVEYOR_BIT",
+			"address": 999
+		},
+		{
+			"name": "BLAST_PORT",
+			"address": 999
+		},
+		{
+			"name": "TOOL_CLAMP_SOLENOID_COIL",
+			"address": 999
+		},
+		{
+			"name": "SPINDLE_STATIONARY_SENSOR_COIL",
+			"address": 999
+		},
+		{
+			"name": "TOOL_PROXIMITY_SENSOR_COIL_1",
+			"address": 999
+		},
+		{
+			"name": "TOOL_PROXIMITY_SENSOR_COIL_2",
+			"address": 999
+		},
+		{
+			"name": "TOOL_ON_ROBOT_PROXIMITY_SENSOR_COIL",
+			"address": 999
+		},
+		{
+			"name": "SPINDLE_FLOW_BIT",
+			"address": 999
+		},
+		{
+			"name": "AFD_PURGE_PRESSURE_BIT",
+			"address": 999
+		},
+		{
+			"name": "WET_SANDING_SOLENOID_DIGITAL_OUT",
+			"address": 999
+		},
+		{
+			"name": "WET_SANDING_SENSOR_DIGITAL_IN",
+			"address": 999
+		},
+		{
+			"name": "FLUID_LEVEL_SENSOR_DIGITAL_IN",
+			"address": 999
+		}
+	],
+	"register": [
+		{
+			"name": "RPM_REGISTER",
+			"address": 256
+		},
+		{
+			"name": "WATCHDOG_READ_REGISTER",
+			"address": 4128
+		},
+		{
+			"name": "WATCHDOG_SET_REGISTER",
+			"address": 4384
+		},
+		{
+			"name": "WATCHDOG_RESET_REGISTER",
+			"address": 4385
+		},
+		{
+			"name": "CLAMP_PRESSURE_REGISTER",
+			"address": 999
+		},
+		{
+            "name": "SPINDLE_FLOW_REG",
+            "address": 999
+        },
+		{
+			"name": "DIGITAL_INPUT_REG",
+			"address": 999
+		},
+		{
+			"name": "BLAST_MACHINE_PRESSURE_REGISTER",
+			"address": 999
+		},
+		{
+			"name": "METERING_VALVE_POSITION_REGISTER",
+			"address": 999
+		},
+		{
+			"name": "TOOL_CLAMP_SOLENOID_REGISTER",
+			"address": 999
+		},
+		{
+            "name": "AFD_PURGE_PRESSURE_REG",
+            "address": 999
+        }
+	]
+}

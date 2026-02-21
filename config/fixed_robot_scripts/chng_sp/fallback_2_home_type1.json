@@ -1,0 +1,66 @@
+{
+    "header": {
+        "angleUnits": "d",
+        "timeUnits": "ms"
+    },
+    "path": [
+        {
+            "type": "movej",
+            "target": [
+                34.848,
+                14.410,
+                -46.658,
+                3.627,
+                61.108,
+                -78.820
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 500,
+            "tool_status": false,
+            "force": 0
+        },
+        {
+            "type": "movej",
+            "target": [
+                8.152,
+                -1.322,
+                -42.989,
+                -11.977,
+                42.630,
+                9.611
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 500,
+            "tool_status": false,
+            "force": 0
+        },
+        {
+            "type": "movej",
+            "target": [
+                8.152,
+                -1.322,
+                -42.989,
+                -11.977,
+                42.630,
+                9.611
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 500,
+            "tool_status": false,
+            "force": 0
+        }
+    ],
+    "comment": "From fall type 1 to home."
+}

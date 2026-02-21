@@ -1,0 +1,6 @@
+{
+    "$schema": "./schemas/task_manager_config.schema.json",
+    "activate_extended_scan": false,
+    "process_sorter_name": "FcfsProcessSorter",
+    "task_creator_name": "DefaultTaskCreator"
+}

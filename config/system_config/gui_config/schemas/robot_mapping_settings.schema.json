@@ -1,0 +1,75 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "robot mapping settings",
+    "type": "object",
+    "properties": {
+        "robot_settings": {
+            "description": "The robot settings for dual robot system.",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "$ref": "#/$defs/robot_settings"
+            }
+        },
+        "zone_settings": {
+            "description": "The zone settings for dual robot profile selection.",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "$ref": "#/$defs/zone_settings"
+            }
+        },
+        "collaborative_mode": {
+            "description": "Set to true if two robots are working on the same part at the same time.",
+            "type": "boolean"
+        }
+    },
+    "required": [
+        "robot_settings",
+        "zone_settings"
+    ],
+    "$defs": {
+        "robot_settings": {
+            "properties": {
+                "nickname": {
+                    "description": "The display name of the robot",
+                    "type": "string"
+                },
+                "topic_prefix": {
+                    "description": "The prefix string to distinguish leader and follower robot. Do not change this.",
+                    "type": "string"
+                },
+                "frame": {
+                    "description": "The frame for robot display. Do not change this.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "nickname",
+                "topic_prefix",
+                "frame"
+            ]
+        },
+        "zone_settings": {
+            "properties": {
+                "profile_id": {
+                    "description": "The profile identifier. Do not change this.",
+                    "type": "integer"
+                },
+                "robot_id": {
+                    "description": "The robot to be executed with. 0 for leader, 1 for follower",
+                    "type": "integer"
+                },
+                "zone_id": {
+                    "description": "The zone to execute in. 0 for zone 1, 1 for zone 2. 255 for both zone.",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "profile_id",
+                "robot_id",
+                "zone_id"
+            ]
+        }
+    }
+}

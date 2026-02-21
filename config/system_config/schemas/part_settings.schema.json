@@ -1,0 +1,100 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://graymatter-robotics.com/system_config/part_settings.schema.json",
+    "title": "Part Settings Config",
+    "description": "Configuration for Defining Part Class",
+    "type": "object",
+    "properties": {
+        "groups": {
+            "type": "object",
+            "patternProperties": {
+                "^[0-9]+$": {
+                    "type": "object",
+                    "description": "Part Class ID: Mapped directly from profile info::part class dropdown",
+                    "$ref": "#/$defs/settings_objects"
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "required": [
+        "groups"
+    ],
+    "$defs": {
+        "settings_objects": {
+            "properties": {
+                "display_name": {
+                    "type": "string",
+                    "description": "The name shown in Profile info edit for the part class"
+                },
+                "colors": {
+                    "type": "string",
+                    "description": "Part Color"
+                },
+                "path": {
+                    "type": "string",
+                    "description": "Zivid Capture Settings Path, Final path would be: /etc/ss/config/system_config/ + path",
+                    "examples": [
+                        "/settings/group_1.yml"
+                    ]
+                },
+                "planner_param_folder": {
+                    "type": "array",
+                    "$ref": "#/$defs/planner_setting_objects",
+                    "description": "A list of available planner folder for this part class",
+                    "examples": [
+                        {
+                            "display_name": "surface param",
+                            "folder_name": "part_class_settings/setting_0"
+                        }
+                    ]
+                },
+                "lmi_settings_path": {
+                    "type": "string",
+                    "description": "LMI Settings Path, Final path would be: /etc/ss/config/system_config/ + lmi_settings_path",
+                    "examples": [
+                        "part_class_settings/setting_0"
+                    ]
+                },
+                "stitch_config_path": {
+                    "type": "string",
+                    "description": "Pointcloud handler Settings Path, Final path would be: /etc/ss/config/system_config/ + stitch_config_path",
+                    "examples": [
+                        "part_class_settings/setting_0"
+                    ]
+                },
+                "intended_gsa_path": {
+                    "type": "string",
+                    "description": "Intended GSA Settings Path, Final path would be: /etc/ss/config/system_config/ + intended_gsa_path",
+                    "examples": [
+                        "part_class_settings/setting_0"
+                    ]
+                }
+            },
+            "required": [
+                "colors",
+                "path",
+                "planner_param_folder",
+                "lmi_settings_path",
+                "stitch_config_path",
+                "intended_gsa_path"
+            ],
+            "additionalProperties": false
+        },
+        "planner_setting_objects": {
+            "items": {
+                "type": "object",
+                "properties": {
+                    "display_name": {
+                        "type": "string",
+                        "description": "The name shown in Pass edit GUI"
+                    },
+                    "folder_path": {
+                        "type": "string",
+                        "description": "The planner folder name. [abs planner_param_folder] = /etc/ss/config/system_config/ + folder_path"
+                    }
+                }
+            }
+        }
+    }
+}

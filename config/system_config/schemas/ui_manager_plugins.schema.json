@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://graymatter-robotics.com/ui_manager/ui_manager_plugins.schema.json",
+    "title": "UI Manager Plugins Config",
+    "description": "Configuration for UI Manager Plugins",
+    "type": "object",
+    "properties": {
+        "profile_name_generator": {
+            "description": "Profile Name Generator Plugin",
+            "oneOf": [
+                {
+                    "type": "string",
+                    "description": "UI Manager Profile Name Generator plugin to generate profile name from part and selected procs. This is the default choice in most cases.",
+                    "const": "UIManager::ProfileNameFromPartAndProcs"
+                },
+                {
+                    "type": "string",
+                    "description": "UI Manager Profile Name Generator plugin to generate profile name from part, selected procs and zone ID.",
+                    "const": "UIManager::ProfileNameFromPartProcsAndZone"
+                }
+            ]
+        }
+    }
+}

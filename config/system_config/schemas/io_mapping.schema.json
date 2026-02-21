@@ -1,0 +1,44 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://graymatter-robotics.com/io_mapping/io_mapping.schema.json",
+    "title": "IO Mapping Plugins Config",
+    "description": "Configuration for IO Mapping Plugins",
+    "type": "object",
+    "properties": {
+        "planner": {
+            "description": "Planner Mapping plugin to use",
+            "oneOf": [
+                {
+                    "type": "string",
+                    "description": "Default Planner Mapping",
+                    "const": "default_io_mapping::Planner"
+                },
+                {
+                    "type": "string",
+                    "description": "Planner mapping plugin for stationary robot plus roller setup.",
+                    "const": "stationary_to_roller_mapping::Planner"
+                },
+                {
+                    "type": "string",
+                    "description": "Planner mapping plugin for robot on rail plus roller setup.",
+                    "const": "robot_on_rail_to_roller::Planner"
+                }
+            ]
+        },
+        "scan": {
+            "description": "Scan Mapping plugin to use",
+            "oneOf": [
+                {
+                    "type": "string",
+                    "description": "Default Scan Mapping",
+                    "const": "default_io_mapping::Scan"
+                },
+                {
+                    "type": "string",
+                    "description": "Scanning mapping plugin for stationary robot plus roller setup.",
+                    "const": "stationary_to_roller_mapping::Scan"
+                }
+            ]
+        }
+    }
+}

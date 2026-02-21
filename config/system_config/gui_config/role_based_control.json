@@ -1,0 +1,15 @@
+{
+    "$schema": "./schemas/role_based_control.schema.json",
+    "super_user_tier": [
+        {
+            "name": "foo",
+            "password": "$6$gSLu7QRM$DixAwGfUvXS3mkK4Uw3YLFY2PcD/dhdd2a4D3YOyPsvN7rN8iT0ZJjjNFG4Yp5mbVXjNxhuXchXuSWLhokxM./"
+        }
+    ],
+    "operator_tier": [
+        {
+            "name": "bar",
+            "password": "$6$gSLu7QRM$DixAwGfUvXS3mkK4Uw3YLFY2PcD/dhdd2a4D3YOyPsvN7rN8iT0ZJjjNFG4Yp5mbVXjNxhuXchXuSWLhokxM./"
+        }
+    ]
+}

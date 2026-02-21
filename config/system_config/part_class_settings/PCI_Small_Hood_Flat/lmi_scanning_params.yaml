@@ -1,0 +1,49 @@
+7lmi_settings: {
+  encoder_spacing: 2, # mm (decimal) Default: 1
+  exposure: 1200, # ums (non decimal)
+  XSubsampling: 1, # e.g. 1 - full res, 2 - half res, 3 - one third res, 4 - quarter res
+  ZSubsampling: 1, # e.g. 1 - full res, 2 - half res, 3 - one third res, 4 - quarter res
+  Density: 'balanced', # speed, balanced, resolution Default: speed
+  spotThreshold: 5, # 1 - 255
+  spotWidthMax: 15, # 1 - 127
+  intensityThreshold: 0,
+  scan_speed: 500,
+  use_spike_removal: false
+}
+lmi_advanced_settings: {
+  use_advanced_settings: false,
+  spotWidthMin: 2, # 1 - 127   (factory default value: 2)
+  widthThreshold: 10, # 0 - 255  (factory default value: 10)
+  spotSumMin: 1, # 0 - 255  (factory default value: 1)
+  sobelEdgeWindow: 19, # 5 - 57, has to be odd number  (factory default value for Blue 2670: 11,
+                                                      # factory default value for Red 2690: 15)
+  hdr_mode: 1, # 0: disabled, 1: gamma                  (factory default value: 0)
+  hdr_parameters: 0.5, # 0.0 - 5.0                        (factory default value: 1)
+  enhanced_surface_flatness_filter_type: -1,          # 0: Box, 1: Gaussian, -1: Disabled AND you need to untoggle manually in GUI
+  enhanced_surface_flatness_filter_length: 5,         # 3, 5, 7, 9, 11, 13   (factory default value: 5)
+}
+lmi_calibration: {
+  save_ply: true, # ply in world frame (do not use for calibration)
+  output_for_calibration: false, # set true to get output for calibration - also set Density to 'resolution'
+  calib_mode: 0,
+  save_data_for_robot_to_world_calib: false  # When output_for_calibration is set to True, and save_data_for_robot_to_world_calib is set to:
+                                            # true: the node will save data to perform robot to world calibration along with LMI calibration.
+                                            # false: the node will save data to only perform LMI calibration
+}
+lmi_general_parameters: {
+  encoder_resolution: 0.0488297, # mm
+  material: 'reflective', # custom, diffuse, reflective
+}
+lmi_expert_use: {
+  use_browser: false, # true / false
+  surfaceBatchLength: 100, # Default = 100 mm
+  encoderErrorTolerance: 2, # Default = 2 mm ( Node will only report the error )
+  worldYalign: true, # true = (m710 cells) Extender position increases in +ve world Yaxis
+}
+lmi_surface_len_calculation: {
+  single_frame_mode: false, # scans with batch length equal to scan length minus tolerance
+  initial_surface_len: 100, # mm
+  increment: 0.1, # mm
+  max_surface_len: 250, # mm
+  min_length_left_for_tolerance: 50, # mm
+}

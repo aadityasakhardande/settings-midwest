@@ -1,0 +1,87 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "extender control settings",
+    "type": "object",
+    "properties": {
+        "J7": {
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/joint_properties"
+                },
+                {
+                    "description": "Unused Extender",
+                    "properties": {},
+                    "additionalProperties": false
+                }
+            ]
+        },
+        "J8": {
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/joint_properties"
+                },
+                {
+                    "description": "Unused Extender",
+                    "properties": {},
+                    "additionalProperties": false
+                }
+            ]
+        },
+        "J9": {
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/joint_properties"
+                },
+                {
+                    "description": "Unused Extender",
+                    "properties": {},
+                    "additionalProperties": false
+                }
+            ]
+        }
+    },
+    "required": [
+        "J7",
+        "J8",
+        "J9"
+    ],
+    "$defs": {
+        "joint_properties": {
+            "description": "Activated Extender",
+            "properties": {
+                "display_name": {
+                    "description": "The display name of the extender",
+                    "type": "string"
+                },
+                "extender_type": {
+                    "description": "The extender type. 0 for Linear, 1 for Rotary",
+                    "type": "integer",
+                    "oneOf": [
+                        {
+                            "const": 0,
+                            "description": "Linear transform type"
+                        },
+                        {
+                            "const": 1,
+                            "description": "Rotary transform type"
+                        }
+                    ]
+                },
+                "min": {
+                    "description": "The frame for robot display. Do not change this.",
+                    "type": "integer"
+                },
+                "max": {
+                    "description": "The frame for robot display. Do not change this.",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "display_name",
+                "extender_type",
+                "min",
+                "max"
+            ]
+        }
+    }
+}

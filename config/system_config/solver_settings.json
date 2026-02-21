@@ -1,0 +1,219 @@
+{
+    "$schema": "./schemas/solver_settings.schema.json",
+    "optimizer": {
+        "joints": {
+            "optXtolRel": 1e-8,
+            "optFtolRel": 1e-8,
+            "optMaxTime": 0.5,
+            "optMaxEval": 3000,
+            "optGradientx": 1e-8,
+            "optMaxAttempts": 3,
+            "oriOptions": [
+                false,
+                false,
+                true
+            ],
+            "errorEqualizer": 1e-7,
+            "jointChangeGraduation": 0.02
+        },
+        "extender": {
+            "extenderOptMaxTime": 0.2,
+            "extenderChangeGraduation": 1e-6,
+            "enableCloseProximityOptimization": true
+        }
+    },
+    "reachability": {
+        "diagnostics": false,
+        "reachabilityHandler": {
+            "debugReachabilityOutput": false,
+            "maxInstances": 20
+        },
+        "instance": {
+            "useAutomaticSeeding": true,
+            "useMultiTCP": false,
+            "extDiscontinuityThreshold": 0.1,
+            "jointDiscontinuityThreshold": 0.1,
+            "seedCandidates": [
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                [
+                    0.05,
+                    0.05,
+                    -0.14,
+                    0.00,
+                    0.00,
+                    -1.35
+                ],
+                [
+                    0.18,
+                    0.05,
+                    -0.14,
+                    0.00,
+                    0.00,
+                    1.35
+                ]
+            ],
+            "rollerSeeds": [
+                [
+                    0
+                ],
+                [
+                    -1.5707
+                ],
+                [
+                    1.5707
+                ]
+            ]
+        },
+        "pct": {
+            "numberOfPointsPerSegment": 150,
+            "assimilationTolerancePerc": 10,
+            "poseTolerance": 0.02,
+            "singularityTolerance": 1e-8,
+            "postProcessingIterations": 2,
+            "postProcessingDiscontinuityThreshold": 0.03,
+            "blendDiscontinuityTheshold": 0.02,
+            "useMultipleThreads": true,
+            "enableDiscreteCollision": true,
+            "separateWithSeed": true,
+            "separateWithTCP": false,
+            "mesh2meshCheck": false,
+            "activateFirstPointSeparation": false,
+            "wpCollisionOffset": 0.001,
+            "envCollisionOffset": 0.025,
+            "selfCollisionOffset": 0.025
+        }
+    },
+    "p2p": {
+        "diagnostics": true,
+        "trajectoryHandler": {
+            "maxInterposes": 32,
+            "goTargetCNT": 100,
+            "jumpCNT": 90
+        },
+        "optimization": {
+            "configInterpolationStepSize": 0.01,
+            "workspaceInterpolationStepSize": 0.002,
+            "useInfNormInConfigSpace": true,
+            "configSpaceEpsilon": 1e-10,
+            "workspacePositionEpsilon": 0.002,
+            "workspaceOrientationEpsilon": 0.02,
+            "workspaceInterpolationMaxIterations": 300,
+            "planningMaxTime": 200,
+            "planningMaxIterations": 1,
+            "planningLowerLimitTime": 0.01,
+            "jacobianLambda": 0.1,
+            "groundFloor": -3.0,
+            "useSkipPoints": true,
+            "numSkipPoints": 2,
+            "workspaceLimits": {
+                "xmin": -1,
+                "xmax": 1,
+                "ymin": -1,
+                "ymax": 1,
+                "zmin": 0,
+                "zmax": 1
+            },
+            "strategy": [
+                [
+                    0.9
+                ],
+                [
+                    1,
+                    0
+                ],
+                [
+                    0.1
+                ],
+                [
+                    0.5,
+                    0.5
+                ],
+                [
+                    0.5,
+                    0.5
+                ],
+                [
+                    0.5,
+                    0.5
+                ],
+                [
+                    0.5,
+                    0.5
+                ]
+            ],
+            "checkCollisionDuringInterpolation": true
+        },
+        "refinement": {
+            "refinementStepSize": 0.02,
+            "maxPathRefinementAttempts": 200,
+            "maxNodeSequenceRefinementAttempts": 100,
+            "pathRefinementThreshRel": 5e-10,
+            "replanOnCollision": true
+        },
+        "wsb": {
+            "numSurfacePoints": 10,
+            "obstacleEpsilon": 0.02,
+            "maxWSBRadius": 0.2,
+            "maxWSBAttempts": 15,
+            "maxWSBIters": 200,
+            "useWSBUniformSampling": false
+        },
+        "passtopass": {
+            "activate": true
+        },
+        "p2pCollisionThresholds": {
+            "wpCollisionOffset": 0.05,
+            "envCollisionOffset": 0.07,
+            "selfCollisionOffset": 0.03
+        },
+        "spacing_modifier": {
+            "activate": false,
+            "factor": 0.01,
+            "exponent_factor": 0.1
+        }
+    },
+    "IK_solver": {
+        "optimizer": {
+            "joints": {
+                "optXtolRel": 1e-8,
+                "optFtolRel": 1e-8,
+                "optMaxTime": 0.5,
+                "optMaxEval": 3000,
+                "optGradientx": 1e-8,
+                "optMaxAttempts": 3,
+                "oriOptions": [
+                    true,
+                    false,
+                    true
+                ],
+                "errorEqualizer": 1e-7,
+                "jointChangeGraduation": 0.02
+            },
+            "extender": {
+                "extenderOptMaxTime": 0.2,
+                "extenderChangeGraduation": 1e-6,
+                "enableCloseProximityOptimization": true
+            }
+        },
+        "poseTolerance": 0.02
+    },
+    "SDF_settings": {
+        "spacing": 0.01,
+        "subgridSize": 0,
+        "numThreadsForSdfConstruction": 20,
+        "bitsPerSubgridPixel": 8
+    },
+    "smart_retrieve": {
+        "pose_threshold": 0.05
+    },
+    "scan_planner": {
+        "mesh2meshCheck": false
+    }
+}

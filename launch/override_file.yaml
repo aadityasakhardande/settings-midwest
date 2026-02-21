@@ -1,0 +1,167 @@
+/**:
+  ros__parameters:
+    collision_offsets:
+      env_collision_offset: 0.04
+      self_collision_offset: 0.03
+      wp_collision_offset: 0.06
+    extender_optimizer:
+      change_graduation: 1.0e-06
+    joint_optimizer:
+      error_equalizer: 1.0e-07
+    optimization:
+      planning_max_iterations: 2
+      planning_max_time: 30.0
+    spacing_modifier:
+      activate: false
+force_module:
+  ros__parameters:
+    payload: 10.9
+jump_node:
+  ros__parameters:
+    debug_mode: false
+    diagnostics: true
+    passtopass:
+        activate: false
+process_handler:
+  ros__parameters: {}
+reachability_node:
+  ros__parameters:
+    diagnostics: true
+    instance:
+      joint_discontinuity_threshold: 0.3
+    pct:
+      env_collision_offset: 0.02
+      mesh_to_mesh_collision: true
+      multiple_threads: true
+      singularity_tolerance: 0.0001
+      wp_collision_offset: 0.02
+solver_node:
+  ros__parameters:
+    discontinuity_threshold: 0.1
+    joint_optimizer:
+      ori_options:
+      - true
+      - false
+      - true
+    pose_tolerance: 0.02
+system_readiness_monitor:
+  ros__parameters:
+    devices: >
+      [
+        {
+          "name": "robot_at_home_sensor",
+          "alert_policy": "STABLE",
+          "enabled": true,
+          "interrupt_type": "RESUMABLE",
+          "stable_count_threshold": 1,
+          "pre_process_readiness_monitor": true,
+          "in_process_readiness_monitor": false,
+          "continuous_readiness_monitor": false
+        },
+        {
+          "name": "pressure_sensor",
+          "alert_policy": "STABLE",
+          "enabled": true,
+          "interrupt_type": "RESUMABLE",
+          "stable_count_threshold": 1,
+          "pre_process_readiness_monitor": true,
+          "in_process_readiness_monitor": false,
+          "continuous_readiness_monitor": false
+        },
+        {
+          "name": "spc_stage_check_sensor",
+          "alert_policy": "STABLE",
+          "enabled": false,
+          "interrupt_type": "RESUMABLE",
+          "stable_count_threshold": 1,
+          "pre_process_readiness_monitor": true,
+          "in_process_readiness_monitor": false,
+          "continuous_readiness_monitor": false
+        },
+        {
+          "name": "compound_readiness_sensor",
+          "alert_policy": "STABLE",
+          "enabled": false,
+          "interrupt_type": "RESUMABLE",
+          "stable_count_threshold": 1,
+          "pre_process_readiness_monitor": true,
+          "in_process_readiness_monitor": false,
+          "continuous_readiness_monitor": false
+        },
+        {
+          "name": "overpressure_nozzles_sensor",
+          "alert_policy": "STABLE",
+          "enabled": false,
+          "interrupt_type": "RESUMABLE",
+          "stable_count_threshold": 1,
+          "pre_process_readiness_monitor": true,
+          "in_process_readiness_monitor": false,
+          "continuous_readiness_monitor": false
+        },
+        {
+          "name": "spindle_flow_sensor",
+          "alert_policy": "STABLE",
+          "enabled": false,
+          "interrupt_type": "RESUMABLE",
+          "stable_count_threshold": 1,
+          "pre_process_readiness_monitor": true,
+          "in_process_readiness_monitor": false,
+          "continuous_readiness_monitor": false
+        },
+        {
+          "name": "afd_purge_pressure_sensor",
+          "alert_policy": "STABLE",
+          "enabled": false,
+          "interrupt_type": "RESUMABLE",
+          "stable_count_threshold": 1,
+          "pre_process_readiness_monitor": true,
+          "in_process_readiness_monitor": false,
+          "continuous_readiness_monitor": false
+        },
+        {
+          "name": "spindle_flow_sensor",
+          "alert_policy": "NEVER",
+          "enabled": false,
+          "interrupt_type": "RESUMABLE",
+          "stable_count_threshold": 0,
+          "pre_process_readiness_monitor": false,
+          "in_process_readiness_monitor": true,
+          "continuous_readiness_monitor": false
+        },
+        {
+          "name": "afd_purge_pressure_sensor",
+          "alert_policy": "NEVER",
+          "enabled": false,
+          "interrupt_type": "RESUMABLE",
+          "stable_count_threshold": 0,
+          "pre_process_readiness_monitor": false,
+          "in_process_readiness_monitor": true,
+          "continuous_readiness_monitor": false
+        },
+        {
+          "name": "afd_force_sensor",
+          "alert_policy": "NEVER",
+          "enabled": false,
+          "interrupt_type": "RESUMABLE",
+          "stable_count_threshold": 3,
+          "pre_process_readiness_monitor": false,
+          "in_process_readiness_monitor": false,
+          "continuous_readiness_monitor": false
+        }
+      ]
+zivid_camera_hdlr:
+  ros__parameters:
+    save_raw_scans: true  # Whether to save raw scan data
+    downsampling_mode: 2  # 0: Downsample 2x2, 1: Downsample 3x3, 2: Downsample 4x4 
+    default_scan_settings_path: ""  # Default path for scan settings YML file: If not set will use scan_settings.yml in package share directory
+    use_manual: true
+alvium_camera_hdlr:
+    ros__parameters:
+      interval_ticks: 5000
+cognex_camera:
+  ros__parameters:
+    cognex_ip: "192.168.11.99"
+verify_sandpaper:
+  ros__parameters:
+    paper_json_path: /etc/ss/config/fixed_robot_scripts/chng_sp/Paper.json
+    use_cognex: true

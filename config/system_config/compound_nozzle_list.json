@@ -1,0 +1,13 @@
+{
+	"$schema": "./schemas/compound_nozzle_list_schema.json",
+	"data": [
+		{
+			"compound": "A8",
+			"nozzle": 1
+		},
+		{
+			"compound": "A80",
+			"nozzle": 2
+		}
+	]
+}

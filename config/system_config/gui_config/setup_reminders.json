@@ -1,0 +1,17 @@
+{
+    "$schema": "./schemas/setup_reminders.schema.json",
+    "reminders": [
+        {
+            "description": "Please make sure the chuck has been setup properly.",
+            "image": "no_image.png"
+        },
+        {
+            "description": "Please make sure the fixtures are aligned properly",
+            "image": "no_image.png"
+        }
+    ],
+    "doc": {
+        "description": "The description for the reminder item.",
+        "image": "The image for the reminder item, please include th image under directory: /ssgui/guiPlugin/img"
+    }
+}

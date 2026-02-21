@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Sand Blasting Tool Mapping Schema",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+    "pressure_mapping": {
+      "type": "object",
+      "properties": {
+        "min_pressure": { "type": "number" },
+        "max_pressure": { "type": "number" },
+        "min_reg_val": { "type": "integer" },
+        "max_reg_val": { "type": "integer" }
+      },
+      "required": ["min_pressure", "max_pressure", "min_reg_val", "max_reg_val"],
+      "additionalProperties": false
+    },
+    "valve_mapping": {
+      "type": "object",
+      "properties": {
+        "min_position": { "type": "number" },
+        "max_position": { "type": "number" },
+        "min_reg_val": { "type": "integer" },
+        "max_reg_val": { "type": "integer" }
+      },
+      "required": ["min_position", "max_position", "min_reg_val", "max_reg_val"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["pressure_mapping", "valve_mapping"],
+  "additionalProperties": false
+}

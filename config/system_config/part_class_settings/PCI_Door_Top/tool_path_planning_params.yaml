@@ -1,0 +1,485 @@
+# All distances in meter
+# All angles in degree (unless mentioned specifically)
+
+v2_tpp_sanding_behaviour: {
+  turn_on_sander_above_part: false,
+  
+  outer_boundary_subtraction: 0.00,
+  inner_boundary_subtraction: 0.00,
+
+  entry_exit_offset: 0.17, # 0.17 (parameter before changing 02/03/26), # 0.05 
+  entry_exit_inclination_angle: 0.0, # degrees
+}
+#################################################################################################################
+
+thin_features_subtraction: {
+  activate: false,
+  algorithm: 2, 
+  # 0 = categorise each point of a segment, 1 = categorise entire segment (Default = 0) ...
+  # ... 2 = improved categorisation of each point (0, 1 will be eventually deprecated)
+
+  subtraction_value: 0.0, # meters (valid for all algorithms)
+
+  inner_outer_boundary_cluster_tolerance: 0.01, # meter # to differentiate between inner-outer boundary (valid for all algorithms)
+  consider_inside_boundary: true, # to search for disconnected boundary (valid for all algorithms)
+
+  feature_size: 0.01, # Thickness of the thin feature (valid for algorithm = 2)
+  preserve_corners: true, # (valid for algorithm = 2)
+
+  search_radius: 0.04, # meters # to search for disconnected boundary (valid for algorithm = 0, 1)
+  disconnected_boundary_cluster_tolerance: 0.01, # meters # to cluster disconnected boundary (valid for algorithm = 0, 1)
+}
+
+#################################################################################################################
+
+v2_tpp_planning_parameters: {
+  pathgap_sanding_line: 0.02, # renamed from pathgap_sanding_line
+  pathgap_connection_line: 0.02, # renamed from pathgap_connection_line
+  pathgap_entry_exit_line: 0.02, # renamed from pathgap_entry_exit_line
+
+  continuity_distance: 0.06,
+  boundary_detection_dist: 0.03,
+
+  cnt_sanding_line: 90,   # between 1-100 (integer)
+  cnt_connection_line: 85, # between 1-100 (integer)
+  cnt_start_end_line: 90,  # between 1-100 (integer)
+  cnt_boundary_sanding_line: 90, # between 1-100 (integer)
+
+  remove_unreachable_pts_radius_multiplier: 0.9, # Default : 0.9
+
+  accceptable_sanding_path_length: 0.2, # meter
+  acceptable_dist_2_next_line_percentage: 600, # value = (100 + perc)% of gap between sanding lines
+
+  normal_estimation_radius: 0.01, # renamed from normal_estimation_radius
+  z_estimation_radius: 0.02, # renamed from z_estimation_radius
+  acceptable_neighbours_in_radius: 7,
+
+  remove_pts_outside_boundary: false,
+  feature_radius_boundary_estimation: 0.03, # meters # used for computing boundary during remove_pts_outside_boundary
+  path_smoothing_weight: 0.05,
+  smoothening_repeat: 0,
+
+  repeat_reachable_pts_analysis: 5,
+}
+#################################################################################################################
+
+
+v2_tpp_boundary: {
+  offset_to_actual_boundary: 0.005,
+
+  boundary_dist_2_nxt_pt: 0.01,
+  boundary_continuity_dist: 0.02,
+  min_dist_indv_boundary_pths: 0.40,
+
+  outer_boundary_pass_coordinator_cloud: false,
+  outer_boundary_pass_pcl_boundary_radius: 0.015,
+  outer_boundary_pass_pcl_boundary_cluster_tol: 0.02,
+  outer_boundary_pass_tpp_boundary_search_radius: 0.01,
+
+  clip_boundary_path: false,
+  clip_boundary_path_distance: 0.1,
+
+  coordinator_cloud_cluster_tolerance: 0.03, #This will be used to cluster the input merged cloud just in case if there are multiple parts
+  allow_inner_boundary_pass_coordinator_cloud: false,
+  use_stitched_tpp_input: false
+}
+
+#################################################################################################################
+
+v2_customer: {
+  # Only parameters from default file in /etc/ss/config/system_config matter
+  # 2 stage segmentation can be used along with either of the midPass SPC modes
+  two_stage_segmentation: false, # 2 stage segmentation
+  midpass_SPC_near_boundary: false, # midpass SPC near boundaries only
+  midpass_SPC_anywhere: true, # midpass SPC anywhere on the surface 
+  first_pass_type_based_params: true, # (default) false = section_type based, true = pass_type of first pass based
+}
+#################################################################################################################
+
+v2_tpp_tool_characteristic: {
+  tool_contact_width:  0.127, # for orbital sander, diameter
+}
+#################################################################################################################
+
+v2_tpp_ZigZag_pattern: {
+  activate: false,
+  amplitude : 0.05,
+}
+#################################################################################################################
+
+v2_multiTCP: {
+  activate: false,
+
+  activate_single_tcp_collision_check: false, # remove points that may be in collision with the coordinator's cloud
+                                              # works independently of 'activate'
+
+  collision_radius: 0.06,
+  height: 1,
+  surface_offset: 0.01,
+  use_old: false,
+  offset_radius: 0.04,
+  trans_shift_angles: [180],
+  rot_shift_angles_xAx: [],
+  rot_shift_angles_yAx: [],
+  rot_shift_angles_zAx: [],
+
+  trans_rot_only: false,
+  trans_only: true,
+  prefer_trans_only: false,
+  separate_mTCP_paths: false,
+}
+
+trajectory_planner: {
+    ori_options: [false, false, true], # x, y, z
+}
+
+# v2_multiTCP:
+#   activate: true # this sends expected tcp options to trajectory planner (global file), Also part class based
+#   activate_single_tcp_collision_check: false # part class based
+#   collision_radius: 0.06 # part class based
+#   height: 1 # part class based
+#   offset_radius: 0.065 # Global parameter
+#   prefer_trans_only: false # part class based
+#   rot_shift_angles_xAx: # global parameter
+#   - 15
+#   - -15
+#   rot_shift_angles_yAx:  # global parameter
+#   - 15
+#   - -15
+#   separate_mTCP_paths: false # part class based
+#   surface_offset: 0.01 # part class based
+#   trans_only: true # global parameter
+#   trans_rot_only: false # global parameter
+#   trans_shift_angles: # global parameter
+#   - 180
+#   use_old: false # part class based
+#################################################################################################################
+
+
+v2_tpp_variable_pathgap: {
+  activate: false,
+  target_norm_change: 0.687, # target_surface_normals_change : cos inverse of dot product between consecutive points (degree)
+  max_gap: 0.03, # meter (unstable paths more than "continuity_distance") (preferably a multiple of "grid_length_sanding_line")
+  min_gap: 0.004, # meter (cannot be less than "grid_length_sanding_line") (preferably a multiple of "grid_length_sanding_line")
+}
+#################################################################################################################
+
+v2_tpp_contact_analysis: {
+  auto_calculate_radius: false, # calculates radius as half the distance between two sanding lines (changes with overlap percentage)
+  backing_pad_height: 0.025, # actual pad height = 0.01 m
+  force_calc_opposite_cyl_height: 0.1,
+  force_calc_radius_step_percent: 10,
+  force_calc_angle_step: 10,
+  write_all_files: false,
+}
+#################################################################################################################
+
+v2_boundary_normal_retention: {
+  activate: false, # enables retention of boundary surface normals
+  boundary_width: 0.035, # meters
+  refine_normals_neighbours: 0, # 0 = no refinement
+
+  removeBottomPoints: false,
+  reference_pt: [1.02, -0.15, 0.41],
+  plusY_angle: 60,
+  negY_angle: 60,
+}
+#################################################################################################################
+
+v2_midpass_SPC_near_boundary: {
+  min_sanding_distance: 0.3, # meters
+  dist_from_boundary: 0.03, # meters
+}
+#################################################################################################################
+
+v2_midpass_SPC_anywhere: {
+  small_length_to_ignore: 5.0, # meters
+  use_paper_across_passes: false,
+}
+#################################################################################################################
+
+v2_pause_planning: {
+  pathgap_entry_exit: 0,
+  cnt_entry_exit: 0,
+  pathgap_entry_exit_line: 0.0,
+  cnt_start_end_line: 0.0,
+  entry_exit_offset: 0.1,
+  retraction_force: -20, # newtons
+  distance_to_skip: 0.3, # meters (Skip this distance to allow for planning time)
+
+  boundary_dist_threshold: 0.06, # meters (Condisdered only during profile planning)
+  consider_only_connection_pts: true, # bool (Considered only during profile planning)
+
+  instant_pause: false, # false = pause at jumps or boundary
+  lookAhead_n_points: 20, # scan n points per loop for instant pausing
+  skip_n_pts: 5, # generate a new jump per every n_points
+}
+#################################################################################################################
+
+
+# v2_tpp_debug_parameters
+v2_tpp_debug_parameters: {
+  check_reachability: true, # SAFE = true
+  ignore_discontinuity: false, # SAFE = false 
+  
+  testing_mode: false,
+  run_only_segmentation: false,
+  
+  write_report: true,
+  print_debugROS_msgs: false,
+  write_debug_files: true,
+  write_each_vector_matrix_debug_file: false,
+  write_csv: false,
+  write_ply: true,
+  tcp_ply_axis_num_pts: 5,
+  tcp_ply_axis_gap: 0.001,
+
+  ignore_start_end_waypoint_discontinuity: false, # SAFE = false
+  ignore_connection_point_reachability: false, # SAFE = false
+  ignore_reachability_test: false, # requires advance mode turned on (protected know how)
+}
+#################################################################################################################
+
+
+
+v2_tpp_advanced_planning_params: {
+  ######################################
+  # Previously v2_tpp_sanding_behaviour:
+  turn_off_tool: false, # if true, override all the default tool status to false
+
+  delay_tool_start: 0, # (+ve = delay start by n points, -ve = start n points early) wrt the first touch point
+  delay_tool_end: 0, # (+ve = delay stopping by n points, -ve = stop n points early) wrt the last touch point
+
+  tilt_tcp_path_dir: 0, # degrees. Tilt about the axis pointing in the direction of the next point
+  tilt_tcp_orth_dir: 0, # degrees. Tilt about the axis orthogonal to the one pointing in the direction of the next point
+  tcp_offset: 0.0,
+  path_following_tilt: true, 
+
+  do_not_connect_sanding_lines: false,
+  shape_following_path: false, # enables centered path following for surface pass
+  offset_values_for_shape_following: [-0.02, 0.0, 0.02], # offset distance (in m) from center line for multiple parallel paths
+  threshold_for_ignoring_rows: 0.0, # ignore fillpts rows shorter than (threshold * max_row_length) when generating center path
+  follow_path_TCP: false,
+  entry_exit_inclination_angle_n_pts_avg_dir: 5, # get direction of path by looking at next n points
+
+  ######################################
+  # Previously v2_tpp_planning_parameters:
+  grid_length_sanding_line_divisor: 5, # The value is (pathgap_sanding_line / divisor)
+  grid_length_connection_line_divisor: 5, # The value is (pathgap_connection_line / divisor)
+
+  # If both are true, Priority --> obb_mode > pca_mode
+  # For alignment with world axis, obb_mode = false and pca_mode = false
+  pca_mode: false, # preference of major axis --> World y axis > World x axis > World z axis (i.e. for hatch angle == zero, Horizontal path)
+  obb_mode: true, # optimal bounding box (better alternative for pca_mode)
+
+  state_based_reconstruction: true,
+  always_compute_seed_indices: false, # true : traj planner does seed analysis each time
+                                      #      : generally will consume (significantly) more time, but fewer (minor difference) jumps.
+
+  retraction_lookAhead_dist: 0.1, # meter
+
+  reorderBtwnSegments: false, # false = sanding one segment at a time (part class based )
+
+  grid_addition: 0.0, # Default : 0
+  pca_similarity_threshold_percent: 85.0, #
+  pca_similarity_correction_angle: 45.0, # degree
+
+  separate_by_seed_id: false, # Default: false
+  separate_by_tcp_id : false, # Default: false
+
+  outer_boundary_subtraction_x_dir: 0.0,
+  outer_boundary_subtraction_y_dir: 0.0,
+  ######################################
+
+  # Previously v2_tpp_debug_parameters:
+  record_surface_normal_frame: 'tool1',
+  override_surface_normals: false,
+
+  tcp_rotation_angle_0: 0.0, # x y plane, z+ surface normal
+  tcp_rotation_angle_1: 0.0, # y z plane, x- surface normal
+  tcp_rotation_angle_2: -90.0, # x z plane, y- surface normal
+  tcp_rotation_angle_3: 0.0, # y z plane, x+ surface normal
+  tcp_rotation_angle_4: 0.0, # x z plane, y+ surface normal
+  tcp_rotation_angle_5: 0.0, # x y plane, z- surface normal
+
+  # tpp_offset_along_minor_axis: 0.0,  // Deprecated (Controlled from GUI pass setting)
+
+  max_reachability_requests: 36,
+  z_height_offset_all_waypoints: 0.0,
+
+  sanity_check_relaxation_factor: 1.5, # multiplier of continuity_dist for sanity check
+  skip_n_trajectory_pts: 0, # requires advance mode turned on (protected know how)
+
+  parallel_planning: true,
+  max_parallel_astar_requests: 36,
+
+  # shift the input cloud from coordinator
+  world_x_offset: 0.0,
+  world_y_offset: 0.0,
+  world_z_offset: 0.0,
+  remove_surface_connection_lines: false
+
+}
+#################################################################################################################
+
+ramp_force_entryexit: {
+  activate: false,
+
+  entry_start_value_multiplier: 0.2, 
+  entry_delay_length: -0.2, 
+  entry_ramp_dist: 0.4,
+  entry_ramp_style: 3,
+
+  exit_end_value_multiplier: 2, 
+  exit_delay_length: -0.2,
+  exit_ramp_dist: 0.4,
+  exit_ramp_style: 1,
+
+  ramp_style_power: 2,
+
+  # STYLES: 0 = Instant Ramp, 1 = Linear Ramp, 2 = Power Ramp, 3 = Inverse power ramp
+}
+#################################################################################################################
+
+ramp_force_nearconnection: {
+  activate: false,
+
+  entry_ramp_dist: 0.1,
+  entry_ramp_style: 1,
+
+  connection_value_multiplier: 0.3,
+
+  exit_ramp_dist: 0.1,
+  exit_ramp_style: 2,
+
+  ramp_style_power: 2,
+
+  # STYLES: 0 = Instant Ramp, 1 = Linear Ramp, 2 = Power Ramp, 3 = Inverse power ramp
+}
+#################################################################################################################
+
+ramp_rpm_entryexit: {
+  activate: true,
+
+  entry_start_value_multiplier: 0.3, 
+  entry_delay_length: -0.1, 
+  entry_ramp_dist: 0.15,
+  entry_ramp_style: 2,
+
+  exit_end_value_multiplier: 0.0, 
+  exit_delay_length: 0.0,
+  exit_ramp_dist: 0.0,
+  exit_ramp_style: 0,
+
+  ramp_style_power: 2,
+
+  # STYLES: 0 = Instant Ramp, 1 = Linear Ramp, 2 = Power Ramp, 3 = Inverse power ramp
+}
+#################################################################################################################
+
+ramp_rpm_nearconnection: {
+  activate: false,
+
+  entry_ramp_dist: 0.01,
+  entry_ramp_style: 0,
+
+  connection_value_multiplier: 0.3,
+
+  exit_ramp_dist: -0.1,
+  exit_ramp_style: 0,
+
+  ramp_style_power: 2,
+
+  # STYLES: 0 = Instant Ramp, 1 = Linear Ramp, 2 = Power Ramp, 3 = Inverse power ramp
+}
+#################################################################################################################
+
+ramp_cnt_entryexit: {
+  activate: true,
+
+  entry_start_value_multiplier: 0.574, 
+  entry_delay_length: -0.04, 
+  entry_ramp_dist: 0.08,
+  entry_ramp_style: 2,
+
+  exit_end_value_multiplier: 0.574, 
+  exit_delay_length: -0.07,
+  exit_ramp_dist: 0.08,
+  exit_ramp_style: 3,
+
+  ramp_style_power: 2,
+
+  # STYLES: 0 = Instant Ramp, 1 = Linear Ramp, 2 = Power Ramp, 3 = Inverse power ramp
+}
+#################################################################################################################
+
+ramp_cnt_nearconnection: {
+  activate: false,
+
+  entry_ramp_dist: 0.5,
+  entry_ramp_style: 3,
+
+  connection_value_multiplier: 0.3,
+
+  exit_ramp_dist: 0.1,
+  exit_ramp_style: 2,
+
+  ramp_style_power: 2,
+
+  # STYLES: 0 = Instant Ramp, 1 = Linear Ramp, 2 = Power Ramp, 3 = Inverse power ramp
+}
+#################################################################################################################
+
+boundary_dist_based_force: {
+  activate: false,
+
+  max_force: 30, # Newton
+  max_force_distance: 0.3, # meter
+
+  min_force: 10, # Newton
+  min_force_distance: 0.1, # meter
+}
+#################################################################################################################
+
+boundary_dist_based_rpm: {
+  activate: false,
+
+  max_rpm: 5000, 
+  max_rpm_distance: 0.3, # meter
+
+  min_rpm: 1000, 
+  min_rpm_distance: 0.04, # meter
+}
+#################################################################################################################
+
+beta_features: { 
+
+  # part class based 
+  optimal_path_shift: false, 
+  good_major_proportion_start: 0.8, # range = 0 -> 1.0
+  good_major_proportion_end: 0.4, # range = 0 -> 1.0
+
+  # part class based 
+  correct_obb_edge_case: false, 
+  obb_dot_threshold_for_correction: 0.9, # range 0 - 1. Higher the number, more aggressive corrections
+
+  # part class based
+  use_roller_for_segment_ordering: false,
+
+  # part class based 
+  boundary_pass_away_from_bbox: false,
+  distance_from_bbox: 0.02, # points to remove from boundary pass that are within this distance from bounding box
+  ignore_dimensions: [false, false, false], # dimension to ignore when finding distance to bbox (x, y, z)
+
+  # part class based
+  truncate_sanding_lines: false,
+
+
+
+  # part class based 
+  augment_surface_normals: false,
+  min_length_proportion_percent_of_line: 80,
+  keep_lines_at_percent: [0, 45, 100],
+}
+
+#################################################################################################################

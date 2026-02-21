@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://graymatter-robotics.com/system_config/sandpaper_settings.schema.json",
+    "title": "Sandpaper Settings Config",
+    "description": "Configuration for Defining Sand Paper Settings",
+    "type": "object",
+    "properties": {
+        "groups": {
+            "type": "object",
+            "patternProperties": {
+                "^[0-9]+$": {
+                    "type": "object",
+                    "description": "Sandpaper key",
+                    "$ref": "#/$defs/settings_objects"
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "required": [
+        "groups"
+    ],
+    "$defs": {
+        "settings_objects": {
+            "properties": {
+                "grit": {
+                    "type": "integer",
+                    "description": "Should match the \"name\" attribute in paper.json"
+                },
+                "material": {
+                    "type": "integer",
+                    "description": "Should match the selection index in profile Info::Material"
+                },
+                "sanding_life_length": {
+                    "type": "number",
+                    "description": "The length is in meters. Determines how frequent your mid pass sp change is going to be.\n The lesser the value, the more frequent it's going to happen. \n For no midpass changing, make the value \"-1\""
+                }
+            },
+            "required": [
+                "grit",
+                "material",
+                "sanding_life_length"
+            ],
+            "additionalProperties": false
+        }
+    }
+}

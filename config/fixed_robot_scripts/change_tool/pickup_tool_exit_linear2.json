@@ -1,0 +1,46 @@
+{
+    "$schema": "../schema/fixed_robot_scripts_schema.json",
+    "title": "Pickup Tool Exit Robot Linear Motion Script for Tool Index 1",
+    "path": [
+        {
+            "target": [
+                -109.897,
+                57.859,
+                -16.755,
+                -72.803,
+                86.395,
+                12.368
+            ],
+            "ext_state": [
+                2.615024,
+                0,
+                0
+            ],
+            "tool_status": false,
+            "force": 15,
+            "motion_type": 1,
+            "CNT": 0,
+            "time":1000
+        },
+        {
+            "target": [
+                -102.068,
+                56.682,
+                -20.290,
+                -80.319,
+                88.810,
+                10.524
+            ],
+            "ext_state": [
+                2.615024,
+                0,
+                0
+            ],
+            "tool_status": false,
+            "force": 15,
+            "motion_type": 1,
+            "CNT": 0,
+            "time":1000
+        }
+    ]
+}

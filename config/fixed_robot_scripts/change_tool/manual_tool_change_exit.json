@@ -1,0 +1,5 @@
+{
+    "$schema": "../schema/fixed_robot_scripts_schema.json",
+    "title": "Joint Motion Script for Manual Tool Change Exit",
+    "path": []
+}

@@ -1,0 +1,7 @@
+{
+    "$schema": "./schemas/tool_rotation_speed_mapping_schema.json",
+    "min_rpm": 0,
+    "max_rpm": 15000,
+    "min_reg_val": 0,
+    "max_reg_val": 32767
+}

@@ -1,0 +1,173 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://graymatter-robotics.com/turckio/ports_config.schema.json",
+    "title": "TurckIO Ports Config",
+    "description": "Configuration for mapping modbus coil and register names to ports on TurckIO",
+    "definitions": {
+        "device_list_item_properties": {
+            "type": "object",
+            "properties": {
+                "required": {
+                    "description": "Specifies if the device is required for this setup",
+                    "type": "boolean"
+                },
+                "type": {
+                    "description": "A placeholder for future device brand expansion",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "required",
+                "type"
+            ]
+        }
+    },
+    "type": "object",
+    "properties": {
+        "device_list": {
+            "description": "Object Array of all the devices that are going to be used by the system. The turckio will read the ports used by these devices ",
+            "type": "object",
+            "properties": {
+                "VACUUM": {
+                    "$ref": "#/definitions/device_list_item_properties"
+                },
+                "TOOL": {
+                    "$ref": "#/definitions/device_list_item_properties"
+                },
+                "ANDON_LIGHT": {
+                    "$ref": "#/definitions/device_list_item_properties"
+                },
+                "STAGE": {
+                    "$ref": "#/definitions/device_list_item_properties"
+                },
+                "TOOL_CHANGER": {
+                    "$ref": "#/definitions/device_list_item_properties"
+                }
+            },
+            "required": [
+                "VACUUM",
+                "TOOL",
+                "ANDON_LIGHT",
+                "STAGE"
+            ]
+        },
+        "coil": {
+            "description": "Array of name-address mappings for devices connected via coils",
+            "type": "array",
+            "items": {
+                "description": "Name to Modbus Address mapping for analog devices",
+                "type": "object",
+                "required": [
+                    "name",
+                    "address"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Name of the port/device.\nSoftware can handle only one of the available options or the ones that have syntax as: 'PUSH_STAGE{port-number}_PORT'.\nOther names will be ignored.",
+                        "type": "string",
+                        "enum": [
+                            "ANDON_RED_PORT",
+                            "ANDON_AMBER_PORT",
+                            "ANDON_GREEN_PORT",
+                            "ANDON_BLUE_PORT",
+                            "ANDON_BUZZER_PORT",
+                            "WATER_SOLENOID_PORT",
+                            "AIR_SOLENOID_PORT",
+                            "PUMP1_PORT",
+                            "PUMP2_PORT",
+                            "NOZZLE1_PORT",
+                            "NOZZLE2_PORT",
+                            "INTERLOCK_PORT",
+                            "SANDER_PORT",
+                            "CAMERA_TRIGGER_PORT",
+                            "VACUUM_PORT",
+                            "PUSH_STAGE1_PORT",
+                            "PUSH_STAGE2_PORT",
+                            "PUSH_STAGE3_PORT",
+                            "PUSH_STAGE4_PORT",
+                            "PUSH_STAGE5_PORT",
+                            "PUSH_STAGE6_PORT",
+                            "PUSH_STAGE7_PORT",
+                            "PUSH_STAGE8_PORT",
+                            "PUSH_STAGE9_PORT",
+                            "PUSH_STAGE10_PORT",
+                            "PUSH_STAGE11_PORT",
+                            "PUSH_STAGE12_PORT",
+                            "PUSH_STAGE13_PORT",
+                            "PUSH_STAGE14_PORT",
+                            "PUSH_STAGE15_PORT",
+                            "PUSH_STAGE16_PORT",
+                            "TOOL_CLAMP_SOLENOID_COIL",
+                            "SPINDLE_STATIONARY_SENSOR_COIL",
+                            "TOOL_PROXIMITY_SENSOR_COIL_1",
+                            "TOOL_PROXIMITY_SENSOR_COIL_2",
+                            "TOOL_ON_ROBOT_PROXIMITY_SENSOR_COIL",
+                            "AMBIENT_LIGHT_PORT",
+                            "SPINDLE_FLOW_BIT",
+                            "AFD_PURGE_PRESSURE_BIT",
+                            "WET_SANDING_SOLENOID_DIGITAL_OUT",
+                            "WET_SANDING_SENSOR_DIGITAL_IN",
+                            "FLUID_LEVEL_SENSOR_DIGITAL_IN",
+                            "FIXTURE_1_BIT",
+                            "FIXTURE_2_BIT",
+                            "SENSOR_ENCLOSURE_LID_PORT",
+                            "DUST_COLLECTOR_BIT",
+                            "RECLAMATION_SYSTEM_BIT",
+                            "BUCKET_ELEVATOR_BIT",
+                            "AWAC_SYSTEM_BIT",
+                            "CONVEYOR_BIT",
+                            "BLAST_PORT"
+                        ]
+                    },
+                    "address": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 31,
+                        "description": "Coil Address"
+                    }
+                }
+            }
+        },
+        "register": {
+            "description": "Array of name-address mappings for devices connected via registers",
+            "type": "array",
+            "items": {
+                "description": "Name to Modbus Address mapping for digital I/O devices",
+                "type": "object",
+                "required": [
+                    "name",
+                    "address"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Name of the port/device.\nSoftware can handle only one of the available options.\nOther names will be ignored.",
+                        "type": "string",
+                        "enum": [
+                            "WATCHDOG_READ_REGISTER",
+                            "WATCHDOG_SET_REGISTER",
+                            "WATCHDOG_RESET_REGISTER",
+                            "RPM_REGISTER",
+                            "CLAMP_PRESSURE_REGISTER",
+                            "DIGITAL_INPUT_REG",
+                            "AFD_PURGE_PRESSURE_REG",
+                            "TOOL_CLAMP_SOLENOID_REGISTER",
+                            "BLAST_MACHINE_PRESSURE_REGISTER",
+                            "METERING_VALVE_POSITION_REGISTER"
+                        ]
+                    },
+                    "address": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 65535,
+                        "description": "Register Address"
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+        "register",
+        "coil",
+        "device_list"
+    ]
+}

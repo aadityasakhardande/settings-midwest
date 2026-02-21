@@ -1,0 +1,62 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "compound config",
+    "type": "object",
+    "properties": {
+        "data": {
+            "description": "This data contains a list of compound and all information related to it",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "compound_string": {
+                        "description": "The display name for the compound",
+                        "type": "string"
+                    },
+                    "refill_start_instructions": {
+                        "description": "The instruction for starting refill",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/$defs/refill_instructions"
+                        }
+                    },
+                    "refill_end_instructions": {
+                        "description": "The instruction for ending refill",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/$defs/refill_instructions"
+                        }
+                    }
+                },
+                "required": [
+                    "compound_string",
+                    "refill_start_instructions",
+                    "refill_end_instructions"
+                ]
+            }
+        }
+    },
+    "required": [
+        "data"
+    ],
+    "$defs": {
+        "refill_instructions": {
+            "description": "To display the instructions for refill action",
+            "type": "object",
+            "properties": {
+                "instruction_string": {
+                    "description": "The instruction to complete the refill action",
+                    "type": "string"
+                },
+                "instruction_image_directory": {
+                    "description": "The directory towards illustration related to this instruction.\n The path should be [/img/<image-name.extention>]",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "instruction_string",
+                "instruction_image_directory"
+            ]
+        }
+    }
+}

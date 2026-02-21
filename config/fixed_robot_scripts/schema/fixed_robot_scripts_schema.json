@@ -1,0 +1,72 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Fixed Robot Scripts Schema",
+    "description": "Schema for validating fixed robot path input JSON.",
+    "type": "object",
+    "properties": {
+        "path": {
+            "type": "array",
+            "description": "Array of movement or position configurations for the joint path.",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "target": {
+                        "type": "array",
+                        "description": "An array of 6 numbers representing the target joint pose, in degrees.",
+                        "items": {
+                            "type": "number"
+                        },
+                        "minItems": 6,
+                        "maxItems": 6
+                    },
+                    "ext_state": {
+                        "type": "array",
+                        "description": "Optional. An array of 3 numbers representing an external state, in radians or meters",
+                        "items": {
+                            "type": "number"
+                        },
+                        "minItems": 3,
+                        "maxItems": 3
+                    },
+                    "tool_status": {
+                        "type": "boolean",
+                        "description": "Optional. A boolean indicating the status of a tool associated with the joint (e.g., on or off)."
+                    },
+                    "force": {
+                        "type": "number",
+                        "description": "Optional. A numeric value representing the force applied or to be applied, in Newtons."
+                    },
+                    "CNT": {
+                        "type": "number",
+                        "description": "Optional. A numeric value between 0 and 100 representing the blending radius. This parameter controls the transition smoothness between consecutive path segments",
+                        "minimum": 0,
+                        "maximum": 100
+                    },
+                    "RPM": {
+                        "type": "number",
+                        "description": "Optional. Revolutions per minute of the joint or associated tool. Specifies the operational speed."
+                    },
+                    "time": {
+                        "type": "number",
+                        "description": "Optional. Specifies the duration, in miniseconds, for the robot to transition to this pose from the previous one. This defines the speed of the movement, with a lower value indicating a faster transition."
+                    },
+                    "motion_type": {
+                        "type": "number",
+                        "description": "Optional. Specifies the type of motion: 0 for joint motion, 1 for linear motion.",
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    }
+                },
+                "required": [
+                    "target"
+                ],
+                "additionalProperties": false
+            }
+        }
+    },
+    "required": [
+        "path"
+    ]
+}

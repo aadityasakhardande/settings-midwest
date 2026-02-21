@@ -1,0 +1,11 @@
+{
+    "$schema": "./schemas/part_convention.schema.json",
+    "ACCEPTED_PREFIX": [
+        "TD",
+        "TDV",
+        "M",
+        "MV"
+    ],
+    "BYPASS_CODE": "GMR",
+    "HISTORY": []
+}

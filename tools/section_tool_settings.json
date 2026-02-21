@@ -1,0 +1,43 @@
+{
+    "$schema": "./schemas/section_tool_settings.schema.json",
+    "0": {
+        "0": [
+            {
+                "display_name": "5in_disk",
+                "filename": "pushcorp_SM1503"
+            }
+        ],
+        "7": [
+            {
+                "display_name": "default_tool",
+                "filename": "pushcorp_SM1503"
+            }
+        ]
+    },
+    "1": {
+        "4": [
+            {
+                "display_name": "BlackMagic",
+                "filename": "pushcorp_SM1503"
+            },
+            {
+                "display_name": "A20",
+                "filename": "pushcorp_SM1503"
+            }
+        ],
+        "5": [
+            {
+                "display_name": "default_tool",
+                "filename": "pushcorp_SM1503"
+            }
+        ]
+    },
+    "255": {
+        "255": [
+            {
+                "display_name": "Process_Independent_Tool",
+                "filename": "pushcorp_SM1503"
+            }
+        ]
+    }
+}

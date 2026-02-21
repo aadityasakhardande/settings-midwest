@@ -1,0 +1,36 @@
+{
+    "$schema": "./schemas/safety_devices.schema.json",
+    "devices": [
+        {
+            "name": "Light Curtain",
+            "type": 1,
+            "bit": 5
+        },
+        {
+            "name": "ESTOP 1",
+            "type": 0,
+            "bit": 6
+        },
+        {
+            "name": "ESTOP 2",
+            "type": 0,
+            "bit": 7
+        },
+        {
+            "name": "ESTOP Pendant",
+            "type": 0,
+            "bit": 8
+        }
+    ],
+    "doc": {
+        "name_doc": "The name of the device. This is the string that will be shown on the GUI when a certain device is tripped.",
+        "type_doc": "0: e-stop, 1: safety",
+        "bit_doc": "The bit position in the modbus register. Set this to something >= 5 as the ones before are reserved."
+    },
+    "ignore_alert": [
+        "Light Curtain"
+    ],
+    "ignore_doc": {
+        "ignore_alert": "A list of device that will be ignored by lambda alert. Note that the name should be consistent to the device name above."
+    }
+}

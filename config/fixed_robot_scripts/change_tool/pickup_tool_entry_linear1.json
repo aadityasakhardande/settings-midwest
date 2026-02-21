@@ -1,0 +1,46 @@
+{
+    "$schema": "../schema/fixed_robot_scripts_schema.json",
+    "title": "Pickup Tool Entry Robot Linear Motion Script for Tool Index 0",
+    "path": [
+        {
+            "target": [
+                -113.495,
+                46.577,
+                -32.587,
+                -69.173,
+                86.336,
+                7.833
+            ],
+            "ext_state": [
+                2.615024,
+                0,
+                0
+            ],
+            "tool_status": false,
+            "force": 15,
+            "motion_type": 1,
+            "CNT": 0,
+            "time":1000
+        },
+        {
+            "target": [
+                -113.495,
+                53.983,
+                -29.517,
+                -68.968,
+                87.886,
+                3.778
+            ],
+            "ext_state": [
+                2.615024,
+                0,
+                0
+            ],
+            "tool_status": false,
+            "force": 15,
+            "motion_type": 1,
+            "CNT": 0,
+            "time":1000
+        }
+    ]
+}

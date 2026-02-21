@@ -1,0 +1,40 @@
+{
+    "$schema": "../schema/fixed_robot_scripts_schema.json",
+    "title": "Tool Check Depart Robot Motion Script",
+    "path": [
+        {
+            "target": [
+                -94.968,
+                58.961,
+                -25.647,
+                -87.408,
+                89.639,
+                3.230
+            ],
+            "ext_state": [
+                2.615024,
+                0,
+                0
+            ],
+            "tool_status": false,
+            "force": 5
+        },
+        {
+            "target": [
+                -97.993,
+                37.345,
+                -34.612,
+                -84.620,
+                88.236,
+                17.962
+            ],
+            "ext_state": [
+                2.615024,
+                0,
+                0
+            ],
+            "tool_status": false,
+            "force": 5
+        }
+    ]
+}

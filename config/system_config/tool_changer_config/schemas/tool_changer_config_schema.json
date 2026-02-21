@@ -1,0 +1,137 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "number_of_tools": {
+            "type": "integer",
+            "description": "The total number of tools managed by the tool changer",
+            "minimum": 0
+        },
+        "use_clamp_register": {
+            "type": "boolean",
+            "default": false,
+            "description": "If true, the system will use the clamp register to control tool clamping behavior. If false, clamp control will rely on the coil instead (the old setup)."
+        },
+        "check_clamp_pressure": {
+            "type": "boolean",
+            "default": false,
+            "description": "If true, the system will validate the clamp pressure after clamp open or close."
+        },
+        "pressure_timeout_s": {
+            "type": "integer",
+            "description": "Time in seconds to wait before timeout due to pressure issues",
+            "minimum": 1
+        },
+        "required_clamp_pressure": {
+            "type": "number",
+            "description": "The required pressure for the clamp to hold the tools securely",
+            "minimum": 0
+        },
+        "min_clamp_pressure_reg_value": {
+            "type": "integer",
+            "description": "The minimum register value for clamp pressure",
+            "minimum": 0
+        },
+        "max_clamp_pressure_reg_value": {
+            "type": "integer",
+            "description": "The maximum register value for clamp pressure",
+            "minimum": 0
+        },
+        "min_clamp_pressure_psi": {
+            "type": "number",
+            "description": "The minimum PSI value the clamp pressure can reach",
+            "minimum": -100
+        },
+        "max_clamp_pressure_psi": {
+            "type": "number",
+            "description": "The maximum PSI value the clamp pressure can handle",
+            "minimum": 0
+        },
+        "use_payload_double_check": {
+            "type": "boolean",
+            "description": "Specifies whether to perform a double check of the payload."
+        },
+        "no_tool_payload": {
+            "type": "number",
+            "description": "Specifies the payload value when no tool is attached"
+        },
+        "tool_payload_list": {
+            "type": "array",
+            "description": "Specifies the payload values for each attached tool.",
+            "items": {
+                "type": "number",
+                "minimum": 0
+            }
+        },
+        "payload_tolerance": {
+            "type": "number",
+            "description": "Specifies the tolerance level for payload measurements",
+            "minimum": 0
+        },
+        "behavior_type": {
+            "type": "integer",
+            "description": "Defines the tool change behavior strategy:\n  - 0 → Use proximity sensor-based tool change (default).\n  - 1 → Use AFD-based tool change.",
+            "default": 0
+        },
+        "end_effector_max_extension": {
+            "type": "number",
+            "description": "Maximum AFD position reading (in mm) when the end effector is fully extended (e.g., 20 mm). Will only take effect if behavior_type is set to 1 (AFD-based tool change).",
+            "default": 20
+        },
+        "contact_detection_threshold": {
+            "type": "number",
+            "description": "Deviation threshold (in mm) in AFD readings used to detect contact—either tool presence on the robot or inside the bucket. Will only take effect if behavior_type is set to 1 (AFD-based tool change).",
+            "default": 5
+        },
+        "bucket_driven": {
+            "type": "boolean",
+            "description": "If true, bucket identity will take priority over tool ID during tool matching"
+        },
+        "bucket_setup": {
+            "type": "array",
+            "description": "Defines the logical layout of buckets and their assigned tools.",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "display_name": {
+                        "type": "string",
+                        "description": "Human-readable name for the bucket"
+                    },
+                    "tool_id": {
+                        "type": "integer",
+                        "description": "Index or ID of the tool assigned to this bucket",
+                        "minimum": 0
+                    },
+                    "max_consumption": {
+                        "type": "integer",
+                        "description": "Maximum number of pickups allowed before the bucket must be replenished.",
+                        "minimum": 1
+                    }
+                },
+                "required": [
+                    "display_name",
+                    "tool_id"
+                ]
+            }
+        }
+    },
+    "required": [
+        "number_of_tools",
+        "pressure_timeout_s",
+        "check_clamp_pressure",
+        "required_clamp_pressure",
+        "min_clamp_pressure_reg_value",
+        "max_clamp_pressure_reg_value",
+        "min_clamp_pressure_psi",
+        "max_clamp_pressure_psi",
+        "use_payload_double_check",
+        "no_tool_payload",
+        "tool_payload_list",
+        "payload_tolerance",
+        "behavior_type",
+        "end_effector_max_extension",
+        "contact_detection_threshold",
+        "bucket_driven",
+        "bucket_setup"
+    ]
+}
