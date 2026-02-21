@@ -17,7 +17,7 @@
                     "WIDGETS": [
                         {
                             "TYPE": "QLabel",
-                            "DESCRIPTION": "Please select part"
+                            "DESCRIPTION": "Por Favor Seleccione Parte"
                         }
                     ]
                 },
@@ -28,14 +28,21 @@
                         {
                             "TYPE": "PartBtnWidget",
                             "DESCRIPTION": {
-                                "LABEL": "Part 1",
+                                "LABEL": "Puerta",
                                 "PATH": "default_part.png"
                             }
                         },
                         {
                             "TYPE": "PartBtnWidget",
                             "DESCRIPTION": {
-                                "LABEL": "Part 2",
+                                "LABEL": "Flat Pontoon",
+                                "PATH": "default_part.png"
+                            }
+                        },
+                        {
+                            "TYPE": "PartBtnWidget",
+                            "DESCRIPTION": {
+                                "LABEL": "Curved Pontoon",
                                 "PATH": "default_part.png"
                             }
                         }
@@ -47,76 +54,25 @@
                     "WIDGETS": [
                         {
                             "TYPE": "QLabel",
-                            "DESCRIPTION": "Please select process 1"
+                            "DESCRIPTION": "Por Favor Seleccione Opcion"
                         }
                     ]
                 },
                 {
                     "LAYOUT_TYPE": "HORIZONTAL",
                     "PROFILE_MSG": "PROC_ID",
-                    "INDICATOR": "PROC_1",
+                    "INDICATOR": "Coat",
                     "WIDGETS": [
                         {
                             "TYPE": "QPushButton",
-                            "DESCRIPTION": "process 1"
+                            "DESCRIPTION": "Gel"
                         },
                         {
                             "TYPE": "QPushButton",
-                            "DESCRIPTION": "prcoess 2"
-                        }
-                    ],
-                    "HIDE_IF": [
-                        {
-                            "TRIGGER_PART_ID": 0,
-                            "WIDGET_IDS_TO_HIDE": [
-                                0
-                            ]
+                            "DESCRIPTION": "Primer"
                         }
                     ]
-                },
-                {
-                    "LAYOUT_TYPE": "HORIZONTAL",
-                    "PROFILE_MSG": "",
-                    "WIDGETS": [
-                        {
-                            "TYPE": "QLabel",
-                            "DESCRIPTION": "Please select process 2"
-                        }
-                    ]
-                },
-                {
-                    "LAYOUT_TYPE": "HORIZONTAL",
-                    "PROFILE_MSG": "PROC_ID",
-                    "INDICATOR": "PROC_2",
-                    "WIDGETS": [
-                        {
-                            "TYPE": "Dropdown",
-                            "DESCRIPTION": {
-                                "TAG": "Dropdown",
-                                "ITEMS": [
-                                    "",
-                                    "item 1",
-                                    "item 2",
-                                    "item 3"
-                                ]
-                            }
-                        }
-                    ],
-                    "HIDE_IF": [
-                        {
-                            "TRIGGER_PART_ID": 0,
-                            "WIDGET_IDS_TO_HIDE": [
-                                3
-                            ]
-                        },
-                        {
-                            "TRIGGER_PART_ID": 1,
-                            "WIDGET_IDS_TO_HIDE": [
-                                1,
-                                2
-                            ]
-                        }
-                    ]
+
                 }
             ]
         }

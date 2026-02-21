@@ -2,12 +2,16 @@
     "$schema": "./schemas/setup_reminders.schema.json",
     "reminders": [
         {
-            "description": "Please make sure the chuck has been setup properly.",
+            "description": "Asegúrese de que la pieza esté dentro de su perímetro, y si es un pontón, asegúrese de que la cara de la pieza esté hacia el riel.",
             "image": "no_image.png"
         },
         {
-            "description": "Please make sure the fixtures are aligned properly",
+            "description": "Coloque los bloques de concreto en las cuatro esquinas internas del soporte y verifique que la pieza no se mueva al empujarla; si va a lijar un pontón, también use los cinchos ajustables para asegurarlo.",
             "image": "no_image.png"
+        },
+        {
+            "description": "Asegúrate de que no haya obstáculos dentro de la celda del robot que puedan causar una colisión.",
+            "image": "hazard_zone.png"
         }
     ],
     "doc": {

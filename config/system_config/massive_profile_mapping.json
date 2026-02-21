@@ -2,30 +2,21 @@
     "$schema": "./schemas/massive_profile_mapping.schema.json",
     "MAPPING_KEY": {
         "ZONE": [
-            "a",
-            "b"
+            "a"
         ],
         "PROC": [
             {
-                "INDICATOR": "PROC_1",
+                "INDICATOR": "Coat",
                 "SELECTIONS": [
-                    "process1",
-                    "process2"
-                ]
-            },
-            {
-                "INDICATOR": "PROC_2",
-                "SELECTIONS": [
-                    "",
-                    "item1",
-                    "item2",
-                    "item3"
+                    "GEL",
+                    "PRIMER"
                 ]
             }
         ],
         "PART": [
-            "part1",
-            "part2"
+            "Door",
+            "Flat_Pontoons",
+            "Curved_Pontoons"
         ]
     }
 }
