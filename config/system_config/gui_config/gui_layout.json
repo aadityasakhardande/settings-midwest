@@ -29,21 +29,21 @@
                             "TYPE": "PartBtnWidget",
                             "DESCRIPTION": {
                                 "LABEL": "Puerta",
-                                "PATH": "default_part.png"
+                                "PATH": "Door.png"
                             }
                         },
                         {
                             "TYPE": "PartBtnWidget",
                             "DESCRIPTION": {
                                 "LABEL": "Flat Pontoon",
-                                "PATH": "default_part.png"
+                                "PATH": "Flat_Pontoon.png"
                             }
                         },
                         {
                             "TYPE": "PartBtnWidget",
                             "DESCRIPTION": {
                                 "LABEL": "Curved Pontoon",
-                                "PATH": "default_part.png"
+                                "PATH": "Curved_Pontoon.png"
                             }
                         }
                     ]
