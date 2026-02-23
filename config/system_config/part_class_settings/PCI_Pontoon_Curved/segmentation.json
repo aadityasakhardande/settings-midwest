@@ -5,21 +5,6 @@
     },
     "functions": [
         {
-            "function": "eucledian_clustering",
-            "params": {
-                "cluster_tolerance": 0.01,
-                "min_cluster_size": 10000,
-                "max_cluster_size": 10000000,
-                "save_debug": false
-            }
-        },
-        {
-            "function": "refine_normals",
-            "params": {
-                "k_neighbours": 150
-            }
-        },
-        {
             "function": "downsample",
             "params": {
                 "leaf_sizes": [
@@ -36,7 +21,7 @@
                 "use_pcl": true,
                 "use_jet": false,
                 "use_radius": true,
-                "K": 50,
+                "K": 150,
                 "radius_normal": 0.03,
                 "viewpoint_normal": [
                     1.0,
@@ -49,7 +34,7 @@
                 "field": 1,
                 "eucledian_cluster": true,
                 "cluster_tolerance": 0.01,
-                "min_cluster_size": 1000,
+                "min_cluster_size": 10000,
                 "max_cluster_size": 10000000,
                 "use_gpu": true
             }
@@ -182,15 +167,6 @@
             }
         },
         {
-            "function": "eucledian_clustering",
-            "params": {
-                "cluster_tolerance": 0.01,
-                "min_cluster_size": 2000,
-                "max_cluster_size": 10000000,
-                "save_debug": false
-            }
-        },
-        {
             "function": "compute_normal",
             "params": {
                 "use_pcl": true,
@@ -209,33 +185,9 @@
                 "field": 1,
                 "eucledian_cluster": true,
                 "cluster_tolerance": 0.01,
-                "min_cluster_size": 5000,
+                "min_cluster_size": 5500,
                 "max_cluster_size": 10000000,
                 "use_gpu": true
-            }
-        },
-        {
-            "function": "eucledian_clustering",
-            "params": {
-                "cluster_tolerance": 0.01,
-                "min_cluster_size": 8500,
-                "max_cluster_size": 10000000,
-                "save_debug": false
-            }
-        },
-        {
-            "function": "refine_normals",
-            "params": {
-                "k_neighbours": 20
-            }
-        },
-        {
-            "function": "eucledian_clustering",
-            "params": {
-                "cluster_tolerance": 0.01,
-                "min_cluster_size": 500,
-                "max_cluster_size": 10000000,
-                "save_debug": false
             }
         }
     ]

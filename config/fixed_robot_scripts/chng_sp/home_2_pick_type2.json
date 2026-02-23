@@ -90,7 +90,7 @@
             "RPM": 0,
             "motion_type": 0,
             "tool_status": false,
-            "force": 20
+            "force": 10
         },
         {
             "type": "movej",

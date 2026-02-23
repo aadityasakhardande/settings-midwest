@@ -65,7 +65,7 @@ v2_tpp_planning_parameters: {
 
 
 v2_tpp_boundary: {
-  offset_to_actual_boundary: 0.005,
+  offset_to_actual_boundary: 0.1,
 
   boundary_dist_2_nxt_pt: 0.01,
   boundary_continuity_dist: 0.02,

@@ -1,7 +1,7 @@
 # Mode Settings
 mode:
   debug_mode: false
-  developer_mode: false
+  developer_mode: true
   online_mode: true
   simulation_mode: false #flag to activate hardware simulation
   use_on_prem_api: true
@@ -112,7 +112,7 @@ tool:
 # Trajectory Planner Files
 trajectory_planner:
   discontinuity_threshold: 0.85
-  debug_mode: true
+  debug_mode: false
   scene_config_file: /etc/ss/config/system_config/scene_config_m710.json
   override_file_path: /etc/ss/launch/override_file.yaml
   zone_seed_file: /etc/ss/config/system_config/zone_seeds.json
@@ -149,7 +149,7 @@ motion:
   cmd_q_size: 4
   move_blending_radius: 95
   move_time_msec: 8
-  noncontact_force: -10
+  noncontact_force: -15
   override_speed: true
   pose_and_trajectory_file: /etc/ss/config/fixed_robot_scripts/misc/poses_and_trajectories.json
   robot_urdf_file: /etc/ss/robots/fanuc_m710/robot.urdf
