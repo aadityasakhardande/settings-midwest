@@ -18,7 +18,8 @@ force_module:
     payload: 10.9
 jump_node:
   ros__parameters:
-    debug_mode: false
+    debug_mode: false        - mode__developer_mode:=False
+
     diagnostics: true
     passtopass:
         activate: false

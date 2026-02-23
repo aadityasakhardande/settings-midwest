@@ -33,11 +33,11 @@ thin_features_subtraction: {
 #################################################################################################################
 
 v2_tpp_planning_parameters: {
-  pathgap_sanding_line: 0.01, # renamed from pathgap_sanding_line
+  pathgap_sanding_line: 0.02, # renamed from pathgap_sanding_line
   pathgap_connection_line: 0.01, # renamed from pathgap_connection_line
   pathgap_entry_exit_line: 0.01, # renamed from pathgap_entry_exit_line
 
-  continuity_distance: 0.05,
+  continuity_distance: 0.06,
   boundary_detection_dist: 0.03,
 
   cnt_sanding_line: 90,   # between 1-100 (integer)

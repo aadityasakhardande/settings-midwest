@@ -150,7 +150,7 @@ motion:
   move_blending_radius: 95
   move_time_msec: 8
   noncontact_force: -10
-  override_speed: false
+  override_speed: true
   pose_and_trajectory_file: /etc/ss/config/fixed_robot_scripts/misc/poses_and_trajectories.json
   robot_urdf_file: /etc/ss/robots/fanuc_m710/robot.urdf
   robot_type: fanuc_m710

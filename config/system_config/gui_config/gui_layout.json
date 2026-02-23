@@ -17,7 +17,7 @@
                     "WIDGETS": [
                         {
                             "TYPE": "QLabel",
-                            "DESCRIPTION": "Por Favor Seleccione Parte"
+                            "DESCRIPTION": "Por Favor Seleccione la Parte que Quiere Lijar"
                         }
                     ]
                 },
