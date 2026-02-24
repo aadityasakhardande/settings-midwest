@@ -88,9 +88,9 @@
             "time": 800,
             "CNT": 80,
             "RPM": 0,
-            "motion_type": 0,
+            "motion_type": 1,
             "tool_status": false,
-            "force": 10
+            "force": 35
         },
         {
             "type": "movej",
@@ -110,7 +110,7 @@
             "time": 1000,
             "CNT": 80,
             "RPM": 0,
-            "motion_type": 0,
+            "motion_type": 1,
             "tool_status": false,
             "force": 35
         }

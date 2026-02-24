@@ -11,7 +11,7 @@
         },
         {
             "description": "Asegúrese de que no haya obstáculos dentro de la celda del robot que puedan causar una colisión.",
-            "image": "hazard_zone.png"
+            "image": "zona_de_peligro.png"
         }
     ],
     "doc": {

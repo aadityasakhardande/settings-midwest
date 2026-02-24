@@ -4,8 +4,8 @@
 v2_tpp_sanding_behaviour: {
   turn_on_sander_above_part: false,
   
-  outer_boundary_subtraction: 0.00,
-  inner_boundary_subtraction: 0.00,
+  outer_boundary_subtraction: 0.0,
+  inner_boundary_subtraction: 0.04,
 
   entry_exit_offset: 0.1, #0.17 (paramter before changing 02/03/26), # 0.05 
   entry_exit_inclination_angle: 0.0, # degrees
@@ -34,7 +34,7 @@ thin_features_subtraction: {
 
 v2_tpp_planning_parameters: {
   pathgap_sanding_line: 0.02, # renamed from pathgap_sanding_line
-  pathgap_connection_line: 0.01, # renamed from pathgap_connection_line
+  pathgap_connection_line: 0.02, # renamed from pathgap_connection_line
   pathgap_entry_exit_line: 0.01, # renamed from pathgap_entry_exit_line
 
   continuity_distance: 0.06,

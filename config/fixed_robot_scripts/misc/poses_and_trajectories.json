@@ -16,12 +16,12 @@
                 0
             ],
             "clean_home": [
-                1.5708,
-                0,
-                0,
-                0,
-                0,
-                0
+                1.1233,
+                0.4531,
+                -0.6134,
+                0.0295,
+                1.0715,
+                -0.0134
             ],
             "chng_sp_joint_home_r": [
                 0.14228,
@@ -138,12 +138,6 @@
                     "ext_target": "static/rail_home",
                     "move_extender": false,
                     "plan": true
-                },
-                {
-                    "joint_target": "custom/p1",
-                    "ext_target": "static/rail_home",
-                    "move_extender": true,
-                    "plan": false
                 },
                 {
                     "joint_target": "static/clean_home",

@@ -115,12 +115,12 @@
         {
             "name": "RESTRICTED_ZONE",
             "type": "MESH",
-            "path": "file:///etc/ss/models/tablemodel_vertical.STL",
+            "path": "file:///etc/ss/models/restricted_zone.STL",
             "size": [],
             "position": [
-                -1.65,
-                -0.5,
-                -1.0
+                0.0,
+                0.0,
+                0.0
             ],
             "orientation": [
                 0,
