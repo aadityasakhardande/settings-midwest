@@ -4,7 +4,7 @@
 v2_tpp_sanding_behaviour: {
   turn_on_sander_above_part: false,
   
-  outer_boundary_subtraction: 0.00,
+  outer_boundary_subtraction: 0.02,
   inner_boundary_subtraction: 0.00,
 
   entry_exit_offset: 0.1, #0.17 (paramter before changing 02/03/26), # 0.05 
@@ -33,15 +33,15 @@ thin_features_subtraction: {
 #################################################################################################################
 
 v2_tpp_planning_parameters: {
-  pathgap_sanding_line: 0.005, # renamed from pathgap_sanding_line
+  pathgap_sanding_line: 0.02, # renamed from pathgap_sanding_line
   pathgap_connection_line: 0.01, # renamed from pathgap_connection_line
   pathgap_entry_exit_line: 0.01, # renamed from pathgap_entry_exit_line
 
   continuity_distance: 0.05,
   boundary_detection_dist: 0.03,
 
-  cnt_sanding_line: 75,   # between 1-100 (integer)
-  cnt_connection_line: 85, # between 1-100 (integer)
+  cnt_sanding_line: 90,   # between 1-100 (integer)
+  cnt_connection_line: 95, # between 1-100 (integer)
   cnt_start_end_line: 90,  # between 1-100 (integer)
   cnt_boundary_sanding_line: 90, # between 1-100 (integer)
 
@@ -91,7 +91,7 @@ v2_customer: {
   # 2 stage segmentation can be used along with either of the midPass SPC modes
   two_stage_segmentation: false, # 2 stage segmentation
   midpass_SPC_near_boundary: false, # midpass SPC near boundaries only
-  midpass_SPC_anywhere: true, # midpass SPC anywhere on the surface 
+  midpass_SPC_anywhere: false, # midpass SPC anywhere on the surface 
   first_pass_type_based_params: true, # (default) false = section_type based, true = pass_type of first pass based
 }
 #################################################################################################################
@@ -221,7 +221,7 @@ v2_tpp_debug_parameters: {
   ignore_discontinuity: false, # SAFE = false 
   
   testing_mode: false,
-  run_only_segmentation: false,
+  run_only_segmentation: true,
   
   write_report: true,
   print_debugROS_msgs: false,

@@ -1,6 +1,6 @@
-7lmi_settings: {
+lmi_settings: {
   encoder_spacing: 2, # mm (decimal) Default: 1
-  exposure: 1200, # ums (non decimal)
+  exposure: 500, # ums (non decimal)
   XSubsampling: 1, # e.g. 1 - full res, 2 - half res, 3 - one third res, 4 - quarter res
   ZSubsampling: 1, # e.g. 1 - full res, 2 - half res, 3 - one third res, 4 - quarter res
   Density: 'balanced', # speed, balanced, resolution Default: speed

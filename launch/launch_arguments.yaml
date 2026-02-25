@@ -1,7 +1,7 @@
 # Mode Settings
 mode:
   debug_mode: false
-  developer_mode: false
+  developer_mode: true
   online_mode: true
   simulation_mode: false #flag to activate hardware simulation
   use_on_prem_api: true

@@ -67,16 +67,16 @@
             "path": "/settings/group_1.yml",
             "planner_param_folder": [
                 {
-                    "display_name": "Curved Regions",
-                    "folder_path": "part_class_settings/PCI_Large_Hood_Curved"
+                    "display_name": "Sharp Curvature Regions",
+                    "folder_path": "part_class_settings/PCI_Large_Hood_Heavy_Curved"
                 },
                                 {
-                    "display_name": "Flat Regions",
-                    "folder_path": "part_class_settings/PCI_Large_Hood_Flat"
+                    "display_name": "Low Curvature Regions",
+                    "folder_path": "part_class_settings/PCI_Large_Hood_Light_Curved"
                 }
             ],
-            "lmi_settings_path": "part_class_settings/PCI_Large_Hood_Flat",
-            "stitch_config_path": "part_class_settings/PCI_Large_Hood_Flat",
+            "lmi_settings_path": "part_class_settings/PCI_Large_Hood_Heavy_Curved",
+            "stitch_config_path": "part_class_settings/PCI_Large_Hood_Heavy_Curved",
             "intended_gsa_path": ""
         },
         "4": {
@@ -85,16 +85,16 @@
             "path": "/settings/group_1.yml",
             "planner_param_folder": [
                 {
-                    "display_name": "Curved Regions",
-                    "folder_path": "part_class_settings/PCI_Small_Hood_Curved"
+                    "display_name": "Sharp Curvature Regions",
+                    "folder_path": "part_class_settings/PCI_Small_Hood_Heavy_Curved"
                 },
                                 {
-                    "display_name": "Flat Regions",
-                    "folder_path": "part_class_settings/PCI_Small_Hood_Flat"
+                    "display_name": "Low Curvature Regions",
+                    "folder_path": "part_class_settings/PCI_Small_Hood_Light_Curved"
                 }
             ],
-            "lmi_settings_path": "part_class_settings/PCI_Small_Hood_Flat",
-            "stitch_config_path": "part_class_settings/PCI_Small_Hood_Flat",
+            "lmi_settings_path": "part_class_settings/PCI_Small_Hood_Heavy_Curved",
+            "stitch_config_path": "part_class_settings/PCI_Small_Hood_Heavy_Curved",
             "intended_gsa_path": ""
         },
         "5": {

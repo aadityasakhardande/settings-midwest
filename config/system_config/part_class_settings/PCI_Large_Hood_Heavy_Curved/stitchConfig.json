@@ -28,10 +28,10 @@
     "kKernelWidthGaussianFilter": 0.008
   },
   "removeOutliers": {
-    "removeOutliersToggle_EachSegment": true,
+    "removeOutliersToggle_EachSegment": false,
     "removeOutliersMeanK": 10,
     "removeOutliersStddevMulThresh": 2,
-    "removeOutliersToggle_MrgdCld": true,
+    "removeOutliersToggle_MrgdCld": false,
     "removeOutliersMeanK_MrgdCld": 10,
     "removeOutliersStddevMulThresh_MrgdCld": 2
   },
@@ -50,7 +50,7 @@
   "EuclideanCluster": {
     "euclClusterToggle_MrgdCld": true,
     "euclCluster_min_cluster_size_MrgdCld": 20000,
-    "euclCluster_cluster_tolerance_MrgdCld": 0.005
+    "euclCluster_cluster_tolerance_MrgdCld": 0.01
   },
   "downsample": {
     "downsamplingLeafSize": 0.005
