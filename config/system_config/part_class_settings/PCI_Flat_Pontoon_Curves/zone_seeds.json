@@ -6,7 +6,6 @@
             [1.5708, 0.0, 0.0, 0.0, 0.0, 0.0],
             [3.14, 0.0, 0.0, 0.0, 0.0, 0.0]
         ],
-        "ignoredEnvObjects": [
-        ]
+        "ignoredEnvObjects": ["door_COLL","hood_COLL"]
     }
 }

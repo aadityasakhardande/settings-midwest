@@ -20,6 +20,6 @@
             ]
         ],
         "rollerSeeds": [],
-        "ignoredEnvObjects": []
+        "ignoredEnvObjects": ["pontoon_COLL","hood_COLL"]
     }
 }

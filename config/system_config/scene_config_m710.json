@@ -162,6 +162,57 @@
                 0,
                 1
             ]
+        },
+        {
+            "name": "door_COLL",
+            "type": "MESH",
+            "path": "file:///etc/ss/models/doorfixture.stl",
+            "size": [],
+            "position": [
+                0,
+                0,
+                0
+            ],
+            "orientation": [
+                0,
+                0,
+                0,
+                1
+            ]
+        },
+        {
+            "name": "pontoon_COLL",
+            "type": "MESH",
+            "path": "file:///etc/ss/models/pontoonfixture.stl",
+            "size": [],
+            "position": [
+                0,
+                0,
+                0
+            ],
+            "orientation": [
+                0,
+                0,
+                0,
+                1
+            ]
+        },
+        {
+            "name": "hood_COLL",
+            "type": "MESH",
+            "path": "file:///etc/ss/models/smallhoodfixture.STL",
+            "size": [],
+            "position": [
+                0,
+                0,
+                0
+            ],
+            "orientation": [
+                0,
+                0,
+                0,
+                1
+            ]
         }
     ],
     "meshSettings": {
