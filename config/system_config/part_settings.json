@@ -46,7 +46,6 @@
             "stitch_config_path": "part_class_settings/PCI_Pontoon_Sides",
             "intended_gsa_path": ""
         },
-
         "2": {
             "display_name": "PCI Flat Pontoons",
             "colors": "Purple, Red, Silver, Yellow",
@@ -70,42 +69,24 @@
             "intended_gsa_path": ""
         },
         "3": {
-            "display_name": "PCI Large Hoods",
+            "display_name": "PCI Fronts",
             "colors": "Purple, Red, Silver, Yellow",
             "path": "/settings/group_1.yml",
             "planner_param_folder": [
                 {
-                    "display_name": "Sharp Curvature Regions",
-                    "folder_path": "part_class_settings/PCI_Large_Hood_Heavy_Curved"
+                    "display_name": "Curved Regions",
+                    "folder_path": "part_class_settings/PCI_Front_Curves"
                 },
                                 {
-                    "display_name": "Low Curvature Regions",
-                    "folder_path": "part_class_settings/PCI_Large_Hood_Light_Curved"
+                    "display_name": "Flat Regions",
+                    "folder_path": "part_class_settings/PCI_Front_Flat"
                 }
             ],
-            "lmi_settings_path": "part_class_settings/PCI_Large_Hood_Heavy_Curved",
-            "stitch_config_path": "part_class_settings/PCI_Large_Hood_Heavy_Curved",
+            "lmi_settings_path": "part_class_settings/PCI_Front_Curves",
+            "stitch_config_path": "part_class_settings/PCI_Front_Curves",
             "intended_gsa_path": ""
         },
         "4": {
-            "display_name": "PCI Small Hoods",
-            "colors": "Purple, Red, Silver, Yellow",
-            "path": "/settings/group_1.yml",
-            "planner_param_folder": [
-                {
-                    "display_name": "Sharp Curvature Regions",
-                    "folder_path": "part_class_settings/PCI_Small_Hood_Heavy_Curved"
-                },
-                                {
-                    "display_name": "Low Curvature Regions",
-                    "folder_path": "part_class_settings/PCI_Small_Hood_Light_Curved"
-                }
-            ],
-            "lmi_settings_path": "part_class_settings/PCI_Small_Hood_Heavy_Curved",
-            "stitch_config_path": "part_class_settings/PCI_Small_Hood_Heavy_Curved",
-            "intended_gsa_path": ""
-        },
-        "5": {
             "display_name": "Calibration",
             "colors": "Purple, Red, Silver, Yellow",
             "path": "/settings/group_1.yml",
