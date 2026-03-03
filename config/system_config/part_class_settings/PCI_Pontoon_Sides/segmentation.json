@@ -29,7 +29,24 @@
                 ]
             }
         },
-              
+        {
+            "function": "vcm_segmentation",
+            "params": {
+                "convolution_radius": 0.012,
+                "offset_radius": 0.018,
+                "threshold_ratio": 0.06,
+                "distribute": false,
+                "cluster_tolerance": 0.01,
+                "min_cluster_size": 1000,
+                "max_cluster_size": 10000000,
+                "vis_minValRatio": 0.05,
+                "vis_maxValRatio": 0.1,
+                "algo_type": 1,
+                "no_of_segments": 36,
+                "direction": 1,
+                "min_width": 0.15
+            }
+        },  
         {
             "function": "compute_normal",
             "params": {
@@ -49,27 +66,9 @@
                 "field": 1,
                 "eucledian_cluster": true,
                 "cluster_tolerance": 0.01,
-                "min_cluster_size": 2000,
+                "min_cluster_size": 50000,
                 "max_cluster_size": 10000000,
                 "use_gpu": true
-            }
-        },                
-        {
-            "function": "vcm_segmentation",
-            "params": {
-                "convolution_radius": 0.012,
-                "offset_radius": 0.018,
-                "threshold_ratio": 0.06,
-                "distribute": false,
-                "cluster_tolerance": 0.01,
-                "min_cluster_size": 1000,
-                "max_cluster_size": 10000000,
-                "vis_minValRatio": 0.05,
-                "vis_maxValRatio": 0.1,
-                "algo_type": 1,
-                "no_of_segments": 36,
-                "direction": 1,
-                "min_width": 0.15
             }
         },
         {
@@ -129,7 +128,8 @@
                 "use_gpu": true
             }
         },
-        {
+        
+{
             "function": "compute_normal",
             "params": {
                 "use_pcl": true,
@@ -152,6 +152,53 @@
                 "max_cluster_size": 10000000,
                 "use_gpu": true
             }
+        },
+         {
+            "function": "projection_segmentation",
+            "params": {
+                "algorithm": 3,
+                "maxAngleDeviation": 30,
+                "custom_seed_activate": true,
+                "custom_first_seed": [
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "cluster_tolerance": 0.014,
+                "min_cluster_size": 100,
+                "max_cluster_size": 10000000,
+                "noise_max_size": 50,
+                "introduce_overlap": false,
+                "overlap_radius": 0.1,
+                "boundary_radius": 0.01,
+                "overlap_mode": 2,
+                "debug": true,
+                "remove_clouds_along": [0,4,5],
+                "leaf_size": [
+                    0.01,
+                    0.01,
+                    0.01
+                ],
+                "do_alignment_correction": false,
+                "multiple_custom_seeds": [
+                    [
+                        1.0,
+                        0.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        1.0,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        0.0,
+                        1.0
+                    ]
+                ]
+            }
         }
+
     ]
 }

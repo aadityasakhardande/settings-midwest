@@ -4,7 +4,7 @@
 v2_tpp_sanding_behaviour: {
   turn_on_sander_above_part: false,
   
-  outer_boundary_subtraction: 0.02,
+  outer_boundary_subtraction: 0.01,
   inner_boundary_subtraction: 0.00,
 
   entry_exit_offset: 0.1, #0.17 (paramter before changing 02/03/26), # 0.05 

@@ -33,13 +33,17 @@
                     "display_name": "Curved Regions",
                     "folder_path": "part_class_settings/PCI_Pontoon_Curved"
                 },
-                                {
-                    "display_name": "Flat Regions",
-                    "folder_path": "part_class_settings/PCI_Pontoon_Flat"
+                {
+                    "display_name": "Side Regions",
+                    "folder_path": "part_class_settings/PCI_Pontoon_Sides"
+                },
+                {
+                    "display_name": "Top Regions",
+                    "folder_path": "part_class_settings/PCI_Pontoon_Top"
                 }
             ],
-            "lmi_settings_path": "part_class_settings/PCI_Pontoon_Flat",
-            "stitch_config_path": "part_class_settings/PCI_Pontoon_Flat",
+            "lmi_settings_path": "part_class_settings/PCI_Pontoon_Sides",
+            "stitch_config_path": "part_class_settings/PCI_Pontoon_Sides",
             "intended_gsa_path": ""
         },
 
@@ -53,8 +57,12 @@
                     "folder_path": "part_class_settings/PCI_Flat_Pontoon_Curves"
                 },
                 {
-                    "display_name": "Flat Regions",
-                    "folder_path": "part_class_settings/PCI_Flat_Pontoon_Flats"
+                    "display_name": "Side Regions",
+                    "folder_path": "part_class_settings/PCI_Flat_Pontoon_Sides"
+                },
+                 {
+                    "display_name": "Top Region",
+                    "folder_path": "part_class_settings/PCI_Flat_Pontoon_Top"
                 }
             ],
             "lmi_settings_path": "part_class_settings/PCI_Flat_Pontoon_Flats",
