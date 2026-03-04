@@ -2,7 +2,7 @@
     "$schema": "./schemas/gui_layout.schema.json",
     "PROPERTIES": {
         "HEIGHT": 670,
-        "WIDTH": 670
+        "WIDTH": 750
     },
     "DEFAULT_VALUES": {
         "PART_NAME": "Part",
@@ -35,15 +35,22 @@
                         {
                             "TYPE": "PartBtnWidget",
                             "DESCRIPTION": {
-                                "LABEL": "Flat Pontoon",
+                                "LABEL": "Bala",
                                 "PATH": "Flat_Pontoon.png"
                             }
                         },
                         {
                             "TYPE": "PartBtnWidget",
                             "DESCRIPTION": {
-                                "LABEL": "Curved Pontoon",
+                                "LABEL": "Pontoon",
                                 "PATH": "Curved_Pontoon.png"
+                            }
+                        },
+                        {
+                            "TYPE": "PartBtnWidget",
+                            "DESCRIPTION": {
+                                "LABEL": "Frente",
+                                "PATH": "Fronts.png"
                             }
                         }
                     ]
