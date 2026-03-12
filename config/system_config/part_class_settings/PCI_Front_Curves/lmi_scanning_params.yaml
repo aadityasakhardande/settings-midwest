@@ -31,7 +31,7 @@ lmi_calibration: {
                                             # false: the node will save data to only perform LMI calibration
 }
 lmi_general_parameters: {
-  encoder_resolution: 0.0488297, # mm
+  encoder_resolution: 0.0488287, # mm
   material: 'reflective', # custom, diffuse, reflective
 }
 lmi_expert_use: {

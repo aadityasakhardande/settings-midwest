@@ -64,8 +64,8 @@
                     "folder_path": "part_class_settings/PCI_Flat_Pontoon_Top"
                 }
             ],
-            "lmi_settings_path": "part_class_settings/PCI_Flat_Pontoon_Flats",
-            "stitch_config_path": "part_class_settings/PCI_Flat_Pontoon_Flats",
+            "lmi_settings_path": "part_class_settings/PCI_Flat_Pontoon_Sides",
+            "stitch_config_path": "part_class_settings/PCI_Flat_Pontoon_Sides",
             "intended_gsa_path": ""
         },
         "3": {
