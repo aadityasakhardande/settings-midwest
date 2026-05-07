@@ -24,7 +24,7 @@
             "RPM": 0,
             "motion_type": 0,
             "tool_status": false,
-            "force": 10
+            "force": 15
         },
         {
             "type": "movej",
@@ -46,7 +46,7 @@
             "RPM": 0,
             "motion_type": 0,
             "tool_status": false,
-            "force": 10
+            "force": 15
         },
         {
             "type": "movej",
@@ -68,7 +68,7 @@
             "RPM": 0,
             "motion_type": 0,
             "tool_status": false,
-            "force": 10
+            "force": 15
         },
         {
             "type": "movej",
@@ -90,7 +90,7 @@
             "RPM": 0,
             "motion_type": 0,
             "tool_status": false,
-            "force": 10
+            "force": 15
         },
         {
             "type": "movej",
@@ -112,7 +112,7 @@
             "RPM": 0,
             "motion_type": 0,
             "tool_status": false,
-            "force": 10
+            "force": 15
         },
         {
             "type": "movej",
@@ -134,7 +134,7 @@
             "RPM": 0,
             "motion_type": 0,
             "tool_status": false,
-            "force": 10
+            "force": 15
         },
         {
             "type": "movej",
@@ -156,7 +156,7 @@
             "RPM": 0,
             "motion_type": 0,
             "tool_status": false,
-            "force": 10
+            "force": 15
         }
     ],
     "comment": "Removing Sequence"
