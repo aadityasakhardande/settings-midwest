@@ -6,6 +6,6 @@
             [0.5, 0.0, 0.0, 0.0, 0.0, 0.0],
             [2.5, 0.0, 0.0, 0.0, 0.0, 0.0]
         ],
-        "ignoredEnvObjects": ["pontoon_COLL","hood_COLL"]
+        "ignoredEnvObjects": ["pontoon_COLL","hood_COLL","fence_COLL"]
     }
 }

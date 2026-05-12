@@ -99,6 +99,24 @@
             "lmi_settings_path": "part_class_settings/Calibration",
             "stitch_config_path": "part_class_settings/PCI_Flat",
             "intended_gsa_path": ""
+        },
+        "5": {
+            "display_name": "PCI Fences",
+            "colors": "Purple, Red, Silver, Yellow",
+            "path": "/settings/group_1.yml",
+            "planner_param_folder": [
+                {
+                    "display_name": "Radius",
+                    "folder_path": "part_class_settings/PCI_Fences_Radius"
+                },
+                {
+                    "display_name": "Side Region",
+                    "folder_path": "part_class_settings/PCI_Fences_Side"
+                }
+            ],
+            "lmi_settings_path": "part_class_settings/PCI_Fences_Radius",
+            "stitch_config_path": "part_class_settings/PCI_Fences_Radius",
+            "intended_gsa_path": ""
         }
     },
     "doc": "planner_param_folder = /etc/ss/config/system_config/ + folder_path"

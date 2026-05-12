@@ -213,6 +213,23 @@
                 0,
                 1
             ]
+        },
+        {
+            "name": "fence_COLL",
+            "type": "MESH",
+            "path": "file:///etc/ss/models/fencefixture.stl",
+            "size": [],
+            "position": [
+                0,
+                0,
+                0
+            ],
+            "orientation": [
+                0,
+                0,
+                0,
+                1
+            ]
         }
     ],
     "meshSettings": {

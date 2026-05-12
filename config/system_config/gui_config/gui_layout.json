@@ -2,7 +2,7 @@
     "$schema": "./schemas/gui_layout.schema.json",
     "PROPERTIES": {
         "HEIGHT": 670,
-        "WIDTH": 750
+        "WIDTH": 850
     },
     "DEFAULT_VALUES": {
         "PART_NAME": "Part",
@@ -51,6 +51,13 @@
                             "DESCRIPTION": {
                                 "LABEL": "Frente",
                                 "PATH": "Fronts.png"
+                            }
+                        },
+                        {
+                            "TYPE": "PartBtnWidget",
+                            "DESCRIPTION": {
+                                "LABEL": "Fence",
+                                "PATH": "Fence.png"
                             }
                         }
                     ]

@@ -1,0 +1,103 @@
+{
+  "$schema": "./schemas/stitchConfig.schema.json",
+  "doc": {
+    "purpose": "This file is called when stitching the pointclouds that are scanned, and what are preprocessing functions should be applied on the incoming cloud.",
+    "Notes": "Currently we do not support the functions: NormalComputation (use PCLNormalComputation instead), XRemoval, so changing those parameters will not effect anything"
+  },
+  "DB_Scan": {
+    "dbScanToggle": false,
+    "ClusterTolerance": 0.023,
+    "ClusterCorePoints": 21
+  },
+  "MeshCreation": {
+    "meshCreation_LeafSize": 0.02,
+    "meshCreation_SearchRadius": 0.12,
+    "meshCreation_Mu": 4.0,
+    "meshCreation_MaximumNearestNeighbors": 100,
+    "meshCreation_MaximumSurfaceAngleDiv": 1.0,
+    "meshCreation_MinimumAngleDiv": 18,
+    "meshCreation_MaximumAngleDiv": 1
+  },
+  "MLSFilter": {
+    "kPolynomialOrderMLS": 3,
+    "kSpacingForMLS": 0.004,
+    "kNeighborhoodRadiusMLS": 0.005
+  },
+  "GaussianFilter": {
+    "kSpacingForGaussian": 0.004,
+    "kKernelWidthGaussianFilter": 0.008
+  },
+  "removeOutliers": {
+    "removeOutliersToggle_EachSegment": false,
+    "removeOutliersMeanK": 10,
+    "removeOutliersStddevMulThresh": 2,
+    "removeOutliersToggle_MrgdCld": false,
+    "removeOutliersMeanK_MrgdCld": 10,
+    "removeOutliersStddevMulThresh_MrgdCld": 2
+  },
+  "NormalComputation": {
+    "normal_iterations": 4,
+    "normal_constant1": 0.1,
+    "normal_constant2": 0.01,
+    "normal_eps": 0.1,
+    "normal_noise_std_dev": 0.001,
+    "normal_maxNeighbors": 175,
+    "normal_RiemanGraphNeighbors": 15
+  },
+  "PCLNormalComputation": {
+    "pcl_normal_estimation_radius": 0.015
+  },
+  "EuclideanCluster": {
+    "euclClusterToggle_MrgdCld": true,
+    "euclCluster_min_cluster_size_MrgdCld": 20000,
+    "euclCluster_cluster_tolerance_MrgdCld": 0.01
+  },
+  "downsample": {
+    "downsamplingLeafSize": 0.005
+  },
+  "visualizeDownsample": {
+    "visualizationdownsamplingLeafSize": 0.008
+  },
+  "XRemoval": {
+    "remove_x_masked_points": false,
+    "boundary_search_radius": 0.015,
+    "boundary_cluster_tolerance": 0.03,
+    "boundary_min_cluster_size": 100,
+    "boundary_max_cluster_size": 10000000,
+    "eucl_cluster_tolerance": 0.01,
+    "eucl_cluster_min_size": 100,
+    "eucl_cluster_max_size": 10000000
+  },
+  "AddCustomCollisionModelToWorkpiece": {
+    "activate": false,
+    "cloud_file_path": "<relative_path_to_custom_collision_cloud>.ply"
+  },
+  "ShadowMeshGenerator": {
+    "activate": false,
+    "alpha": 0.3,
+    "downsample_leaf_size": [
+      0.1,
+      0.1,
+      0.1
+    ],
+    "voxel_size": 0.1,
+    "point_spacing": 0.005,
+    "max_ray_distance": 6.0,
+    "intersection_radius": 0.1,
+    "min_cluster_size": 20000,
+    "max_cluster_size": 2500000,
+    "cluster_tolerance": 0.01,
+    "view_points": [
+      [
+        -1.0,
+        3.0,
+        0.2
+      ],
+      [
+        -1.0,
+        7.0,
+        0.65
+      ]
+    ]
+  }
+}
