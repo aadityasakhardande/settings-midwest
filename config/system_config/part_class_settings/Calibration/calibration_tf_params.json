@@ -58,46 +58,6 @@
         ],
         "hardware_type": "zivid"
     },
-    "roller1": {
-        "calibration_tf": [
-            -0.00101338823826547,
-            0.999997585152046,
-            -0.00195006009045559,
-            -0.123694464089804,
-            -0.988391373642717,
-            -0.000705357951040764,
-            0.151927597818251,
-            -0.324319412014159,
-            0.151925855445812,
-            0.00208138421218818,
-            0.988389701629281,
-            -1.28004929512156,
-            0,
-            0,
-            0,
-            1
-        ]
-    },
-    "roller2": {
-        "calibration_tf": [
-            -0.00101338823826547,
-            0.999997585152046,
-            -0.00195006009045559,
-            -0.123694464089804,
-            -0.988391373642717,
-            -0.000705357951040764,
-            0.151927597818251,
-            -0.324319412014159,
-            0.151925855445812,
-            0.00208138421218818,
-            0.988389701629281,
-            -1.28004929512156,
-            0,
-            0,
-            0,
-            1
-        ]
-    },
     "vcm_segmentation_params": {
         "convolution_radius": 0.005,
         "offset_radius": 0.02,
@@ -132,6 +92,50 @@
         "artefact_location": "approximate world coordinates of the artefact (x,y,z), followed by length, width and height of the bounding box required for cropping",
         "vcm_segmentation_params": "parameters for tuning VCM (optional)",
         "icp_params": "parameters for tuning ICP (optional)",
-        "sac_params": "parameters for tuning SAC (optional)"
-    }
+        "sac_params": "parameters for tuning SAC (optional)",
+        "translational_layering_tolerance": "parameters for tuning translational layering in meters (optional)",
+        "rotational_layering_tolerance": "parameters for tuning rotational layering in degrees (optional)"
+    },
+    "roller_1": {
+        "calibration_tf": [
+            -0.00101338823826547,
+            0.999997585152046,
+            -0.00195006009045559,
+            -0.123694464089804,
+            -0.988391373642717,
+            -0.000705357951040764,
+            0.151927597818251,
+            -0.324319412014159,
+            0.151925855445812,
+            0.00208138421218818,
+            0.988389701629281,
+            -1.28004929512156,
+            0,
+            0,
+            0,
+            1
+        ]
+    },
+    "roller_2": {
+        "calibration_tf": [
+            -0.00101338823826547,
+            0.999997585152046,
+            -0.00195006009045559,
+            -0.123694464089804,
+            -0.988391373642717,
+            -0.000705357951040764,
+            0.151927597818251,
+            -0.324319412014159,
+            0.151925855445812,
+            0.00208138421218818,
+            0.988389701629281,
+            -1.28004929512156,
+            0,
+            0,
+            0,
+            1
+        ]
+    },
+    "translational_layering_tolerance": 0.005,
+    "rotational_layering_tolerance": 0.15
 }

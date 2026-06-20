@@ -1,0 +1,233 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TPP Global Parameters",
+  "description": "Tool Path Planning parameters for the system config file (/etc/ss/config/system_config/tool_path_planning_params.yaml). All parameters are optional. Part-class sections (tpp_sanding_behaviour, tpp_planning_parameters, tpp_boundary, tpp_tool_characteristic, etc.) must NOT appear here.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+
+    "pause_planning": {
+      "type": "object",
+      "title": "Pause Planning",
+      "markdownDescription": "**Scope**: global (optional) — safety-critical, all fields have platform defaults so planning never fails due to missing params.",
+      "additionalProperties": false,
+      "properties": {
+        "instant_pause": {
+          "type": "boolean",
+          "title": "Instant Pause",
+          "markdownDescription": "**Scope**: global | **Default**: `false`\n\n`false` = pause at jumps or boundary; `true` = pause at nearest safe point.",
+          "default": false
+        },
+        "boundary_dist_threshold": {
+          "type": "number",
+          "title": "Boundary Distance Threshold",
+          "markdownDescription": "**Scope**: global | **Default**: `0.06` | **Unit**: meters\n\nConsidered only during profile planning. Distance from boundary used as a pause trigger.",
+          "default": 0.06,
+          "exclusiveMinimum": 0
+        },
+        "consider_only_connection_pts": {
+          "type": "boolean",
+          "title": "Consider Only Connection Points",
+          "markdownDescription": "**Scope**: global | **Default**: `true`\n\nConsidered only during profile planning. If true, only connection points are evaluated as pause candidates.",
+          "default": true
+        },
+        "distance_to_skip": {
+          "type": "number",
+          "title": "Distance to Skip",
+          "markdownDescription": "**Scope**: global | **Default**: `0.3` | **Unit**: meters\n\nDistance ahead that is skipped to allow planning time before resuming.",
+          "default": 0.3,
+          "exclusiveMinimum": 0
+        },
+        "retraction_force": {
+          "type": "number",
+          "title": "Retraction Force",
+          "markdownDescription": "**Scope**: global | **Default**: `-20` | **Unit**: Newtons\n\nNegative value = retract. Force applied during pause retraction.",
+          "default": -20
+        },
+        "entry_exit_offset": {
+          "type": "number",
+          "title": "Entry/Exit Offset",
+          "markdownDescription": "**Scope**: global | **Default**: `0.1` | **Unit**: meters\n\nRetraction offset for pause entry/exit paths.",
+          "default": 0.1,
+          "exclusiveMinimum": 0
+        },
+        "pathgap_entry_exit": {
+          "type": "number",
+          "title": "Pathgap Entry/Exit",
+          "markdownDescription": "**Scope**: global | **Default**: `0.01` | **Unit**: meters\n\nPoint spacing for pause entry/exit paths.",
+          "default": 0.01,
+          "exclusiveMinimum": 0
+        },
+        "cnt_entry_exit": {
+          "type": "integer",
+          "title": "CNT Entry/Exit",
+          "markdownDescription": "**Scope**: global | **Default**: `90` | **Range**: 1–100\n\nFanuc CNT value for pause entry/exit segments.",
+          "default": 90,
+          "minimum": 1,
+          "maximum": 100
+        },
+        "lookAhead_n_points": {
+          "type": "integer",
+          "title": "Look-Ahead N Points",
+          "markdownDescription": "**Scope**: global | **Default**: `20`\n\nScans this many points per loop when using instant pausing.",
+          "default": 20,
+          "minimum": 1
+        },
+        "skip_n_pts": {
+          "type": "integer",
+          "title": "Skip N Points",
+          "markdownDescription": "**Scope**: global | **Default**: `5`\n\nGenerates a new jump every N points for pause planning.",
+          "default": 5,
+          "minimum": 1
+        }
+      }
+    },
+
+    "tpp_debug_parameters": {
+      "type": "object",
+      "title": "Debug Parameters",
+      "markdownDescription": "**Scope**: global (optional) — debug and output file settings. `ignore_discontinuity` and `ignore_reachability_test` should remain `false` in production.",
+      "additionalProperties": false,
+      "properties": {
+        "ignore_discontinuity": {
+          "type": "boolean",
+          "title": "Ignore Discontinuity",
+          "markdownDescription": "**Scope**: global | **Default**: `false` | **SAFE = false**\n\nIf true, discontinuity checks are skipped. Do not enable in production.",
+          "default": false
+        },
+        "ignore_reachability_test": {
+          "type": "boolean",
+          "title": "Ignore Reachability Test",
+          "markdownDescription": "**Scope**: global | **Default**: `false`\n\nRequires advance mode to be enabled. Skips robot reachability checks.",
+          "default": false
+        },
+        "testing_mode": {
+          "type": "boolean",
+          "title": "Testing Mode",
+          "markdownDescription": "**Scope**: global | **Default**: `false`\n\nEnables testing-specific behaviour.",
+          "default": false
+        },
+        "run_only_segmentation": {
+          "type": "boolean",
+          "title": "Run Only Segmentation",
+          "markdownDescription": "**Scope**: global | **Default**: `false`\n\nIf true, stops after segmentation and skips path planning.",
+          "default": false
+        },
+        "write_report": {
+          "type": "boolean",
+          "title": "Write Report",
+          "markdownDescription": "**Scope**: global | **Default**: `true`\n\nIf true, writes a planning report to disk.",
+          "default": true
+        },
+        "print_debugROS_msgs": {
+          "type": "boolean",
+          "title": "Print Debug ROS Messages",
+          "markdownDescription": "**Scope**: global | **Default**: `false`\n\nIf true, prints verbose ROS debug messages.",
+          "default": false
+        },
+        "write_debug_files": {
+          "type": "boolean",
+          "title": "Write Debug Files",
+          "markdownDescription": "**Scope**: global | **Default**: `true`\n\nIf true, writes intermediate debug files to disk.",
+          "default": true
+        },
+        "write_each_vector_matrix_debug_file": {
+          "type": "boolean",
+          "title": "Write Each Vector/Matrix Debug File",
+          "markdownDescription": "**Scope**: global | **Default**: `false`\n\nIf true, writes a debug file for every vector/matrix computation. High disk usage.",
+          "default": false
+        },
+        "write_csv": {
+          "type": "boolean",
+          "title": "Write CSV",
+          "markdownDescription": "**Scope**: global | **Default**: `false`\n\nIf true, writes planning results to CSV files.",
+          "default": false
+        },
+        "write_ply": {
+          "type": "boolean",
+          "title": "Write PLY",
+          "markdownDescription": "**Scope**: global | **Default**: `true`\n\nIf true, writes point cloud output to PLY files.",
+          "default": true
+        },
+        "tcp_ply_axis_num_pts": {
+          "type": "integer",
+          "title": "TCP PLY Axis Number of Points",
+          "markdownDescription": "**Scope**: global | **Default**: `5`\n\nNumber of points per TCP axis arrow in PLY output.",
+          "default": 5,
+          "minimum": 1
+        },
+        "tcp_ply_axis_gap": {
+          "type": "number",
+          "title": "TCP PLY Axis Gap",
+          "markdownDescription": "**Scope**: global | **Default**: `0.001` | **Unit**: meters\n\nSpacing between points in TCP axis arrows in PLY output.",
+          "default": 0.001,
+          "exclusiveMinimum": 0
+        },
+        "save_transformed_complete_cloud": {
+          "type": "boolean",
+          "title": "Save Transformed Complete Cloud",
+          "markdownDescription": "**Scope**: global | **Default**: `false`\n\nIf true, saves the full transformed point cloud per segment. Consider disk usage.",
+          "default": false
+        }
+      }
+    },
+
+    "tpp_advanced_planning_params": {
+      "type": "object",
+      "title": "Advanced Planning Parameters (Global Subset)",
+      "markdownDescription": "**Scope**: global (optional) — only these 5 parameters belong in the global config. All other `tpp_advanced_planning_params` are part-class scoped.",
+      "additionalProperties": false,
+      "properties": {
+        "parallel_planning": {
+          "type": "boolean",
+          "title": "Parallel Planning",
+          "markdownDescription": "**Scope**: global | **Default**: `true`\n\nEnables parallel planning across segments.",
+          "default": true
+        },
+        "parallel_planning_batch_size": {
+          "type": "integer",
+          "title": "Parallel Planning Batch Size",
+          "markdownDescription": "**Scope**: global | **Default**: `-1`\n\n`-1` = no batching; positive value = maximum number of concurrent segments.",
+          "default": -1
+        },
+        "max_reachability_requests": {
+          "type": "integer",
+          "title": "Max Reachability Requests",
+          "markdownDescription": "**Scope**: global | **Default**: `36`\n\nMaximum concurrent reachability service requests.",
+          "default": 36,
+          "minimum": 1
+        },
+        "max_parallel_astar_requests": {
+          "type": "integer",
+          "title": "Max Parallel A* Requests",
+          "markdownDescription": "**Scope**: global | **Default**: `36`\n\nMaximum concurrent A* path planning requests.",
+          "default": 36,
+          "minimum": 1
+        },
+        "record_surface_normal_frame": {
+          "type": "string",
+          "title": "Record Surface Normal Frame",
+          "markdownDescription": "**Scope**: global | **Default**: `tool1`\n\nFrame name in which surface normals are recorded.",
+          "default": "tool1"
+        }
+      }
+    },
+
+    "trajectory_planner": {
+      "type": "object",
+      "title": "Trajectory Planner (Global Subset)",
+      "markdownDescription": "**Scope**: global (optional) — only `reachability_service_attempts` belongs here. `ori_options` is part-class scoped.",
+      "additionalProperties": false,
+      "properties": {
+        "reachability_service_attempts": {
+          "type": "integer",
+          "title": "Reachability Service Attempts",
+          "markdownDescription": "**Scope**: global | **Default**: `5`\n\nNumber of times to retry the reachability service before failing.",
+          "default": 5,
+          "minimum": 1
+        }
+      }
+    }
+
+  }
+}

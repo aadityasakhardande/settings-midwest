@@ -11,17 +11,35 @@
     optimization:
       planning_max_iterations: 2
       planning_max_time: 30.0
-    spacing_modifier:
-      activate: false
+banner_safety_hdlr:
+  ros__parameters:
+    devices: |
+      - name: Light Curtain
+        type: 1
+        bit: 5
+      - name: ESTOP 1
+        type: 0
+        bit: 6
+      - name: ESTOP 2
+        type: 0
+        bit: 7
+      - name: ESTOP Pendant
+        type: 0
+        bit: 8
+    ignore_alert:
+    - Light Curtain
+fanuc_motion_hdlr:
+  ros__parameters:
+    override_speed: true
 force_module:
   ros__parameters:
     payload: 10.9
 jump_node:
   ros__parameters:
-    debug_mode: false
     diagnostics: true
-    passtopass:
-        activate: false
+multi_robot_visualization_node:
+  ros__parameters:
+    flip_orientation: true
 process_handler:
   ros__parameters: {}
 reachability_node:
@@ -37,7 +55,6 @@ reachability_node:
       wp_collision_offset: 0.02
 solver_node:
   ros__parameters:
-    discontinuity_threshold: 0.1
     joint_optimizer:
       ori_options:
       - true
@@ -149,19 +166,9 @@ system_readiness_monitor:
           "continuous_readiness_monitor": false
         }
       ]
-zivid_camera_hdlr:
-  ros__parameters:
-    save_raw_scans: true  # Whether to save raw scan data
-    downsampling_mode: 2  # 0: Downsample 2x2, 1: Downsample 3x3, 2: Downsample 4x4 
-    default_scan_settings_path: ""  # Default path for scan settings YML file: If not set will use scan_settings.yml in package share directory
-    use_manual: true
-alvium_camera_hdlr:
-    ros__parameters:
-      interval_ticks: 5000
-cognex_camera:
-  ros__parameters:
-    cognex_ip: "192.168.11.99"
 verify_sandpaper:
   ros__parameters:
     paper_json_path: /etc/ss/config/fixed_robot_scripts/chng_sp/Paper.json
-    use_cognex: true
+zivid_camera_hdlr:
+  ros__parameters:
+    save_raw_scans: true
