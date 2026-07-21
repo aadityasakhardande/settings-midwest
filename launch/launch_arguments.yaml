@@ -4,14 +4,13 @@ mode:
   online_mode: true
   simulation_mode: false
   use_on_prem_api: false
-
 general:
   uint_type: 0
   design_mode_password: $6$gSLu7QRM$DixAwGfUvXS3mkK4Uw3YLFY2PcD/dhdd2a4D3YOyPsvN7rN8iT0ZJjjNFG4Yp5mbVXjNxhuXchXuSWLhokxM./
   extender_length: 4500
   process_type: 0
   scene_config_file: /etc/ss/config/system_config/scene_config_m710.json
-  gui_layout_path: 
+  gui_layout_path: null
 process:
   boundingbox_min_x: -5000
   boundingbox_max_x: 5000
@@ -31,7 +30,6 @@ process:
   max_rpm: 12000.0
   rpm_step: 50.0
   default_rpm: 2500.0
-
 feature_flag:
   polygon_filter: false
   color_pointcloud: false
@@ -49,7 +47,7 @@ feature_flag:
   enable_alvium_calibration: false
   enable_countdown: false
   use_smart_retrieve: false
-  use_tool_box: True
+  use_tool_box: true
 session_info:
   enable: false
   user_id: false
@@ -61,7 +59,6 @@ network:
   lmi_ip: 192.168.11.10
   zivid_ip: 192.168.11.105
   turck_ip: 192.168.11.199
-  safety_device_ip: 192.168.11.128
   compound_plc_ip: 192.168.11.205
   akd2g_ip: 192.168.11.12
   fcu_ip: 192.168.11.228
@@ -107,10 +104,10 @@ task:
   pass_reload_policy: 0
 data_record:
   activate_lambda_alert: false
-  customer: PCI
-  facility: Compton
+  customer: Midwest
+  facility: Chicago
   record_on: true
-  robot: Sandra
+  robot: Midwest M710
 force:
   static_force: 8
 safety:
@@ -124,7 +121,7 @@ motion:
   move_blending_radius: 95
   move_time_msec: 8
   noncontact_force: -15
-  override_speed: true
+  override_speed: false
   pose_and_trajectory_file: /etc/ss/config/fixed_robot_scripts/misc/poses_and_trajectories.json
   robot_urdf_file: /etc/ss/robots/fanuc_m710/robot.urdf
   robot_type: fanuc_m710

@@ -1,76 +1,13 @@
 /**:
   ros__parameters:
-    joint_optimizer:
-      xtol_rel: 1.0e-8
-      ftol_rel: 1.0e-8
-      max_time: 0.5
-      max_eval: 3000
-      gradient_x: 1.0e-8
-      max_attempts: 3
-      ori_options: [false, false, true]
-      error_equalizer: 1.0e-7 
-      change_graduation: 0.02
-    extender_optimizer:
-      max_time: 0.2
-      change_graduation: 1.0e-6
-      close_proximity_optimization: true
-    sdf_settings:
-      spacing: 0.01
-      subgrid_size: 0
-      threads_for_sdf_construction: 20
-      bits_per_subgrid_pixel: 8
     collision_offsets:
-      wp_collision_offset: 0.03
       env_collision_offset: 0.03
       self_collision_offset: 0.01
-    optimization:
-      config_interpolation_step_size: 0.01
-      workspace_interpolation_step_size: 0.002
-      use_inf_norm_in_config_space: true
-      config_space_epsilon: 1.0e-10
-      workspace_position_epsilon: 0.002
-      workspace_orientation_epsilon: 0.02
-      workspace_interpolation_max_iterations: 300
-      planning_max_time: 300.0
-      planning_max_iterations: 1
-      planning_lower_limit_time: 0.01
-      jacobian_lambda: 0.1
-      ground_floor: -3.0
-      use_skip_points: true
-      num_skip_points: 2
-      check_collision_during_interpolation: true
-      workspace_limits:
-        xmin: -1.0
-        xmax: 1.0
-        ymin: -1.0
-        ymax: 1.0
-        zmin: 0.0
-        zmax: 1.0
-      strategy:
-        workspace_focus_selection: 0.9
-        tree_selection: [1.0, 0.0]
-        focus_selection: 0.1
-        node_selection: [0.5, 0.5]
-        target_selection: [0.5, 0.5]
-        extend: [0.5, 0.5]
-        connect: [0.5, 0.5]
-    refinement:
-      refinement_step_size: 0.02
-      max_path_refinement_attempts: 200
-      max_node_sequence_refinement_attempts: 100
-      path_refinement_thresh_rel: 5.0e-10
-      replan_on_collision: true
-    wsb:
-      num_surface_points: 10
-      obstacle_epsilon: 0.02
-      max_wsb_radius: 0.2
-      max_wsb_attempts: 15
-      max_wsb_iters: 200
-      use_wsb_uniform_sampling: false
-    spacing_modifier:
-      activate: false
-      factor: 0.01
-      exponent_factor: 0.1
+      wp_collision_offset: 0.03
+    extender_optimizer:
+      change_graduation: 1.0e-06
+    joint_optimizer:
+      error_equalizer: 1.0e-07
 banner_safety_hdlr:
   ros__parameters:
     devices: |
@@ -90,7 +27,7 @@ banner_safety_hdlr:
     - Light Curtain
 fanuc_motion_hdlr:
   ros__parameters:
-    override_speed: true
+    override_speed: false
 force_module:
   ros__parameters:
     payload: 18.15
@@ -102,69 +39,21 @@ jump_node:
 multi_robot_visualization_node:
   ros__parameters:
     flip_orientation: true
-process_handler:
-  ros__parameters: {}
 reachability_node:
   ros__parameters:
-    reachability_service_attempts: 10
-    diagnostics: true
     debug_reachability_output: true
-    max_instances: 20
+    diagnostics: true
     instance:
-      automatic_seeding: true
-      multi_tcp: false
-      ext_discontinuity_threshold: 0.2
       joint_discontinuity_threshold: 0.3
-      seed_candidates: [
-        0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-        0.05, 0.05, -0.14, 0.0, 0.0, -1.35,
-        0.18, 0.05, -0.14, 0.0, 0.0, 1.35
-      ]
-      roller_seeds: [0.0, -1.5707, 1.5707]
     pct:
-      points_per_segment: 150
-      assimilation_tolerance_percent: 10.0
-      pose_tolerance: 0.02
-      singularity_tolerance: 1.0e-8
-      post_processing_iterations: 2
-      post_processing_discontinuity_threshold: 0.03
-      blend_discontinuity_threshold: 0.02
-      multiple_threads: true
       discrete_collision: false
-      separate_with_seed: true
-      separate_with_tcp: false
-      mesh_to_mesh_collision: true
-      activate_first_point_separation: false
-      wp_collision_offset: 0.005
       env_collision_offset: 0.02
-      self_collision_offset: 0.025
-    solveConstrainedTrajectory:
-      debug_mode: false
-      init_tcp_axis: 1
-      init_tcp_tol: 0.001
-      seg_start_pts:
-        prev_tcp_pos_tol: 0.04
-      indv_segments:
-        prev_tcp_pos_tol: 0.01
-        next_seg_pose_tol: 0.3
-    scan_planner:
-      mesh_to_mesh_collision: false
-    seed_advisor:
-      activate: false
-      run_new_plan: false
+      mesh_to_mesh_collision: true
+      multiple_threads: true
+      wp_collision_offset: 0.005
     search:
-      urdf_path: package://default_robot_data/data/robots/fanuc_m710/robot_for_tesseract.urdf
-      srdf_path: "file:///etc/ss/robots/fanuc_m710/robot.srdf"
-      manipulator_name: arm
-      working_frame: world
-      tcp_frame: tool0
-      joint_scale: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
       num_threads: 16
-      use_redundant_joint_solutions: true
-      target_pose_sample_division: 4
-      wp_collision_offset: 0.001
-      env_collision_offset: 0.025
-      self_collision_offset: 0.025
+      srdf_path: file:///etc/ss/robots/fanuc_m710/robot.srdf
 solver_node:
   ros__parameters:
     joint_optimizer:
@@ -278,9 +167,6 @@ system_readiness_monitor:
           "continuous_readiness_monitor": false
         }
       ]
-verify_sandpaper:
-  ros__parameters:
-    paper_json_path: /etc/ss/config/fixed_robot_scripts/chng_sp/Paper.json
 zivid_camera_hdlr:
   ros__parameters:
     save_raw_scans: true
