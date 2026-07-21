@@ -137,7 +137,7 @@
                 "overlap_mode": 2,
                 "debug": true,
                 "remove_clouds_along": [
-                    1
+                    3
                 ],
                 "leaf_size": [
                     0.01,

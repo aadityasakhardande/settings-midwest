@@ -11,20 +11,20 @@
                     "leafLink": "tool0",
                     "baseLink": "base_link",
                     "jointLowerLimits": [
-                        -0.2,
+                        -3.1416,
                         -1.5708,
-                        -1.39,
-                        -2.9,
-                        -2.1816,
-                        -4.7831
+                        -1.3963,
+                        -2.8798,
+                        -2.1817,
+                        -4.7997
                     ],
                     "jointUpperLimits": [
-                        3.2,
+                        3.1416,
                         2.3562,
-                        1.5,
-                        2.9,
-                        2.1816,
-                        4.7831
+                        1.5708,
+                        2.8798,
+                        2.1817,
+                        4.7997
                     ],
                     "weightingVector": [
                         1,
@@ -67,7 +67,7 @@
                     ],
                     "axisUpperLimits": [
                         0,
-                        4.501,
+                        5.5,
                         0
                     ],
                     "rollerAxisOptions": [
@@ -77,12 +77,12 @@
                     ],
                     "rollerLowerLimits": [
                         0,
-                        0,
+                        -3.2,
                         -6.283
                     ],
                     "rollerUpperLimits": [
                         0,
-                        0,
+                        3.2,
                         6.283
                     ],
                     "collisionMask": [
@@ -90,7 +90,7 @@
                             "robot_link": "base_link",
                             "masked_env": [
                                 "Unified_collision_model",
-                                "rail_box" 
+                                "Rail_model"
                             ]
                         }
                     ]
@@ -120,7 +120,7 @@
             "position": [
                 0.0,
                 0.0,
-                0.0
+                -10.0
             ],
             "orientation": [
                 0,
@@ -137,7 +137,7 @@
             "position": [
                 0.0,
                 0.0,
-                0.0
+                -10.0
             ],
             "orientation": [
                 0,
@@ -147,7 +147,7 @@
             ]
         },
 {
-            "name": "rail_box",
+            "name": "Rail_model",
             "type": "MESH",
             "path": "file:///etc/ss/rails/models/rail_box_520.STL",
             "size": [],

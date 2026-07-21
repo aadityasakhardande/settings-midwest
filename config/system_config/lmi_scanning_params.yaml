@@ -1,13 +1,13 @@
 lmi_settings: {
   encoder_spacing: 1, # mm (decimal) Default: 1
-  exposure: 250, # ums (non decimal)
+  exposure: 500, # ums (non decimal)
   XSubsampling: 1, # e.g. 1 - full res, 2 - half res, 3 - one third res, 4 - quarter res
   ZSubsampling: 1, # e.g. 1 - full res, 2 - half res, 3 - one third res, 4 - quarter res
-  Density: 'speed', # speed, balanced, resolution Default: speed
-  spotThreshold: 5, # 1 - 255
-  spotWidthMax: 15, # 1 - 127
-  intensityThreshold: 0,
-  scan_speed: 500,
+  Density: 'balanced', # speed, balanced, resolution Default: speed
+  spotThreshold: 15, # 1 - 255
+  spotWidthMax: 25, # 1 - 127
+  intensityThreshold: 15,
+  scan_speed: 125,
   use_spike_removal: false
 }
 lmi_advanced_settings: {
@@ -26,12 +26,12 @@ lmi_calibration: {
   save_ply: true, # ply in world frame (do not use for calibration)
   output_for_calibration: false, # set true to get output for calibration - also set Density to 'resolution'
   calib_mode: 0,
-  save_data_for_robot_to_world_calib: true  # When output_for_calibration is set to True, and save_data_for_robot_to_world_calib is set to:
+  save_data_for_robot_to_world_calib: false  # When output_for_calibration is set to True, and save_data_for_robot_to_world_calib is set to:
                                             # true: the node will save data to perform robot to world calibration along with LMI calibration.
                                             # false: the node will save data to only perform LMI calibration
 }
 lmi_general_parameters: {
-  encoder_resolution:  0.0488287, # mm
+  encoder_resolution: 0.048829274, # mm
   material: 'custom', # custom, diffuse, reflective
 }
 lmi_expert_use: {

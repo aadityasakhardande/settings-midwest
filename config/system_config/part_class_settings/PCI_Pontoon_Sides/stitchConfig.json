@@ -16,12 +16,14 @@
     "meshCreation_MaximumNearestNeighbors": 100,
     "meshCreation_MaximumSurfaceAngleDiv": 1.0,
     "meshCreation_MinimumAngleDiv": 18,
-    "meshCreation_MaximumAngleDiv": 1
+    "meshCreation_MaximumAngleDiv": 1,
+    "meshCreation_downsamplingAlgorithm": 1
   },
   "MLSFilter": {
     "kPolynomialOrderMLS": 3,
-    "kSpacingForMLS": 0.004,
-    "kNeighborhoodRadiusMLS": 0.005
+    "kSpacingForMLS": 0.003,
+    "kNeighborhoodRadiusMLS": 0.015,
+    "downsamplingAlgorithm": 1
   },
   "GaussianFilter": {
     "kSpacingForGaussian": 0.004,
@@ -31,7 +33,7 @@
     "removeOutliersToggle_EachSegment": true,
     "removeOutliersMeanK": 10,
     "removeOutliersStddevMulThresh": 2,
-    "removeOutliersToggle_MrgdCld": true,
+    "removeOutliersToggle_MrgdCld": false,
     "removeOutliersMeanK_MrgdCld": 10,
     "removeOutliersStddevMulThresh_MrgdCld": 2
   },
@@ -45,18 +47,31 @@
     "normal_RiemanGraphNeighbors": 15
   },
   "PCLNormalComputation": {
-    "pcl_normal_estimation_radius": 0.015
+    "pcl_normal_estimation_radius": 0.015,
+    "pcl_normal_estimation_use_radius": true,
+    "pcl_normal_estimation_No_of_Neighbors": 30,
+    "pcl_normal_estimation_no_of_threads": 32
   },
   "EuclideanCluster": {
     "euclClusterToggle_MrgdCld": true,
-    "euclCluster_min_cluster_size_MrgdCld": 200000,
-    "euclCluster_cluster_tolerance_MrgdCld": 0.006
+    "euclCluster_min_cluster_size_MrgdCld": 100000,
+    "euclCluster_max_cluster_size_MrgdCld": 10000000,
+    "euclCluster_cluster_tolerance_MrgdCld": 0.0075
   },
   "downsample": {
-    "downsamplingLeafSize": 0.005
+    "activate": true,
+    "downsamplingLeafSize": 0.0035,
+    "downsamplingAlgorithm": 1
   },
-  "visualizeDownsample": {
-    "visualizationdownsamplingLeafSize": 0.008
+  "MergedPointcloudDownsample": {
+    "activate": false,
+    "downsamplingLeafSize": 0.0035,
+    "downsamplingAlgorithm": 1
+  },
+  "VisualizationDownsample": {
+    "activate": true,
+    "downsamplingLeafSize": 0.008,
+    "downsamplingAlgorithm": 1
   },
   "XRemoval": {
     "remove_x_masked_points": false,
@@ -75,29 +90,45 @@
   "ShadowMeshGenerator": {
     "activate": false,
     "alpha": 0.3,
-    "downsample_leaf_size": [
-      0.1,
-      0.1,
-      0.1
-    ],
+    "downsample_leaf_size": [0.1, 0.1, 0.1],
     "voxel_size": 0.1,
-    "point_spacing": 0.005,
-    "max_ray_distance": 6.0,
-    "intersection_radius": 0.1,
-    "min_cluster_size": 20000,
+    "point_spacing": 0.3,
+    "max_ray_distance": 101.0,
+    "intersection_radius": 1.0,
+    "min_cluster_size": 100,
     "max_cluster_size": 2500000,
-    "cluster_tolerance": 0.01,
+    "cluster_tolerance": 0.3,
     "view_points": [
-      [
-        -1.0,
-        3.0,
-        0.2
-      ],
-      [
-        -1.0,
-        7.0,
-        0.65
-      ]
+      [-10, 10, 100.0],
+      [-10, -10, 100.0]
     ]
+  },
+  "GeneralAlphaWrap": {
+    "alphaWrap_alpha": 0.05,
+    "alphaWrap_offset": 0.1,
+    "alphaWrap_confidence": true,
+    "alphaWrap_manifold": false,
+    "alphaWrap_output_polygons": false,
+    "alphaWrap_depth": 8,
+    "alphaWrap_min_depth": 3,
+    "alphaWrap_solver_divide": 3,
+    "alphaWrap_iso_divide": 1,
+    "alphaWrap_samples_per_node": 1,
+    "alphaWrap_scale": 1,
+    "alphaWrap_point_weignt": 4
+  },
+  "ConservativeAlphaWrap": {
+    "alphaWrap_alpha": 0.05,
+    "alphaWrap_offset": 0.1,
+    "alphaWrap_confidence": true,
+    "alphaWrap_manifold": false,
+    "alphaWrap_output_polygons": false,
+    "alphaWrap_depth": 8,
+    "alphaWrap_min_depth": 3,
+    "alphaWrap_solver_divide": 3,
+    "alphaWrap_iso_divide": 1,
+    "alphaWrap_samples_per_node": 1,
+    "alphaWrap_scale": 1,
+    "alphaWrap_point_weignt": 4
   }
 }

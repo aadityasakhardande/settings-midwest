@@ -2,7 +2,7 @@
     {
         "name": 220,
         "string_name": "220",
-        "motion_type": 0,
+        "motion_type": 2,
         "modelType": "ViT",
         "model": "/etc/ss/config/system_config/spc_model/ViT_12Dec2024.pt",
         "ForceValPickup": 2,
@@ -35,7 +35,7 @@
     {
         "name": 320,
         "string_name": "320",
-        "motion_type": 0,
+        "motion_type": 2,
         "modelType": "ViT",
         "model": "/etc/ss/config/system_config/spc_model/ViT_12Dec2024.pt",
         "ForceValPickup": 4,

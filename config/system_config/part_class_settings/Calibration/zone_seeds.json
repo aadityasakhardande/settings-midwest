@@ -3,7 +3,7 @@
     "$schema": "../../../schemas/zone_seeds.schema.json",
     "0": {
         "seeds": [
-            [1.57, 0.0, 0.0, 0.0, 0.0, 0.0]
+            [-1.57, 0.0, 0.0, 0.0, 0.0, 0.0]
         ],
         "ignoredEnvObjects": [
         ]

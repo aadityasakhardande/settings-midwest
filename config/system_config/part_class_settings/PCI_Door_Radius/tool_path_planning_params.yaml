@@ -41,7 +41,6 @@ tpp_tool_characteristic: {
 midpass_SPC_anywhere: {
   activate: true,
   small_length_to_ignore: 5.0,
-  use_paper_across_passes: false,
 }
 #################################################################################################################
 

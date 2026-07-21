@@ -1,54 +1,55 @@
 mode:
-  debug_mode: false
-  developer_mode: false
+  debug_mode: true
+  developer_mode: true
   online_mode: true
   simulation_mode: false
-  use_on_prem_api: true
-language:
-  is_spanish: true
+  use_on_prem_api: false
+
 general:
   uint_type: 0
   design_mode_password: $6$gSLu7QRM$DixAwGfUvXS3mkK4Uw3YLFY2PcD/dhdd2a4D3YOyPsvN7rN8iT0ZJjjNFG4Yp5mbVXjNxhuXchXuSWLhokxM./
   extender_length: 4500
   process_type: 0
   scene_config_file: /etc/ss/config/system_config/scene_config_m710.json
-  gui_layout_path: /etc/ss/config/system_config/gui_config/gui_layout.json
+  gui_layout_path: 
 process:
-  boundingbox_min_x: -100
-  boundingbox_max_x: 3500
+  boundingbox_min_x: -5000
+  boundingbox_max_x: 5000
   boundingbox_min_y: -2000
-  boundingbox_max_y: 7000
-  boundingbox_min_z: -1000
-  boundingbox_max_z: 1500
+  boundingbox_max_y: 10000
+  boundingbox_min_z: -10000
+  boundingbox_max_z: 10000
   min_force: 5.0
-  max_force: 150.0
-  force_step: 5.0
+  max_force: 80.0
+  force_step: 1.0
   default_force: 25.0
-  min_velocity: 0.5
+  min_velocity: 0.05
   max_velocity: 2.0
-  velocity_step: 0.05
-  default_velocity: 2.0
+  velocity_step: 0.025
+  default_velocity: 0.25
   min_rpm: 100.0
-  max_rpm: 15000.0
-  rpm_step: 100.0
+  max_rpm: 12000.0
+  rpm_step: 50.0
   default_rpm: 2500.0
+
 feature_flag:
   polygon_filter: false
-  color_pointcloud: true
+  color_pointcloud: false
   rgb_line_scan: true
   interlock_control: false
   do_registration: false
-  sand_request_on: false
+  sand_request_on: true
   enable_ambient_light_control: false
   enable_line_scan: true
-  enable_shot_scan: false
+  enable_shot_scan: true
   enable_ext_line_scan: true
   protect_motion: false
   role_based_control: false
-  enable_calibration: false
+  enable_calibration: true
   enable_alvium_calibration: false
-  enable_countdown: true
+  enable_countdown: false
   use_smart_retrieve: false
+  use_tool_box: True
 session_info:
   enable: false
   user_id: false
@@ -60,6 +61,7 @@ network:
   lmi_ip: 192.168.11.10
   zivid_ip: 192.168.11.105
   turck_ip: 192.168.11.199
+  safety_device_ip: 192.168.11.128
   compound_plc_ip: 192.168.11.205
   akd2g_ip: 192.168.11.12
   fcu_ip: 192.168.11.228
@@ -67,7 +69,7 @@ network:
 scanning:
   enable_ambient_light_control: false
   rgb_scan: true
-  scan_mode: 0
+  scan_mode: 2
   scan_transition_mode: 0
   scan_force: -10
   scan_speed: 300.0
@@ -80,8 +82,8 @@ scanning:
   custom_env_collision_offset: 0.03
   custom_self_collision_offset: 0.03
 sandpaper:
-  chng_sp_num_try: 3
-  sandpaper_on: true
+  chng_sp_num_try: 2
+  sandpaper_on: false
   skip_first_reload_verification: false
   assume_first_pass_paper_on: false
   use_cognex: true
@@ -102,9 +104,9 @@ trajectory_planner:
 task:
   enable_readiness_check: true
   manual_spatter: false
-  pass_reload_policy: 2
+  pass_reload_policy: 0
 data_record:
-  activate_lambda_alert: true
+  activate_lambda_alert: false
   customer: PCI
   facility: Compton
   record_on: true

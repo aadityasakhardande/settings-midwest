@@ -7,7 +7,7 @@
 		},
 		"TOOL": {
 			"required": true,
-			"type": 0
+			"type": 3
 		},
 		"ANDON_LIGHT": {
 			"required": true,
@@ -18,7 +18,7 @@
 			"type": 0
 		},
 		"TOOL_CHANGER": {
-			"required": false,
+			"required": true,
 			"type": 0
 		},
 		"AMBIENT_LIGHT": {
@@ -132,18 +132,6 @@
 			"address": 7
 		},
 		{
-			"name": "PUSH_STAGE2_PORT",
-			"address": 8
-		},
-		{
-			"name": "PUSH_STAGE3_PORT",
-			"address": 9
-		},
-		{
-			"name": "PUSH_STAGE4_PORT",
-			"address": 10
-		},
-		{
 			"name": "AMBIENT_LIGHT_PORT",
 			"address": 999
 		},
@@ -153,7 +141,7 @@
 		},
 		{
 			"name": "FIXTURE_2_BIT",
-			"address": 999
+			"address": 32
 		},
 		{
 			"name": "SENSOR_ENCLOSURE_LID_PORT",
@@ -185,7 +173,7 @@
 		},
 		{
 			"name": "TOOL_CLAMP_SOLENOID_COIL",
-			"address": 999
+			"address": 26
 		},
 		{
 			"name": "SPINDLE_STATIONARY_SENSOR_COIL",

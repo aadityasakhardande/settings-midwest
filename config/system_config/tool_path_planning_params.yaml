@@ -1,1 +1,16 @@
 # yaml-language-server: $schema=./schemas/tool_path_planning_params.global.schema.json
+
+tpp_debug_parameters:
+  ignore_discontinuity: false
+  ignore_reachability_test: false
+  testing_mode: false
+  run_only_segmentation: false
+  write_report: true
+  print_debugROS_msgs: true
+  write_debug_files: true
+  write_each_vector_matrix_debug_file: false
+  write_csv: false
+  write_ply: true
+  tcp_ply_axis_num_pts: 5
+  tcp_ply_axis_gap: 0.001
+  save_transformed_complete_cloud: false

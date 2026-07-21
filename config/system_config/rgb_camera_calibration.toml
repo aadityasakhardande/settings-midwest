@@ -10,5 +10,5 @@ square_size_mm = 30.0
 binary_threshold_value = 100
 
 [images]
-number_of_images = 27
+number_of_images = 20
 image_file_extension = "png"

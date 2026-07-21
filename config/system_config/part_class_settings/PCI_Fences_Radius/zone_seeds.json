@@ -3,8 +3,8 @@
     "$schema": "../../../schemas/zone_seeds.schema.json",
     "0": {
         "seeds": [
-            [0.5, 0.0, 0.0, 0.0, 0.0, 0.0],
-            [2.5, 0.0, 0.0, 0.0, 0.0, 0.0]
+            [-0.5, 0.0, 0.0, 0.0, 0.0, 0.0],
+            [-2.5, 0.0, 0.0, 0.0, 0.0, 0.0]
         ],
         "ignoredEnvObjects": ["pontoon_COLL","hood_COLL"]
     }
