@@ -2,94 +2,9 @@
     "$schema": "./schemas/part_settings.schema.json",
     "groups": {
         "0": {
-            "display_name": "PCI Doors",
-            "colors": "Purple, Red, Silver, Yellow",
-            "path": "/settings/group_1.yml",
-            "planner_param_folder": [
-                {
-                    "display_name": "Top Region",
-                    "folder_path": "part_class_settings/PCI_Door_Top"
-                },
-                {
-                    "display_name": "Radius",
-                    "folder_path": "part_class_settings/PCI_Door_Radius"
-                },
-                {
-                    "display_name": "Side Region",
-                    "folder_path": "part_class_settings/PCI_Door_Side"
-                }
-            ],
-            "lmi_settings_path": "part_class_settings/PCI_Door_Top",
-            "stitch_config_path": "part_class_settings/PCI_Door_Top",
-            "intended_gsa_path": ""
-        },
-
-        "1": {
-            "display_name": "PCI Curved Pontoons",
-            "colors": "Purple, Red, Silver, Yellow",
-            "path": "/settings/group_1.yml",
-            "planner_param_folder": [
-                {
-                    "display_name": "Curved Regions",
-                    "folder_path": "part_class_settings/PCI_Pontoon_Curved"
-                },
-                {
-                    "display_name": "Side Regions",
-                    "folder_path": "part_class_settings/PCI_Pontoon_Sides"
-                },
-                {
-                    "display_name": "Top Regions",
-                    "folder_path": "part_class_settings/PCI_Pontoon_Top"
-                }
-            ],
-            "lmi_settings_path": "part_class_settings/PCI_Pontoon_Sides",
-            "stitch_config_path": "part_class_settings/PCI_Pontoon_Sides",
-            "intended_gsa_path": ""
-        },
-        "2": {
-            "display_name": "PCI Flat Pontoons",
-            "colors": "Purple, Red, Silver, Yellow",
-            "path": "/settings/group_1.yml",
-            "planner_param_folder": [
-                {
-                    "display_name": "Curved Regions",
-                    "folder_path": "part_class_settings/PCI_Flat_Pontoon_Curves"
-                },
-                {
-                    "display_name": "Side Regions",
-                    "folder_path": "part_class_settings/PCI_Flat_Pontoon_Sides"
-                },
-                 {
-                    "display_name": "Top Region",
-                    "folder_path": "part_class_settings/PCI_Flat_Pontoon_Top"
-                }
-            ],
-            "lmi_settings_path": "part_class_settings/PCI_Flat_Pontoon_Sides",
-            "stitch_config_path": "part_class_settings/PCI_Flat_Pontoon_Sides",
-            "intended_gsa_path": ""
-        },
-        "3": {
-            "display_name": "PCI Fronts",
-            "colors": "Purple, Red, Silver, Yellow",
-            "path": "/settings/group_1.yml",
-            "planner_param_folder": [
-                {
-                    "display_name": "Curved Regions",
-                    "folder_path": "part_class_settings/PCI_Front_Curves"
-                },
-                                {
-                    "display_name": "Flat Regions",
-                    "folder_path": "part_class_settings/PCI_Front_Flat"
-                }
-            ],
-            "lmi_settings_path": "part_class_settings/PCI_Front_Curves",
-            "stitch_config_path": "part_class_settings/PCI_Front_Curves",
-            "intended_gsa_path": ""
-        },
-        "4": {
             "display_name": "Calibration",
             "colors": "Purple, Red, Silver, Yellow",
-            "path": "/settings/group_1.yml",
+            "path": "capture_settings/ZIVID2+_new.yml",
             "planner_param_folder": [
                 {
                     "display_name": "Calibration",
@@ -97,31 +12,13 @@
                 }
             ],
             "lmi_settings_path": "part_class_settings/Calibration",
-            "stitch_config_path": "part_class_settings/PCI_Flat",
+            "stitch_config_path": "part_class_settings/Calibration",
             "intended_gsa_path": ""
         },
-        "5": {
-            "display_name": "PCI Fences",
-            "colors": "Purple, Red, Silver, Yellow",
-            "path": "/settings/group_1.yml",
-            "planner_param_folder": [
-                {
-                    "display_name": "Radius",
-                    "folder_path": "part_class_settings/PCI_Fences_Radius"
-                },
-                {
-                    "display_name": "Side Region",
-                    "folder_path": "part_class_settings/PCI_Fences_Side"
-                }
-            ],
-            "lmi_settings_path": "part_class_settings/PCI_Fences_Radius",
-            "stitch_config_path": "part_class_settings/PCI_Fences_Radius",
-            "intended_gsa_path": ""
-        },
-          "6": {
+        "1": {
             "display_name": "Artiflex",
             "colors": "Purple, Red, Silver, Yellow",
-            "path": "/settings/group_1.yml",
+            "path": "capture_settings/ZIVID2+_new.yml",
             "planner_param_folder": [
                 {
                     "display_name": "Full part",
@@ -144,24 +41,10 @@
             "stitch_config_path": "part_class_settings/artiflex_full",
             "intended_gsa_path": ""
         },
-          "7": {
-            "display_name": "Lehigh",
-            "colors": "Purple, Red, Silver, Yellow",
-            "path": "/settings/group_1.yml",
-            "planner_param_folder": [
-                {
-                    "display_name": "Full part",
-                    "folder_path": "part_class_settings/lehigh"
-                }
-            ],
-            "lmi_settings_path": "part_class_settings/lehigh",
-            "stitch_config_path": "part_class_settings/lehigh",
-            "intended_gsa_path": ""
-        },
-        "8": {
+        "2": {
             "display_name": "Braun",
             "colors": "Purple, Red, Silver, Yellow",
-            "path": "/settings/group_1.yml",
+            "path": "capture_settings/ZIVID2+_new.yml",
             "planner_param_folder": [
                 {
                     "display_name": "Long Weld 1",

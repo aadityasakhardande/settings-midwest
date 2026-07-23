@@ -44,7 +44,7 @@ feature_flag:
   protect_motion: false
   role_based_control: false
   enable_calibration: true
-  enable_alvium_calibration: false
+  enable_alvium_calibration: true
   enable_countdown: false
   use_smart_retrieve: false
   use_tool_box: true
@@ -68,7 +68,7 @@ scanning:
   rgb_scan: true
   scan_mode: 2
   scan_transition_mode: 0
-  scan_force: -10
+  scan_force: 10
   scan_speed: 300.0
   retry_scanning: false
   boundary_gap_x: 0.01
