@@ -1,0 +1,304 @@
+{
+    "$schema": "/etc/ss/config/system_config/schemas/segmentation.schema.json",
+    "globals": {
+        "debug_mode": true
+    },
+    "functions": [
+        {
+            "function": "downsample",
+            "params": {
+                "leaf_sizes": [
+                    0.005,
+                    0.005,
+                    0.005
+                ],
+                "algorithm": 0
+            }
+        },
+        {
+            "function": "compute_normal",
+            "params": {
+                "use_pcl": false,
+                "use_jet": false,
+                "use_radius": true,
+                "K": 62,
+                "radius_normal": 0.025,
+                "viewpoint_normal": [
+                    0.0,
+                    4.0,
+                    5.0
+                ],
+                "flip_normals": false,
+                "maintain_normals": true,
+                "colourize": true,
+                "field": 1,
+                "eucledian_cluster": true,
+                "cluster_tolerance": 0.01,
+                "min_cluster_size": 100,
+                "max_cluster_size": 10000000,
+                "use_gpu": true
+            }
+        },
+        {
+            "function": "mls_smoothening",
+            "params": {
+                "algorithm": "NONE",
+                "polynomial_order": 3,
+                "search_radius": 0.025,
+                "upsampling_radius": 0.02,
+                "upsampling_step_size": 0.005,
+                "point_density": 20,
+                "dilation_iterations": 5,
+                "voxel_size": 0.01,
+                "compute_normal": false
+            }
+        },
+        {
+            "function": "eucledian_clustering",
+            "params": {
+                "cluster_tolerance": 0.007,
+                "min_cluster_size": 100,
+                "max_cluster_size": 10000000,
+                "save_debug": false
+            }
+        },
+        {
+            "function": "swept_cylinder",
+            "params": {
+                "radius": 0.1,
+                "height": 3.0,
+                "surface_offset": 0.01,
+                "include_high_curvature": true,
+                "downsample": false,
+                "include_euclidean_discard": true,
+                "include_self": true,
+                "leaf_size": [
+                    0.01,
+                    0.01,
+                    0.01
+                ],
+                "cluster": true,
+                "cluster_tolerance": 0.007,
+                "min_cluster_size": 20,
+                "max_cluster_size": 10000000,
+                "fast_mode": false,
+                "use_old": false,
+                "save_debug": false,
+                "reverse_result": false,
+                "use_gpu": true
+            }
+        },
+        {
+            "function": "compute_normal",
+            "params": {
+                "use_pcl": true,
+                "use_jet": false,
+                "use_radius": true,
+                "K": 62,
+                "radius_normal": 0.025,
+                "viewpoint_normal": [
+                    0.0,
+                    4.0,
+                    5.0
+                ],
+                "flip_normals": false,
+                "maintain_normals": true,
+                "colourize": true,
+                "field": 1,
+                "eucledian_cluster": false,
+                "cluster_tolerance": 0.01,
+                "min_cluster_size": 100,
+                "max_cluster_size": 10000000,
+                "use_gpu": true
+            }
+        },
+        {
+            "function": "curvature_segmentation",
+            "params": {
+                "curvature_threshold": 0.015,
+                "princ_curv_radius": 0.04,
+                "cluster_tolerance": 0.01,
+                "distribute": false,
+                "min_cluster_size": 100,
+                "max_cluster_size": 10000000,
+                "noise_max_size": 50,
+                "cluster": true,
+                "approx_density_measure": 0.01,
+                "boundary_detection_tol": 0.02,
+                "debug": true,
+                "ignore_lower_percentage": 0,
+                "ignore_top_percentage": 100,
+                "keep_only_high_curvatures": false,
+                "leaf_size": [
+                    0.01,
+                    0.01,
+                    0.01
+                ],
+                "min_regular_cluster": 100,
+                "preserve_corners": false,
+                "split_by_thin": false,
+                "thin_feature_measure": 0.1,
+                "use_gpu": true
+            }
+        },
+        {
+            "function": "projection_segmentation",
+            "params": {
+                "algorithm": 3,
+                "maxAngleDeviation": 40,
+                "custom_seed_activate": false,
+                "custom_first_seed": [
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "cluster_tolerance": 0.007,
+                "min_cluster_size": 2500,
+                "max_cluster_size": 10000000,
+                "noise_max_size": 50,
+                "introduce_overlap": true,
+                "overlap_radius": 0.03,
+                "boundary_radius": 0.01,
+                "overlap_mode": 2,
+                "do_alignment_correction": false,
+                "remove_clouds_along": [
+                    5
+                ],
+                "debug": true,
+                "leaf_size": [
+                    0.01,
+                    0.01,
+                    0.01
+                ],
+                "multiple_custom_seeds": [
+                    [
+                        0,
+                        0,
+                        1
+                    ],
+                    [
+                        1,
+                        0,
+                        0
+                    ]
+                ]
+            }
+        },
+        {
+            "function": "compute_normal",
+            "params": {
+                "use_pcl": false,
+                "use_jet": false,
+                "use_radius": true,
+                "K": 700,
+                "radius_normal": 0.075,
+                "viewpoint_normal": [
+                    0.0,
+                    4.0,
+                    5.0
+                ],
+                "flip_normals": false,
+                "maintain_normals": true,
+                "colourize": true,
+                "field": 1,
+                "eucledian_cluster": false,
+                "cluster_tolerance": 0.01,
+                "min_cluster_size": 100,
+                "max_cluster_size": 10000000,
+                "use_gpu": true
+            }
+        },
+        {
+            "function": "projection_segmentation",
+            "params": {
+                "algorithm": 4,
+                "maxAngleDeviation": 40,
+                "custom_seed_activate": false,
+                "custom_first_seed": [
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "cluster_tolerance": 0.007,
+                "min_cluster_size": 100,
+                "max_cluster_size": 10000000,
+                "noise_max_size": 50,
+                "introduce_overlap": false,
+                "overlap_radius": 0.03,
+                "boundary_radius": 0.01,
+                "overlap_mode": 2,
+                "do_alignment_correction": false,
+                "remove_clouds_along": [
+                  5
+                ],
+                "debug": true,
+                "leaf_size": [
+                    0.01,
+                    0.01,
+                    0.01
+                ],
+                "multiple_custom_seeds": [
+                    [
+                        1,
+                        0,
+                        0
+                    ],
+                    [
+                        -1,
+                        0,
+                        0
+                    ],
+                    [
+                        0,
+                        1,
+                        0
+                    ],
+                    [
+                        0,
+                        -1,
+                        0
+                    ],
+                    [
+                        0,
+                        0,
+                        1
+                    ],
+                    [
+                        0,
+                        0,
+                        -1
+                    ],
+                    [
+                        0,
+                        -0.7071,
+                        0.7071
+                    ]
+                ]
+            }
+        },
+        {
+            "function": "compute_normal",
+            "params": {
+                "use_pcl": false,
+                "use_jet": false,
+                "use_radius": true,
+                "K": 700,
+                "radius_normal": 0.075,
+                "viewpoint_normal": [
+                    0.0,
+                    4.0,
+                    5.0
+                ],
+                "flip_normals": false,
+                "maintain_normals": true,
+                "colourize": true,
+                "field": 1,
+                "eucledian_cluster": false,
+                "cluster_tolerance": 0.01,
+                "min_cluster_size": 100,
+                "max_cluster_size": 10000000,
+                "use_gpu": true
+            }
+        }
+    ]
+}

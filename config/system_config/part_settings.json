@@ -16,51 +16,17 @@
             "intended_gsa_path": ""
         },
         "1": {
-            "display_name": "Artiflex",
+            "display_name": "Midwest",
             "colors": "Purple, Red, Silver, Yellow",
             "path": "capture_settings/ZIVID2+_new.yml",
             "planner_param_folder": [
                 {
-                    "display_name": "Full part",
-                    "folder_path": "part_class_settings/artiflex_full"
-                },
-                {
-                    "display_name": "Half part",
-                    "folder_path": "part_class_settings/artiflex_half"
-                },
-                {
-                    "display_name": "Jumps over middle and sides",
-                    "folder_path": "part_class_settings/artiflex_jumps_over_middle_and_sides"
-                },
-                {
-                    "display_name": "Jumps over sides",
-                    "folder_path": "part_class_settings/artiflex_jumps_sides"
+                    "display_name": "Full Blade",
+                    "folder_path": "part_class_settings/midwest"
                 }
             ],
-            "lmi_settings_path": "part_class_settings/artiflex_full",
-            "stitch_config_path": "part_class_settings/artiflex_full",
-            "intended_gsa_path": ""
-        },
-        "2": {
-            "display_name": "Braun",
-            "colors": "Purple, Red, Silver, Yellow",
-            "path": "capture_settings/ZIVID2+_new.yml",
-            "planner_param_folder": [
-                {
-                    "display_name": "Long Weld 1",
-                    "folder_path": "part_class_settings/braun_long_weld_1"
-                },
-                {
-                    "display_name": "Long Weld 2",
-                    "folder_path": "part_class_settings/braun_long_weld_2"
-                },
-                {
-                    "display_name": "Spot Weld",
-                    "folder_path": "part_class_settings/braun_spot_weld"
-                }
-            ],
-            "lmi_settings_path": "part_class_settings/braun_long_weld_1",
-            "stitch_config_path": "part_class_settings/braun_long_weld_1",
+            "lmi_settings_path": "part_class_settings/midwest",
+            "stitch_config_path": "part_class_settings/midwest",
             "intended_gsa_path": ""
         }
     },

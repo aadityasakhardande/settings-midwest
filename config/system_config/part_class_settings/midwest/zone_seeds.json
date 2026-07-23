@@ -1,0 +1,11 @@
+
+{
+    "$schema": "../../../schemas/zone_seeds.schema.json",
+    "0": {
+        "seeds": [
+            [-1.5708, 0.0, 0.0, 0.0, 0.0, 0.0],
+            [-3.14, 0.0, 0.0, 0.0, 0.0, 0.0]
+        ],
+        "ignoredEnvObjects": ["door_COLL","hood_COLL","fence_COLL"]
+    }
+}

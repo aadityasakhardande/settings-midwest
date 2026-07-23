@@ -1,11 +1,11 @@
 lmi_settings: {
   encoder_spacing: 2, # mm (decimal) Default: 1
-  exposure: 250, # ums (non decimal)
-  XSubsampling: 1, # e.g. 1 - full res, 2 - half res, 3 - one third res, 4 - quarter res
+  exposure: 5000, # ums (non decimal)
+  XSubsampling: 2, # e.g. 1 - full res, 2 - half res, 3 - one third res, 4 - quarter res
   ZSubsampling: 1, # e.g. 1 - full res, 2 - half res, 3 - one third res, 4 - quarter res
-  Density: 'balanced', # speed, balanced, resolution Default: speed
+  Density: 'speed', # speed, balanced, & resolution Default: speed
   spotThreshold: 5, # 1 - 255
-  spotWidthMax: 15, # 1 - 127
+  spotWidthMax: 50, # 1 - 127
   intensityThreshold: 0,
   scan_speed: 500,
   use_spike_removal: false
@@ -17,8 +17,8 @@ lmi_advanced_settings: {
   spotSumMin: 1, # 0 - 255  (factory default value: 1)
   sobelEdgeWindow: 19, # 5 - 57, has to be odd number  (factory default value for Blue 2670: 11,
                                                       # factory default value for Red 2690: 15)
-  hdr_mode: 1, # 0: disabled, 1: gamma                  (factory default value: 0)
-  hdr_parameters: 0.5, # 0.0 - 5.0                        (factory default value: 1)
+  hdr_mode: 0, # 0: disabled, 1: gamma                  (factory default value: 0)
+  hdr_parameters: 1, # 0.0 - 5.0                        (factory default value: 1)
   enhanced_surface_flatness_filter_type: -1,          # 0: Box, 1: Gaussian, -1: Disabled AND you need to untoggle manually in GUI
   enhanced_surface_flatness_filter_length: 5,         # 3, 5, 7, 9, 11, 13   (factory default value: 5)
 }
