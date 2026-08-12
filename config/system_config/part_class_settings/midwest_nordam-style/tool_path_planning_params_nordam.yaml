@@ -181,7 +181,7 @@ tpp_advanced_planning_params: {
   entry_exit_inclination_angle_n_pts_avg_dir: 5,   # Number of lookahead points to average when computing the entry/exit approach direction
   grid_length_sanding_line_divisor: 5,             # Internal grid resolution for sanding lines = pathgap_sanding_line divided by this value
   grid_length_connection_line_divisor: 5,          # Internal grid resolution for connection lines = pathgap_connection_line divided by this value
-  projection_mode: "obb",                           # How to project the path grid onto the surface: "obb" = optimal bounding box, "pca" = principal component, "preset" = world axes
+  projection_mode: "pca",                           # How to project the path grid onto the surface: "obb" = optimal bounding box, "pca" = principal component, "preset" = world axes
   state_based_reconstruction: true,                # Use a state-machine approach to reconstruct the path — more robust than linear reconstruction
   always_compute_seed_indices: false,              # Recompute seed/start indices from scratch every time — slower but may reduce jumps
   retraction_lookAhead_dist: 0.1,                  # How far ahead the planner looks to decide whether to insert a retraction
@@ -198,9 +198,9 @@ tpp_advanced_planning_params: {
   override_surface_normals: false,                  # Replace computed surface normals with the fixed TCP rotation angles defined below
   tcp_rotation_angle_0: 0.0,                       # Fixed rotation for z+ surface normal face (top) — used when override_surface_normals is true
   tcp_rotation_angle_1: 0.0,                       # Fixed rotation for x- surface normal face
-  tcp_rotation_angle_2: -90.0,                     # Fixed rotation for y- surface normal face
+  tcp_rotation_angle_2: 0.0,                     # Fixed rotation for y- surface normal face
   tcp_rotation_angle_3: 0.0,                       # Fixed rotation for x+ surface normal face
-  tcp_rotation_angle_4: 90.0,                      # Fixed rotation for y+ surface normal face
+  tcp_rotation_angle_4: 0.0,                      # Fixed rotation for y+ surface normal face
   tcp_rotation_angle_5: 0.0,                       # Fixed rotation for z- surface normal face (bottom)
   max_reachability_requests: 36,                   # Maximum number of reachability service requests sent per planning cycle
   z_height_offset_all_waypoints: 0.0,              # Apply a uniform Z shift to every waypoint in world coordinates
@@ -214,7 +214,7 @@ tpp_advanced_planning_params: {
   world_x_offset: 0.0,                             # Shift the entire input cloud in the world X direction before planning
   world_y_offset: 0.0,                             # Shift the entire input cloud in the world Y direction before planning
   world_z_offset: 0.0,                             # Shift the entire input cloud in the world Z direction before planning
-  keep_shifting_start_pts_around_corners: false,   # Continue shifting path start points around corners rather than stopping at them
+  keep_shifting_start_pts_around_corners: true,   # Continue shifting path start points around corners rather than stopping at them
   extra_jumps_allowed_for_shifting_pts: 0,         # How many additional jumps are allowed when shifting start points around corners
 }
 

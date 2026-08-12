@@ -4,9 +4,9 @@
 # ─── SANDING BEHAVIOUR ──────────────────────────────────────────────────────
 tpp_sanding_behaviour: {
   turn_on_sander_above_part: false,              # Turn the sander on while hovering above the part, before making contact
-  outer_boundary_subtraction: 0.05,             # Shrink the path inward from the outer edge of the part to avoid running off
-  inner_boundary_subtraction: 0.05,             # Shrink the path inward from inner boundaries (holes, cutouts)
-  entry_exit_offset: 0.1,                        # Height above the surface the robot lifts to when entering or exiting a path
+  outer_boundary_subtraction: 0.0,             # Shrink the path inward from the outer edge of the part to avoid running off
+  inner_boundary_subtraction: 0.0,             # Shrink the path inward from inner boundaries (holes, cutouts)
+  entry_exit_offset: 0.2,                        # Height above the surface the robot lifts to when entering or exiting a path
   entry_exit_inclination_angle: [[0.0, 0.0]],   # Approach/departure tilt angle [x_deg, y_deg] as the tool touches down or lifts off
 }
 
@@ -27,19 +27,19 @@ tpp_planning_parameters: {
   pathgap_entry_exit_line: 0.01,                     # Point spacing on entry and exit approach lines
   continuity_distance: 0.06,                         # Max distance between consecutive points before they are treated as a jump or discontinuity
   boundary_detection_dist: 0.03,                     # Distance threshold used to decide whether a point is close enough to the boundary to matter
-  cnt_sanding_line: 90,                              # Continuity quality score (1–100) required to keep a sanding line — lower is more lenient
-  cnt_connection_line: 90,                           # Continuity quality score required to keep a connection line
-  cnt_start_end_line: 95,                            # Continuity quality score required to keep a start/end line
+  cnt_sanding_line: 87,                              # Continuity quality score (1–100) required to keep a sanding line — lower is more lenient
+  cnt_connection_line: 80,                           # Continuity quality score required to keep a connection line
+  cnt_start_end_line: 80,                            # Continuity quality score required to keep a start/end line
   cnt_boundary_sanding_line: 90,                     # Continuity quality score required to keep a boundary sanding line
-  remove_unreachable_pts_radius_multiplier: 4,       # Multiplier on the tool radius when sweeping for unreachable points — larger removes more
+  remove_unreachable_pts_radius_multiplier: 0.9,       # Multiplier on the tool radius when sweeping for unreachable points — larger removes more
   acceptable_sanding_path_length: 0.2,               # Minimum sanding path length to keep — segments shorter than this are dropped
   acceptable_dist_2_next_line_percentage: 600,       # Max allowed gap to the next sanding line as % above nominal — 600 means up to 7x the normal gap
-  normal_estimation_radius: 0.01,                    # Radius around each point used to estimate its surface normal
-  z_estimation_radius: 0.02,                         # Radius used to estimate the local surface height at each point
+  normal_estimation_radius: 0.03,                    # Radius around each point used to estimate its surface normal
+  z_estimation_radius: 0.03,                         # Radius used to estimate the local surface height at each point
   acceptable_neighbours_in_radius: 3,                # Minimum number of neighbouring points needed within the radius for a point to be valid
   remove_pts_outside_boundary: true,                 # Discard waypoints that fall outside the detected part boundary
-  feature_radius_boundary_estimation: 0.03,          # Radius used to compute the boundary when checking remove_pts_outside_boundary
-  path_smoothing_weight: 0.05,                       # How strongly to smooth the path — higher means smoother but may deviate from the surface
+  feature_radius_boundary_estimation: 0.01,          # Radius used to compute the boundary when checking remove_pts_outside_boundary
+  path_smoothing_weight: 0.01,                       # How strongly to smooth the path — higher means smoother but may deviate from the surface
   smoothening_repeat: 0,                             # How many times to repeat the smoothing pass — 0 means no smoothing
   repeat_reachable_pts_analysis: 5,                  # How many times to retry the reachable-point search if some points come back unreachable
 }
@@ -174,25 +174,25 @@ tpp_advanced_planning_params: {
   path_following_tilt: true,                        # Continuously update the tilt direction as the path curves
   do_not_connect_sanding_lines: false,              # Skip generating connection lines between sanding passes
   remove_surface_connection_lines: false,           # Remove connection lines from the final output path
-  shape_following_path: false,                      # Generate a center-line-following path instead of parallel lines — useful for profiled surfaces
-  offset_values_for_shape_following: [-0.02, 0.0, 0.02], # Lateral offsets from the center line for each parallel path in shape-following mode
-  threshold_for_ignoring_rows: 0.0,                # Drop fill-point rows shorter than this fraction of the longest row — 0.0 keeps all
+  shape_following_path: true,                      # Generate a center-line-following path instead of parallel lines — useful for profiled surfaces
+  offset_values_for_shape_following: [-0.038,-0.025,-0.012, 0.0, 0.012, 0.025, 0.038], # Lateral offsets from the center line for each parallel path in shape-following mode
+  threshold_for_ignoring_rows: 0.4,                # Drop fill-point rows shorter than this fraction of the longest row — 0.0 keeps all
   follow_path_TCP: false,                           # Always orient the TCP to point in the direction of travel
   entry_exit_inclination_angle_n_pts_avg_dir: 5,   # Number of lookahead points to average when computing the entry/exit approach direction
-  grid_length_sanding_line_divisor: 5,             # Internal grid resolution for sanding lines = pathgap_sanding_line divided by this value
-  grid_length_connection_line_divisor: 5,          # Internal grid resolution for connection lines = pathgap_connection_line divided by this value
+  grid_length_sanding_line_divisor: 10,             # Internal grid resolution for sanding lines = pathgap_sanding_line divided by this value
+  grid_length_connection_line_divisor: 10,          # Internal grid resolution for connection lines = pathgap_connection_line divided by this value
   projection_mode: "obb",                           # How to project the path grid onto the surface: "obb" = optimal bounding box, "pca" = principal component, "preset" = world axes
   state_based_reconstruction: true,                # Use a state-machine approach to reconstruct the path — more robust than linear reconstruction
   always_compute_seed_indices: false,              # Recompute seed/start indices from scratch every time — slower but may reduce jumps
   retraction_lookAhead_dist: 0.1,                  # How far ahead the planner looks to decide whether to insert a retraction
-  retraction_check_skip_n_pts: 5,                  # Check only every N points for needed retractions — trades precision for speed
+  retraction_check_skip_n_pts: 10,                  # Check only every N points for needed retractions — trades precision for speed
   reorderBtwnSegments: false,                      # Reorder processing across segments vs fully completing one segment before starting the next
   grid_addition: 0.0,                              # Extra padding added to the planning grid boundaries
   pca_similarity_threshold_percent: 85.0,          # How similar (%) two PCA axis orientations must be before an angle correction is triggered
   pca_similarity_correction_angle: 45.0,           # Correction angle applied when PCA orientations are too similar to each other
   separate_by_seed_id: false,                      # Split the output paths into separate files by seed point ID
   separate_by_tcp_id: false,                       # Split the output paths into separate files by TCP ID
-  outer_boundary_subtraction_x_dir: 0.0,           # Extra boundary shrinkage applied in the local X direction
+  outer_boundary_subtraction_x_dir: 0.03,           # Extra boundary shrinkage applied in the local X direction
   outer_boundary_subtraction_y_dir: 0.0,           # Extra boundary shrinkage applied in the local Y direction
   record_surface_normal_frame: 'tool1',             # Which tool frame to use when recording surface normal orientations
   override_surface_normals: false,                  # Replace computed surface normals with the fixed TCP rotation angles defined below
