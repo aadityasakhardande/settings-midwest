@@ -21,8 +21,12 @@
             "path": "capture_settings/ZIVID2+_new.yml",
             "planner_param_folder": [
                 {
-                    "display_name": "Full Blade",
-                    "folder_path": "part_class_settings/midwest"
+                    "display_name": "Nordam-Style Midwest",
+                    "folder_path": "part_class_settings/midwest_nordam-style"
+                },
+                {
+                    "display_name": "RHC-Style Midwest",
+                    "folder_path": "part_class_settings/midwest_rhc-style"
                 }
             ],
             "lmi_settings_path": "part_class_settings/midwest",

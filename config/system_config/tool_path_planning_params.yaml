@@ -150,7 +150,7 @@ pause_planning: {
 tpp_debug_parameters: {
   ignore_discontinuity: false,                    # Ignore path discontinuities during planning — UNSAFE, only for offline debugging
   testing_mode: false,                            # Run in lightweight test mode with less computation for faster iteration
-  run_only_segmentation: true,                   # Stop after segmentation and skip path planning entirely
+  run_only_segmentation: false,                   # Stop after segmentation and skip path planning entirely
   write_report: true,                             # Write a planning summary report to disk
   print_debugROS_msgs: false,                     # Print verbose debug messages to the ROS log
   write_debug_files: true,                        # Write intermediate debug point cloud and path files to disk

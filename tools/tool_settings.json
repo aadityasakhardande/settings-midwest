@@ -2,8 +2,8 @@
     "$schema": "./schemas/tool_settings.schema.json",
     "tool_info": [
         {
-            "filename": "pushcorp_SM1503",
-            "tcp_count": 1
+            "filename": "pushcorp_STC1503",
+            "tcp_count": 4
         }
     ],
     "data": {
@@ -13,6 +13,16 @@
                     "display_name": "5in_disk",
                     "tool_id": 0,
                     "tcp_id": 0
+                },
+                {
+                    "display_name": "North",
+                    "tool_id": 0,
+                    "tcp_id": 2
+                },
+                {
+                    "display_name": "East",
+                    "tool_id": 0,
+                    "tcp_id": 1
                 }
             ],
             "7": [
