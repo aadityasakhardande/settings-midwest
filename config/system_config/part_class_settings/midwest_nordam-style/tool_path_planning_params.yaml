@@ -171,7 +171,7 @@ tpp_advanced_planning_params: {
   tilt_tcp_path_dir: 0,                             # Tilt the tool (degrees) in the direction of travel
   tilt_tcp_orth_dir: 0,                             # Tilt the tool (degrees) perpendicular to the direction of travel
   tcp_offset: 0.0,                                  # Shift the TCP along the tool axis — positive means away from the surface
-  path_following_tilt: true,                        # Continuously update the tilt direction as the path curves
+  path_following_tilt: false,                        # Continuously update the tilt direction as the path curves
   do_not_connect_sanding_lines: false,              # Skip generating connection lines between sanding passes
   remove_surface_connection_lines: false,           # Remove connection lines from the final output path
   shape_following_path: false,                      # Generate a center-line-following path instead of parallel lines — useful for profiled surfaces
@@ -181,7 +181,7 @@ tpp_advanced_planning_params: {
   entry_exit_inclination_angle_n_pts_avg_dir: 5,   # Number of lookahead points to average when computing the entry/exit approach direction
   grid_length_sanding_line_divisor: 5,             # Internal grid resolution for sanding lines = pathgap_sanding_line divided by this value
   grid_length_connection_line_divisor: 5,          # Internal grid resolution for connection lines = pathgap_connection_line divided by this value
-  projection_mode: "pca",                           # How to project the path grid onto the surface: "obb" = optimal bounding box, "pca" = principal component, "preset" = world axes
+  projection_mode: "obb",                           # How to project the path grid onto the surface: "obb" = optimal bounding box, "pca" = principal component, "preset" = world axes
   state_based_reconstruction: true,                # Use a state-machine approach to reconstruct the path — more robust than linear reconstruction
   always_compute_seed_indices: false,              # Recompute seed/start indices from scratch every time — slower but may reduce jumps
   retraction_lookAhead_dist: 0.1,                  # How far ahead the planner looks to decide whether to insert a retraction
@@ -350,5 +350,5 @@ try_to_skip_p2p: {
 # ─── TRAJECTORY PLANNER ──────────────────────────────────────────────────────
 trajectory_planner: {
   ori_options: [false, false, false],   # Which Cartesian orientation axes [x, y, z] are free to vary during trajectory optimization
-  reachability_service_attempts: 5,     # How many times to retry the reachability service before giving up on a point
+  reachability_service_attempts: 9,     # How many times to retry the reachability service before giving up on a point
 }

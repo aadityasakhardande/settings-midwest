@@ -7,7 +7,7 @@
 		},
 		"TOOL": {
 			"required": true,
-			"type": 3
+			"type": 0
 		},
 		"ANDON_LIGHT": {
 			"required": true,
