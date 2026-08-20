@@ -29,8 +29,8 @@
                     "folder_path": "part_class_settings/midwest_rhc-style"
                 }
             ],
-            "lmi_settings_path": "part_class_settings/midwest",
-            "stitch_config_path": "part_class_settings/midwest",
+            "lmi_settings_path": "part_class_settings/midwest_nordam-style",
+            "stitch_config_path": "part_class_settings/midwest_nordam-style",
             "intended_gsa_path": ""
         }
     },

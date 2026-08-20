@@ -1,0 +1,11 @@
+# Named LMI configurations. Referenced via lmiProfile in scan profile sections.
+# Only keys present here override the base lmi_scanning_params.yaml — all others inherit defaults.
+
+dark_surface:
+  exposure: 5000
+  spotThreshold: 15 # 1 - 255
+  spotWidthMax: 20 # 1 - 127
+
+light_surface:
+  exposure: 800
+  encoder_spacing: 1
