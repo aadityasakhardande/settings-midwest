@@ -1,0 +1,21 @@
+{
+	"$schema": "mapping_schema.json",
+	"J7": {
+		"transform_type": 0,
+		"axis": 0,
+		"direction": false,
+		"parent_frame": "world",
+		"child_frame": "base_link",
+		"basic_transform": [
+			0,
+			0,
+			0,
+			0,
+			0,
+			-0.7070727,
+			0.7071408
+		]
+	},
+	"J8": {},
+	"J9": {}
+}

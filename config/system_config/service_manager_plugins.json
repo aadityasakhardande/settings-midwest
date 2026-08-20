@@ -1,0 +1,5 @@
+{
+    "$schema": "./schemas/service_manager_plugins.schema.json",
+    "home_pose_ext_state_mapping": "ServiceManager::DefaultHomeExtStateMapping",
+    "profile_mapping": "ServiceManager::DefaultProfileMapping"
+}

@@ -1,0 +1,66 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Zone Seeds and Ignored Objects",
+    "description": "Define seeds and ignored objects for different zones. For part class based zone seeds and ignored objects, add a zone_seeds.json file in the part class folder.",
+    "type": "object",
+    "properties": {
+        "$schema": {
+            "description": "Path to the zone seeds and ignored objects json schema",
+            "type": "string",
+            "default": "/etc/ss/config/system_config/schemas/zone_seeds.schema.json"
+        }
+    },
+    "patternProperties": {
+        "^[0-9]+$": {
+            "type": "object",
+            "description": "Zone ID: Mapped directly from profile info::zone type dropdown",
+            "$ref": "#/$defs/zone_settings"
+        }
+    },
+    "additionalProperties": false,
+    "$defs": {
+        "zone_settings": {
+            "type": "object",
+            "properties": {
+                "seeds": {
+                    "description": "List of initial joint configurations for optimization and solving reachability",
+                    "type": "array",
+                    "items": {
+                        "description": "A seed candidate represented by a 6-dimensional robot joint array, in radians",
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        },
+                        "minItems": 6,
+                        "maxItems": 6
+                    },
+                    "minItems": 0
+                },
+                "rollerSeeds": {
+                    "description": "List of initial roller configurations for optimization and solving reachability",
+                    "type": "array",
+                    "items": {
+                        "description": "A seed candidate represented by a 1-dimensional roller array, in radians",
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        },
+                        "minItems": 1,
+                        "maxItems": 1
+                    },
+                    "minItems": 0
+                },
+                "ignoredEnvObjects": {
+                    "description": "List of environment objects to ignore during collision checks by trajectory planner",
+                    "type": "array",
+                    "items": {
+                        "description": "Environment object name, must match the name specified in scene config",
+                        "type": "string"
+                    },
+                    "minItems": 0
+                }
+            },
+            "additionalProperties": false
+        }
+    }
+}

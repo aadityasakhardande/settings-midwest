@@ -1,0 +1,25 @@
+{
+    "$schema": "/etc/ss/config/system_config/schemas/zone_seeds.schema.json",
+    "0": {
+        "seeds": [
+            [
+                0.6,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            ],
+            [
+                1.3,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            ]
+        ],
+        "rollerSeeds": [],
+        "ignoredEnvObjects": []
+    }
+}

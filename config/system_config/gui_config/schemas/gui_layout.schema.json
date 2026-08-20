@@ -1,0 +1,250 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "gui layout",
+    "type": "object",
+    "properties": {
+        "PROPERTIES": {
+            "description": "The properties of the profile selection popup",
+            "type": "object",
+            "properties": {
+                "HEIGHT": {
+                    "description": "The height of the popup",
+                    "type": "integer"
+                },
+                "WIDTH": {
+                    "description": "The width of the popup",
+                    "type": "integer"
+                },
+                "REPEAT_BODY": {
+                    "description": "The number of duplicate bodies for this popup. Used for multi-profile selection popup.",
+                    "type": "integer"
+                }
+            }
+        },
+        "DEFAULT_VALUES": {
+            "description": "The default values for PartBtnWidget",
+            "type": "object",
+            "properties": {
+                "PART_NAME": {
+                    "description": "The name of the button",
+                    "type": "string"
+                },
+                "PART_IMG": {
+                    "description": "The name of the image located in \"../img/part_img\"",
+                    "type": "string"
+                }
+            }
+        },
+        "VARIABLES": {
+            "description": "Customizable string variables",
+            "type": "object",
+            "properties": {
+                "ZONE_INFO": {
+                    "description": "Available string variable for $ZONE_INFO. Specically used for multi-zone profile selections",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "PROFILE": {
+            "description": "The layout for profile selection",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "description": "a profile zone",
+                "$ref": "#/$defs/body"
+            }
+        }
+    },
+    "required": [
+        "PROPERTIES",
+        "DEFAULT_VALUES",
+        "PROFILE"
+    ],
+    "$defs": {
+        "body": {
+            "properties": {
+                "BODY": {
+                    "description": "The content of the layout",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "$ref": "#/$defs/layout"
+                    }
+                }
+            },
+            "required": [
+                "BODY"
+            ]
+        },
+        "widget": {
+            "properties": {
+                "TYPE": {
+                    "description": "The widget type, either \"QPushButton\", \"QLabel\" or \"PartBtnWidget\"",
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "description": "The widget will display a simple button",
+                            "const": "QPushButton"
+                        },
+                        {
+                            "type": "string",
+                            "description": "The widget will display plain text",
+                            "const": "QLabel"
+                        },
+                        {
+                            "type": "string",
+                            "description": "The widget will display a clickable image",
+                            "const": "PartBtnWidget"
+                        },
+                        {
+                            "type": "string",
+                            "description": "The widget will display a dropdown list",
+                            "const": "Dropdown"
+                        }
+                    ]
+                },
+                "DESCRIPTION": {
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "description": "The widget will display a simple button"
+                        },
+                        {
+                            "type": "object",
+                            "description": "The description is for PartBtnWidget only",
+                            "properties": {
+                                "LABEL": {
+                                    "type": "string",
+                                    "description": "The text to diplay on the button"
+                                },
+                                "PATH": {
+                                    "type": "string",
+                                    "description": "The image name in \"../img/part_img\""
+                                }
+                            },
+                            "required": [
+                                "LABEL",
+                                "PATH"
+                            ]
+                        },
+                        {
+                            "type": "object",
+                            "description": "The description is for Dropdown only",
+                            "properties": {
+                                "TAG": {
+                                    "type": "string",
+                                    "description": "The text to diplay on the button"
+                                },
+                                "ITEMS": {
+                                    "type": "array",
+                                    "description": "The image name in \"../img/part_img\""
+                                }
+                            },
+                            "required": [
+                                "TAG",
+                                "ITEMS"
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "layout": {
+            "properties": {
+                "LAYOUT_TYPE": {
+                    "description": "The layout direction type, either HORIZONTAL or HORIZONTAL_SCROLL",
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "description": "The layout will be horizontal",
+                            "const": "HORIZONTAL"
+                        },
+                        {
+                            "type": "string",
+                            "description": "The layout will be horizontal scroll area.",
+                            "const": "HORIZONTAL_SCROLL"
+                        }
+                    ]
+                },
+                "PROFILE_MSG": {
+                    "description": "The layout mapping type, either \"\", \"PROC_ID\" or \"PART_ID\"",
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "description": "The layout will map to nothing",
+                            "const": ""
+                        },
+                        {
+                            "type": "string",
+                            "description": "The layout will map to process in massive_profile_mapping.json.",
+                            "const": "PROC_ID"
+                        },
+                        {
+                            "type": "string",
+                            "description": "The layout will map to part in massive_profile_mapping.json.",
+                            "const": "PART_ID"
+                        },
+                        {
+                            "type": "string",
+                            "description": "The layout will use values specified in VARIABLES",
+                            "const": "VARIABLES"
+                        }
+                    ]
+                },
+                "WIDGETS": {
+                    "type": "array",
+                    "description": "A list of widget to be displayed in this layout",
+                    "items": {
+                        "type": "object",
+                        "description": "the individual widget",
+                        "$ref": "#/$defs/widget"
+                    }
+                },
+                "INDICATOR": {
+                    "type": "string",
+                    "description": "The key map to PROC::INDICATOR in massive_profile_mapping.json"
+                },
+                "HIDE_IF": {
+                    "type": "array",
+                    "description": "The condition to hide widgets in current layout",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "TRIGGER_PART_ID": {
+                                "description": "the index of the trigger part (0 indexed)",
+                                "type": "integer"
+                            },
+                            "WIDGET_IDS_TO_HIDE": {
+                                "description": "a list of widget index to be hidden (0 indexed)",
+                                "type": "array",
+                                "items": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "required": [
+                            "TRIGGER_PART_ID",
+                            "WIDGET_IDS_TO_HIDE"
+                        ]
+                    }
+                },
+                "SCROLL_WIDTH": {
+                    "description": "Channel your inner GUI artist and specify the width of the scrolling area",
+                    "type": "integer"
+                },
+                "SCROLL_HEIGHT": {
+                    "description": "Channel your inner GUI artist and specify the height of the scrolling area",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "LAYOUT_TYPE",
+                "PROFILE_MSG",
+                "WIDGETS"
+            ]
+        }
+    }
+}

@@ -1,0 +1,27 @@
+general_scan_setting: {
+  scan_force: 1,
+  use_transition_pose: true,
+  retry_scanning: false 
+}
+
+line_scan_setting: {
+  scan_pose: [1.57, -1.57, -1.57, -1.68492, 1.50827, 0],
+
+  sensor_calibration: [-0.00626109279332777,0.99997917558463,0.00156432545089378,-0.126197753228977,
+                      -0.99996848960928,-0.00626864542951186,0.00487071586271059,-0.145934708293617,
+                      0.00488042063448833,-0.00153378015440124,0.999986914420818,-1.27794611650038,
+                      0,0,0,1],
+
+  view_pnt_calibration: [1.0,     0.0,    0.0,  0.0,
+                        0.0,     1.0,    0.0,  0.0,
+                        0.0,     0.0,    1.0,  0.0,
+                        0.0,     0.0,    0.0,  1.0],
+  move_type: 1
+}
+
+zivid_hdlr: {
+  save_raw_scans: false,
+  downsampling_mode: 2,   # 0: Downsample 2x2,  1: Downsample 3x3,  2: Downsample 4x4
+  default_scan_settings_path: ""
+}
+

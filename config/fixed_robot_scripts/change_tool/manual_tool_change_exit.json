@@ -1,0 +1,90 @@
+{
+    "$schema": "../schema/fixed_robot_scripts_schema.json",
+    "title": "Joint Motion Script for Manual Tool Change Exit",
+    "path": [
+        {
+            "target": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "ext_state": [
+                0,
+                0,
+                0
+            ],
+            "tool_status": false,
+            "force": 25,
+            "time": 1000,
+            "CNT": 0,
+            "RPM": 0,
+            "motion_type": 0
+        },
+        {
+            "target": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "ext_state": [
+                0,
+                0,
+                0
+            ],
+            "tool_status": false,
+            "force": 25,
+            "time": 1000,
+            "CNT": 0,
+            "RPM": 0,
+            "motion_type": 0
+        },
+        {
+            "target": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "ext_state": [
+                0,
+                0,
+                0
+            ],
+            "tool_status": false,
+            "force": 25,
+            "time": 1000,
+            "CNT": 0,
+            "RPM": 0,
+            "motion_type": 0
+        },
+        {
+            "target": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "ext_state": [
+                0,
+                0,
+                0
+            ],
+            "tool_status": false,
+            "force": 25,
+            "time": 1000,
+            "CNT": 0,
+            "RPM": 0,
+            "motion_type": 0
+        }
+    ]
+} 

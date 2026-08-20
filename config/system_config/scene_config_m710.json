@@ -1,0 +1,243 @@
+{
+    "$schema": "./schemas/scene_config.schema.json",
+    "robots": [
+        {
+            "name": "robot1",
+            "path": "file:///etc/ss/robots/fanuc_m710/robot.urdf",
+            "robot_sphere_model_path": "file:///etc/ss/robots/fanuc_m710/sphere_models/fanuc_m710_spheres.yaml",
+            "chains": [
+                {
+                    "rootLink": "world",
+                    "leafLink": "tool0",
+                    "baseLink": "base_link",
+                    "jointLowerLimits": [
+                        -3.1416,
+                        -1.5708,
+                        -1.3963,
+                        -2.8798,
+                        -2.1817,
+                        -4.7997
+                    ],
+                    "jointUpperLimits": [
+                        3.1416,
+                        2.3562,
+                        1.5708,
+                        2.8798,
+                        2.1817,
+                        4.7997
+                    ],
+                    "weightingVector": [
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1
+                    ],
+                    "axisOptions": [
+                        false,
+                        true,
+                        false
+                    ],
+                    "frames": [
+                        [
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        [
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            -0.7071,
+                            0.7071
+                        ]
+                    ],
+                    "axisLowerLimits": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "axisUpperLimits": [
+                        0,
+                        5.5,
+                        0
+                    ],
+                    "rollerAxisOptions": [
+                        false,
+                        false,
+                        false
+                    ],
+                    "rollerLowerLimits": [
+                        0,
+                        -3.2,
+                        -6.283
+                    ],
+                    "rollerUpperLimits": [
+                        0,
+                        3.2,
+                        6.283
+                    ],
+                    "collisionMask": [
+                        {
+                            "robot_link": "base_link",
+                            "masked_env": [
+                                "Unified_collision_model",
+                                "Rail_model"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "basePosition": [
+                0,
+                0,
+                0
+            ],
+            "baseOrientation": [
+                0,
+                0,
+                0,
+                1
+            ],
+            "singularityThreshold": 1e-10,
+            "poseTolerance": 0.001
+        }
+    ],
+    "env": [
+        {
+            "name": "RESTRICTED_ZONE",
+            "type": "MESH",
+            "path": "file:///etc/ss/models/restricted_zone.STL",
+            "size": [],
+            "position": [
+                0.0,
+                0.0,
+                -10.0
+            ],
+            "orientation": [
+                0,
+                0,
+                0,
+                1
+            ]
+        },
+        {
+            "name": "Unified_collision_model",
+            "type": "MESH",
+            "path": "file:///etc/ss/models/4l_env_520_pci.STL",
+            "size": [],
+            "position": [
+                0.0,
+                0.0,
+                -10.0
+            ],
+            "orientation": [
+                0,
+                0,
+                0,
+                1
+            ]
+        },
+{
+            "name": "Rail_model",
+            "type": "MESH",
+            "path": "file:///etc/ss/rails/models/rail_box_520.STL",
+            "size": [],
+            "position": [
+                0,
+                0,
+                0
+            ],
+            "orientation": [
+                0,
+                0,
+                0,
+                1
+            ]
+        },
+        {
+            "name": "door_COLL",
+            "type": "MESH",
+            "path": "file:///etc/ss/models/doorfixture.stl",
+            "size": [],
+            "position": [
+                0,
+                0,
+                0
+            ],
+            "orientation": [
+                0,
+                0,
+                0,
+                1
+            ]
+        },
+        {
+            "name": "pontoon_COLL",
+            "type": "MESH",
+            "path": "file:///etc/ss/models/pontoonfixture.stl",
+            "size": [],
+            "position": [
+                0,
+                0,
+                0
+            ],
+            "orientation": [
+                0,
+                0,
+                0,
+                1
+            ]
+        },
+        {
+            "name": "hood_COLL",
+            "type": "MESH",
+            "path": "file:///etc/ss/models/smallhoodfixture.STL",
+            "size": [],
+            "position": [
+                0,
+                0,
+                0
+            ],
+            "orientation": [
+                0,
+                0,
+                0,
+                1
+            ]
+        },
+        {
+            "name": "fence_COLL",
+            "type": "MESH",
+            "path": "file:///etc/ss/models/fencefixture.stl",
+            "size": [],
+            "position": [
+                0,
+                0,
+                0
+            ],
+            "orientation": [
+                0,
+                0,
+                0,
+                1
+            ]
+        }
+    ],
+    "meshSettings": {
+        "pointsPerFace": 200,
+        "slicerXGapmm": 2,
+        "slicerYGapmm": 2
+    },
+    "doc": {
+        "RESTRICTED_ZONE_doc": "This key(RESTRICTED_ZONE) is reserved. Please don't use this key for any other environment object."
+    }
+}

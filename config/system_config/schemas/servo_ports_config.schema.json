@@ -1,0 +1,33 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://graymatter-robotics.com/turckio/servo_ports_config.schema.json",
+    "title": "Servo Ports Config",
+    "description": "Configuration for mapping modbus register names to Servo spindle",
+    "type": "object",
+    "properties": {
+        "register": {
+            "description": "Array of name-address mappings for devices connected via registers",
+            "type": "array",
+            "items": {
+                "description": "Name to Modbus register address mapping for Servo Param",
+                "type": "object",
+                "required": [
+                    "name",
+                    "address"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Name of the parameter/register.",
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 65535,
+                        "description": "Register Address"
+                    }
+                }
+            }
+        }
+    }
+}

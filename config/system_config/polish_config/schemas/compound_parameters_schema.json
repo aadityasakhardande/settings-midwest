@@ -1,0 +1,77 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Parameters of Compound Manager PLC",
+    "description": "Schema for the parameters of the PLC that controls the compound system",
+    "type": "object",
+    "properties": {
+        "num_compound_pots": {
+            "description": "The number of compound pots.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "desired_compound_pressure": {
+            "description": "The desired compound pressure in psi.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "pressurize_countdown": {
+            "description": "Time limit in seconds for the compound system to become ready. Set to 0 for indefinite waiting.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "custom_config": {
+            "type": "array",
+            "description": "List of configurations for each compound pot.",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "desired_flow_speed": {
+                        "description": "The desired flow speed for the compound pot, in ml/min.",
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "max_sensor_distance": {
+                        "description": "The maximum sensor distance for all compound pots, in mm.",
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "max_nozzle_pressure": {
+                        "description": "Maximum nozzle pressure, in psi.",
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "purge_target_pressure": {
+                        "description": "Target nozzle pressure after purging, in psi.",
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "max_working_pressure": {
+                        "description": "Maximum working pressure, in psi.",
+                        "type": "integer",
+                        "minimum": 0
+                    }
+                },
+                "required": [
+                    "desired_flow_speed",
+                    "max_sensor_distance",
+                    "max_nozzle_pressure",
+                    "purge_target_pressure",
+                    "max_working_pressure"
+                ]
+            }
+        },
+        "system_timeout_duration": {
+            "type": "integer",
+            "description": "The duration in seconds before the system times out due to inactivity.",
+            "minimum": 1,
+            "default": 30
+        }
+    },
+    "required": [
+        "num_compound_pots",
+        "desired_compound_pressure",
+        "pressurize_countdown",
+        "custom_config",
+        "system_timeout_duration"
+    ]
+}

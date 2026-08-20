@@ -1,0 +1,44 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://graymatter-robotics.com/service_manager/service_manager_plugins.schema.json",
+    "title": "Service Manager Plugins Config",
+    "description": "Configuration for Service Manager Plugins",
+    "type": "object",
+    "properties": {
+        "home_pose_ext_state_mapping": {
+            "description": "Home Pose External State Mapping Plugin",
+            "oneOf": [
+                {
+                    "type": "string",
+                    "description": "Default Home Pose External State Mapping",
+                    "const": "ServiceManager::DefaultHomeExtStateMapping"
+                },
+                {
+                    "type": "string",
+                    "description": "Zone ID Mapped Home Pose External State Mapping",
+                    "const": "ServiceManager::ZoneIdMappedHomeExtState"
+                }
+            ]
+        },
+        "profile_mapping": {
+            "description": "Load Profile Request Mapper Plugin",
+            "oneOf": [
+                {
+                    "type": "string",
+                    "description": "Default Load Profile Request Mapping",
+                    "const": "ServiceManager::DefaultProfileMapping"
+                },
+                {
+                    "type": "string",
+                    "description": "Dual Robot Load Profile Request Mapping",
+                    "const": "ServiceManager::DualRobotProfileMapping"
+                },
+                {
+                    "type": "string",
+                    "description": "Profile Request Mapping for generating sub profiles based on roller placement",
+                    "const": "ServiceManager::PlacementSubProfileMapping"
+                }
+            ]
+        }
+    }
+}

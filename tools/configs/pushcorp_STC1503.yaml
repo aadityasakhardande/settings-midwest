@@ -1,0 +1,9 @@
+tool: {
+  stlP2P: 'models/STC1503_lza_6inch_p2p_nordam.STL',
+  stlPCT: 'models/STC1503_lza_6inch_pct.STL',
+  physxP2P: 'models/STC1503_lza_6inch_p2p.yaml', 
+  physxPCT: 'models/STC1503_lza_6inch_pct.yaml', 
+  tcpFile: ['tcp/TCP.csv','tcp/TCP_STC1503_E_185_5.csv','tcp/TCP_STC1503_N_85_5.csv'],
+  xacro: 'urdf/pushcorp_STC1503.xacro',
+  tcpTFName: 'tooltcp'
+} 

@@ -1,0 +1,75 @@
+__version__: 27
+Settings:
+  Acquisitions:
+    - Acquisition:
+        Aperture: 2.83
+        Brightness: 2.5
+        ExposureTime: 20000
+        Gain: 1
+  Color: __not_set__
+  Diagnostics:
+    Enabled: no
+  Engine: stripe
+  Processing:
+    Color:
+      Balance:
+        Blue: __not_set__
+        Green: __not_set__
+        Red: __not_set__
+      Experimental:
+        Mode: __not_set__
+      Gamma: __not_set__
+    Filters:
+      Cluster:
+        Removal:
+          Enabled: yes
+          MaxNeighborDistance: 4
+          MinArea: 25
+      Experimental:
+        ContrastDistortion:
+          Correction:
+            Enabled: no
+            Strength: 0.25
+          Removal:
+            Enabled: no
+            Threshold: 0.4
+      Hole:
+        Repair:
+          Enabled: no
+          HoleSize: 0.1
+          Strictness: 4
+      Noise:
+        Removal:
+          Enabled: yes
+          Threshold: 2
+        Repair:
+          Enabled: yes
+        Suppression:
+          Enabled: no
+      Outlier:
+        Removal:
+          Enabled: yes
+          Threshold: 10
+      Reflection:
+        Removal:
+          Enabled: yes
+          Mode: local
+      Smoothing:
+        Gaussian:
+          Enabled: yes
+          Sigma: 4
+    Resampling:
+      Mode: disabled
+  RegionOfInterest:
+    Box:
+      Enabled: no
+      Extents: [-10, 100]
+      PointA: [0, 0, 0]
+      PointB: [0, 0, 0]
+      PointO: [0, 0, 0]
+    Depth:
+      Enabled: yes
+      Range: [250, 1500]
+  Sampling:
+    Color: disabled
+    Pixel: all

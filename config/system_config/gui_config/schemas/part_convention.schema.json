@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "setup reminder",
+    "type": "object",
+    "properties": {
+        "ACCEPTED_PREFIX": {
+            "description": "This data contains a list of whitelisted part id prefix",
+            "type": "array",
+            "items": {
+                "type": "string",
+                "description": "whitelisted part id prefix"
+            }
+        },
+        "BYPASS_CODE": {
+            "description": "The code to bypass the whitelist check",
+            "type": "string"
+        },
+        "HISTORY": {
+            "description": "The part id used in the past",
+            "type": "array"
+        }
+    },
+    "required": [
+        "ACCEPTED_PREFIX",
+        "BYPASS_CODE",
+        "HISTORY"
+    ]
+}

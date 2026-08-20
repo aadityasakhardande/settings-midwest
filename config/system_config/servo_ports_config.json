@@ -1,0 +1,129 @@
+{
+    "$schema": "./schemas/servo_ports_config.schema.json",
+    "register": [
+        {
+            "name": "SPINDLE_RPM_BIT1",
+            "address": 0
+        },
+        {
+            "name": "SPINDLE_RPM_BIT2",
+            "address": 1
+        },
+        {
+            "name": "MOTION_CONTROL",
+            "address": 3
+        },
+        {
+            "name": "WATCHDOG",
+            "address": 5
+        },
+        {
+            "name": "MAX_RPM_BIT",
+            "address": 7
+        },
+        {
+            "name": "PL_MODPEN",
+            "address": 10
+        },
+        {
+            "name": "JOG_ACC_BIT1",
+            "address": 12
+        },
+        {
+            "name": "JOG_ACC_BIT2",
+            "address": 13
+        },
+        {
+            "name": "JOG_DEC_BIT1",
+            "address": 14
+        },
+        {
+            "name": "JOG_DEC_BIT2",
+            "address": 15
+        },
+        {
+            "name": "IS_ACTIVE",
+            "address": 21
+        },
+        {
+            "name": "MOTOR_TEMPERATURE_BIT1",
+            "address": 22
+        },
+        {
+            "name": "MOTOR_TEMPERATURE_BIT2",
+            "address": 23
+        },
+        {
+            "name": "DI2T_BIT1",
+            "address": 24
+        },
+        {
+            "name": "DI2T_BIT2",
+            "address": 25
+        },
+        {
+            "name": "MI2T_BIT1",
+            "address": 26
+        },
+        {
+            "name": "MI2T_BIT2",
+            "address": 27
+        },
+        {
+            "name": "VELOCITY_FEEDBACK_BIT1",
+            "address": 28
+        },
+        {
+            "name": "VELOCITY_FEEDBACK_BIT2",
+            "address": 29
+        },
+        {
+            "name": "POSITION_FEEDBACK_BIT1",
+            "address": 30
+        },
+        {
+            "name": "POSITION_FEEDBACK_BIT2",
+            "address": 31
+        },
+        {
+            "name": "DISSOURCES",
+            "address": 32
+        },
+        {
+            "name": "IS_FAULTED",
+            "address": 41
+        },
+        {
+            "name": "FAULT_1_BIT1",
+            "address": 42
+        },
+        {
+            "name": "FAULT_1_BIT2",
+            "address": 43
+        },
+        {
+            "name": "FAULT_2_BIT1",
+            "address": 44
+        },
+        {
+            "name": "FAULT_2_BIT2",
+            "address": 45
+        },
+        {
+            "name": "FAULT_3_BIT1",
+            "address": 46
+        },
+        {
+            "name": "FAULT_3_BIT2",
+            "address": 47
+        },
+        {
+            "name": "FAULT_4_BIT1",
+            "address": 48
+        },
+        {
+            "name": "FAULT_4_BIT2",
+            "address": 49
+        }
+    ]
+}

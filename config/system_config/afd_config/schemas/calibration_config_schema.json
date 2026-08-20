@@ -1,0 +1,43 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "max_num_try": {
+            "type": "integer",
+            "description": "Maximum number of attempts for calibration verification"
+        },
+        "min_position": {
+            "type": "number",
+            "description": "Expected position when the force is set to be min_position_force"
+        },
+        "max_position": {
+            "type": "number",
+            "description": "Expected position when the force is set to be max_position_force"
+        },
+        "position_tollerance": {
+            "type": "number",
+            "description": "Tolerance for position"
+        },
+        "shift_tollerance": {
+            "type": "number",
+            "description": "Tolerance for position shift after force reset"
+        },
+        "min_position_force": {
+            "type": "number",
+            "description": "Minimum force setting for calibration verification"
+        },
+        "max_position_force": {
+            "type": "number",
+            "description": "Maximum force setting for calibration verification"
+        }
+    },
+    "required": [
+        "max_num_try",
+        "min_position",
+        "max_position",
+        "position_tollerance",
+        "shift_tollerance",
+        "min_position_force",
+        "max_position_force"
+    ],
+}

@@ -1,0 +1,167 @@
+{
+    "$schema": "./schemas/plc_ports_config_schema.json",
+    "coil": [
+        {
+            "name": "START_SYSTEM",
+            "address": 100,
+            "description": "Write 1 into this coil to initialize the system, otherwise disable the system"
+        },
+        {
+            "name": "ENABLE_DISPENSING_1",
+            "address": 101,
+            "description": "Write 1 into the coil to enable dispensing of Pump and Solenoid A, otherwise disable them"
+        },
+        {
+            "name": "ENABLE_DISPENSING_2",
+            "address": 102,
+            "description": "Write 1 into the coil to enable dispensing of Pump and Solenoid B, otherwise disable them"
+        },
+        {
+            "name": "REFILL_ONGOING",
+            "address": 103,
+            "description": "Write 1 into this coil to indicate the operator has pressed the refill button"
+        },
+        {
+            "name": "RESET",
+            "address": 104,
+            "description": "Write this coil from 0 to 1 will reset the safety triggered state of the system"
+        },
+        {
+            "name": "WATCHDOG",
+            "address": 110,
+            "description": "Toggle to reset the compound system's watchdog timer. Activate (set to true) for 20ms, then deactivate (set to false) to reset."
+        },
+        {
+            "name": "ENABLE_OVERPRESSURE_PURGE_1",
+            "address": 115,
+            "description": "Enable the embedded PLC function to purge the nozzle A until the pressure drops to the normal working level"
+        },
+        {
+            "name": "ENABLE_OVERPRESSURE_PURGE_2",
+            "address": 116,
+            "description": "Enable the embedded PLC function to purge the nozzle B until the pressure drops to the normal working level"
+        },
+        {
+            "name": "ENABLE_PUMPHEAD_PURGE_1",
+            "address": 120,
+            "description": "Enable the embedded PLC function to purge the nozzle A until the pressure drops to zero for pumphead replacement"
+        },
+        {
+            "name": "ENABLE_PUMPHEAD_PURGE_2",
+            "address": 120,
+            "description": "Enable the embedded PLC function to purge the nozzle B until the pressure drops to zero for pumphead replacement"
+        }
+    ],
+    "register": [
+        {
+            "name": "MAX_COMPOUND_SENSOR_DISTANCE_1",
+            "address": 40000,
+            "description": "The maximum distance from ultrasonic sensor to the compound surface for the system A to allow dispensing"
+        },
+        {
+            "name": "DESIRED_COMPOUND_PRESSURE",
+            "address": 40001,
+            "description": "Then desired compound pressure during dispensing"
+        },
+        {
+            "name": "DESIRED_COMPOUND_FLOW_1",
+            "address": 40002,
+            "description": "The desired dispensing flow speed for compound system A"
+        },
+        {
+            "name": "MAX_COMPOUND_SENSOR_DISTANCE_2",
+            "address": 40010,
+            "description": "The maximum distance from ultrasonic sensor to the compound surface for the system B to allow dispensing"
+        },
+        {
+            "name": "DESIRED_COMPOUND_FLOW_2",
+            "address": 40011,
+            "description": "The desired dispensing flow speed for compound system B"
+        },
+        {
+            "name": "CURRENT_COMPOUND_PRESSURE",
+            "address": 30000,
+            "description": "Current compound pressure in the compound system"
+        },
+        {
+            "name": "CURRENT_COMPOUND_DISTANCE_1",
+            "address": 30001,
+            "description": "Current distance get from the ultrasonic sensor in compound system A"
+        },
+        {
+            "name": "COMPOUND_SYSTEM_ERROR_1",
+            "address": 30002,
+            "description": "Current error for compound system A"
+        },
+        {
+            "name": "COMPOUND_SYSTEM_STATE_1",
+            "address": 30003,
+            "description": "Current state of compound system A"
+        },
+        {
+            "name": "CURRENT_COMPOUND_DISTANCE_2",
+            "address": 30005,
+            "description": "Current distance get from the ultrasonic sensor in compound system B"
+        },
+        {
+            "name": "COMPOUND_SYSTEM_ERROR_2",
+            "address": 30006,
+            "description": "Current error for compound system B"
+        },
+        {
+            "name": "COMPOUND_SYSTEM_STATE_2",
+            "address": 30007,
+            "description": "Current state of compound system B"
+        },
+        {
+            "name": "WATCHDOG_TIME_DURATION",
+            "address": 40015,
+            "description": "Time duration for the watchdog to shutdown the system, in seconds"
+        },
+        {
+            "name": "WATCHDOG_ELAPSED_TIME",
+            "address": 30010,
+            "description": "Watchdog's elapsed time in seconds"
+        },
+        {
+            "name": "COMPOUND_SYSTEM_MAINTENANCE_STATE_1",
+            "address": 30015,
+            "decription": "The maintenance state of system A"
+        },
+        {
+            "name": "COMPOUND_SYSTEM_MAINTENANCE_STATE_2",
+            "address": 30016,
+            "decription": "The maintenance state of system B"
+        },
+        {
+            "name": "COMPOUND_SYSTEM_MAX_PRESSURE_LIMIT_1",
+            "address": 40020,
+            "decription": "The maximum allowable pressure for system A. Pressures exceeding this limit are deemed hazardous."
+        },
+        {
+            "name": "COMPOUND_SYSTEM_MAX_PRESSURE_LIMIT_2",
+            "address": 40022,
+            "decription": "The maximum allowable pressure for system B. Pressures exceeding this limit are deemed hazardous."
+        },
+        {
+            "name": "COMPOUND_SYSTEM_PURGE_TARGET_PRESSURE_1",
+            "address": 40021,
+            "decription": "The target pressure to be achieved after the purge operation for system A. It ensures that the system pressure aligns with operational safety"
+        },
+        {
+            "name": "COMPOUND_SYSTEM_PURGE_TARGET_PRESSURE_2",
+            "address": 40023,
+            "decription": "The target pressure to be achieved after the purge operation for system B. It ensures that the system pressure aligns with operational safety"
+        },
+        {
+            "name": "COMPOUND_SYSTEM_NOZZLE_PRESSURE_1",
+            "address": 30020,
+            "description": "The current pressure value from the compound pot outlet to the nozzle of system A"
+        },
+        {
+            "name": "COMPOUND_SYSTEM_NOZZLE_PRESSURE_2",
+            "address": 30021,
+            "description": "The current pressure value from the compound pot outlet to the nozzle of system B"
+        }
+    ]
+}

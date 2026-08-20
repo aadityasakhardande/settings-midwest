@@ -1,0 +1,98 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Go target schema",
+    "description": "Configuration for dynamic go target sequences",
+    "type": "object",
+    "properties": {
+        "key": {
+            "type": "object",
+            "properties": {
+                "doc": {
+                    "description": "documentation",
+                    "type": "string"
+                },
+                "1": {
+                    "description": "Go Home task target id",
+                    "type": "string"
+                },
+                "10": {
+                    "description": "Go Clean task target id",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "1",
+                "10"
+            ]
+        },
+        "targets": {
+            "type": "object",
+            "patternProperties": {
+                "^[0-9]+$": {
+                    "type": "object",
+                    "description": "target sequence. the id matches whatever is defined in the key",
+                    "$ref": "#/$defs/target_sequence"
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "required": [
+        "key",
+        "targets"
+    ],
+    "$defs": {
+        "target_sequence": {
+            "properties": {
+                "doc": {
+                    "description": "documentation",
+                    "type": "string"
+                },
+                "path": {
+                    "description": "path sequence for this target",
+                    "type": "array",
+                    "$ref": "#/$defs/path_items"
+                }
+            }
+        },
+        "path_items": {
+            "items": {
+                "type": "object",
+                "properties": {
+                    "joint_target": {
+                        "type": "array",
+                        "description": "joint poses: j1-j6 in radian",
+                        "items": {
+                            "type": "number"
+                        },
+                        "minItems": 6,
+                        "maxItems": 6
+                    },
+                    "ext_target": {
+                        "type": "array",
+                        "description": "extender poses: j7-j9 in meter",
+                        "items": {
+                            "type": "number"
+                        },
+                        "minItems": 3,
+                        "maxItems": 3
+                    },
+                    "move_extender": {
+                        "type": "boolean",
+                        "description": "if true, the robot will move to specified ext pose"
+                    },
+                    "plan": {
+                        "type": "boolean",
+                        "description": "if true, the sequence to this pose will be planned"
+                    }
+                },
+                "required": [
+                    "joint_target",
+                    "ext_target",
+                    "move_extender",
+                    "plan"
+                ]
+            }
+        }
+    }
+}

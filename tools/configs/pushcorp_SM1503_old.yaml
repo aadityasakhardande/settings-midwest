@@ -1,0 +1,9 @@
+tool: {
+  stlP2P: 'models/1503_lal_5inch_p2p.STL',
+  stlPCT: 'models/1503_lal_5inch_pct.STL',
+  physxP2P: 'models/P2P_spheres.yaml', 
+  physxPCT: 'models/PCT_spheres.yaml', 
+  tcpFile: ['tcp/TCP.csv'],
+  xacro: 'urdf/pushcorp_SM1503.xacro',
+  tcpTFName: 'tooltcp'
+} 

@@ -1,0 +1,143 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://graymatter-robotics.com/system_config/safety_devices.schema.json",
+    "title": "Safety Devices Configuration",
+    "description": "Configuration for setting up Banner safety devices",
+    "type": "object",
+    "properties": {
+        "devices": {
+            "description": "Array of safety and estop devices and their connection details",
+            "type": "array",
+            "items": {
+                "description": "Device Description",
+                "type": "object",
+                "required": [
+                    "name",
+                    "type",
+                    "bit"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the device. Must be unique."
+                    },
+                    "type": {
+                        "enum": [
+                            0,
+                            1
+                        ],
+                        "description": "Type of device: 0 = E-Stop, 1 = Safety."
+                    },
+                    "bit": {
+                        "type": "number",
+                        "minimum": 5,
+                        "maximum": 15,
+                        "description": "The bit position in the modbus register. Set this to something >= 5 as the ones before are reserved."
+                    }
+                }
+            }
+        },
+        "isd_devices": {
+            "description": "Array of ISD devices and their connection details",
+            "type": "array",
+            "items": {
+                "description": "ISD Device Description",
+                "type": "object",
+                "required": [
+                    "name",
+                    "type",
+                    "bit"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the device. Must be unique."
+                    },
+                    "type": {
+                        "enum": [
+                            0
+                        ],
+                        "description": "Type of device: 0 = E-Stop."
+                    },
+                    "bit": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 15,
+                        "description": "The bit position in the modbus ISD register. "
+                    }
+                }
+            }
+        },
+        "status_publish_handlers": {
+            "description": "Plugins to use and their configs for processing status bits prior to publishing",
+            "type": "array",
+            "items": {
+                "description": "A Plugin to process the status bits before they are published.",
+                "type": "object",
+                "required": [
+                    "name",
+                    "config"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the plugin. It's generally a class name including its namespace like 'name_space::ClassName'."
+                    },
+                    "config": {
+                        "type": "object",
+                        "description": "Plugin-specific configuration."
+                    }
+                },
+                "uniqueItems": true,
+                "oneOf": [
+                    {
+                        "properties": {
+                            "name": {
+                                "const": "safety_module::ZoneSwitchStatusPublisher",
+                                "description": "Publishes the zone switch status using given ports (bits) over specified topic"
+                            },
+                            "config": {
+                                "type": "object",
+                                "description": "Configuration for ZoneSwitchStatusPublisher",
+                                "properties": {
+                                    "bits": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer",
+                                            "minimum": 0,
+                                            "maximum": 15,
+                                            "uniqueItems": true
+                                        },
+                                        "minItems": 1,
+                                        "default": [
+                                            10,
+                                            11
+                                        ],
+                                        "$comment": "Default value here corresponds to our first usage as of date"
+                                    },
+                                    "topic": {
+                                        "type": "string",
+                                        "pattern": "^/.+$",
+                                        "minLength": 2,
+                                        "default": "/banner_safety_hdlr/zone_switch",
+                                        "examples": [
+                                            "/banner_safety_hdlr/zone_switch"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "ignore_alert": {
+            "description": "Names of the safety devices to ignore the alerts for",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true
+        }
+    }
+}

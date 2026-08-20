@@ -1,0 +1,1076 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Solver Settings for Trajectory Planner",
+    "description": "Define solver settings for planning robot trajectory",
+    "type": "object",
+    "properties": {
+        "$schema": {
+            "description": "Path to the solver settings json schema",
+            "type": "string",
+            "default": "/etc/ss/config/system_config/schemas/solver_settings.schema.json"
+        },
+        "optimizer": {
+            "description": "Solver config for setting up nlopt optimizer, atomic optimization, and manipulator",
+            "type": "object",
+            "properties": {
+                "joints": {
+                    "description": "Solver config for joint optimization",
+                    "type": "object",
+                    "properties": {
+                        "optXtolRel": {
+                            "description": "Relative tolerance for joint optimization convergence -- optimization will stop iterating when the relative change in the parameter values between two consecutive iterations falls below this threshold.",
+                            "type": "number",
+                            "minimum": 1e-10,
+                            "maximum": 0.1,
+                            "default": 1e-8
+                        },
+                        "optFtolRel": {
+                            "description": "Relative tolerance for joint optimization convergence -- optimization will stop iterating when the relative change in the objective function values between two consecutive iterations falls below this threshold.",
+                            "type": "number",
+                            "minimum": 1e-10,
+                            "maximum": 0.1,
+                            "default": 1e-8
+                        },
+                        "optMaxTime": {
+                            "description": "Maximum time limit for joint optimization (in seconds)",
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 50,
+                            "default": 0.5
+                        },
+                        "optMaxEval": {
+                            "description": "Maximum number of objective function evaluations allowed during joint optimization",
+                            "type": "integer",
+                            "minimum": 100,
+                            "maximum": 4000,
+                            "default": 3000
+                        },
+                        "optGradientx": {
+                            "description": "Step size for numerical gradient computation",
+                            "type": "number",
+                            "minimum": 1e-9,
+                            "maximum": 0.01,
+                            "default": 1e-8
+                        },
+                        "optMaxAttempts": {
+                            "description": "Maximum number of attempts to solve joint optimization",
+                            "type": "integer",
+                            "minimum": 1,
+                            "default": 3
+                        },
+                        "oriOptions": {
+                            "description": "Selects the axes around which orientation needs to be fixed. Order: [X, Y, Z]. Setting any two of the axes to true automaticlly constrains all three",
+                            "type": "array",
+                            "items": {
+                                "type": "boolean"
+                            },
+                            "minItems": 3,
+                            "maxItems": 3,
+                            "examples": [
+                                [
+                                    false,
+                                    false,
+                                    true
+                                ],
+                                [
+                                    false,
+                                    true,
+                                    false
+                                ],
+                                [
+                                    true,
+                                    false,
+                                    false
+                                ]
+                            ]
+                        },
+                        "errorEqualizer": {
+                            "description": "Scaling factor applied to error terms for fine-tuning",
+                            "type": "number",
+                            "minimum": 1e-8,
+                            "default": 1e-7
+                        },
+                        "jointChangeGraduation": {
+                            "description": "Graduation value used to quantify the change between joint positions",
+                            "type": "number",
+                            "minimum": 0.001,
+                            "default": 0.02
+                        }
+                    },
+                    "required": [
+                        "optXtolRel",
+                        "optFtolRel",
+                        "optMaxTime",
+                        "optGradientx",
+                        "optMaxAttempts",
+                        "oriOptions",
+                        "errorEqualizer",
+                        "jointChangeGraduation"
+                    ],
+                    "additionalProperties": false
+                },
+                "extender": {
+                    "description": "Solver config for extender optimization",
+                    "type": "object",
+                    "properties": {
+                        "extenderOptMaxTime": {
+                            "description": "Maximum time limit for extender optimization (in seconds)",
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 50,
+                            "default": 0.2
+                        },
+                        "extenderChangeGraduation": {
+                            "description": "Graduation value used to quantify the change between extender position",
+                            "type": "number",
+                            "minimum": 1e-8,
+                            "default": 1e-6
+                        },
+                        "enableCloseProximityOptimization": {
+                            "description": "Enables close proximity surface motion planning",
+                            "type": "boolean",
+                            "default": true
+                        }
+                    },
+                    "required": [
+                        "extenderOptMaxTime",
+                        "extenderChangeGraduation",
+                        "enableCloseProximityOptimization"
+                    ],
+                    "additionalProperties": false
+                }
+            },
+            "required": [
+                "joints",
+                "extender"
+            ],
+            "additionalProperties": false
+        },
+        "reachability": {
+            "description": "Solver config for setting up reachability check",
+            "type": "object",
+            "properties": {
+                "diagnostics": {
+                    "description": "Set to true to enable reachability node to save diagnostic data as files",
+                    "type": "boolean",
+                    "default": false
+                },
+                "reachabilityHandler": {
+                    "description": "Solver config for setting up reachability handler",
+                    "type": "object",
+                    "properties": {
+                        "debugReachabilityOutput": {
+                            "description": "Enables debugging reachability output when joint solution is empty but success flag is true. This value should only be set to true for developers.",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "maxInstances": {
+                            "description": "Maximum number of multi-threaded instances created to check reachability",
+                            "type": "number",
+                            "minimum": 1,
+                            "default": 20
+                        }
+                    },
+                    "required": [
+                        "debugReachabilityOutput",
+                        "maxInstances"
+                    ],
+                    "additionalProperties": false
+                },
+                "instance": {
+                    "description": "Solver config for setting up instances",
+                    "type": "object",
+                    "properties": {
+                        "useAutomaticSeeding": {
+                            "description": "Enables seed assignment based upon the reachability of points with each seed",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "useMultiTCP": {
+                            "description": "Enables using multiple TCPs while checking for reachability",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "discontinuityThreshold": {
+                            "description": "Maximum allowable error threshold while checking for discontinuity between two poses",
+                            "type": "number",
+                            "minimum": 1e-4,
+                            "default": 0.85
+                        },
+                        "extDiscontinuityThreshold": {
+                            "description": "Maximum allowable threshold for difference between extender positions of two consecutive poses, in meters",
+                            "type": "number",
+                            "default": 0.1
+                        },
+                        "jointDiscontinuityThreshold": {
+                            "description": "Maximum allowable threshold for difference between joint positions of two consecutive poses, in radians",
+                            "type": "number",
+                            "default": 0.1
+                        },
+                        "seedCandidates": {
+                            "type": "array",
+                            "description": "List of robot seed candidates for optimization and solving reachability",
+                            "minItems": 1,
+                            "items": {
+                                "type": "array",
+                                "description": "A seed candidate represented by a 6-dimensional robot joint array",
+                                "minItems": 6,
+                                "maxItems": 6,
+                                "items": {
+                                    "type": "number"
+                                }
+                            }
+                        },
+                        "rollerSeeds": {
+                            "type": "array",
+                            "description": "List of roller seed candidates for optimization and solving reachability",
+                            "minItems": 1,
+                            "items": {
+                                "type": "array",
+                                "description": "A seed candidate represented by a 1-dimensional roller joint array",
+                                "minItems": 1,
+                                "maxItems": 1,
+                                "items": {
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    },
+                    "required": [
+                        "useAutomaticSeeding",
+                        "useMultiTCP",
+                        "extDiscontinuityThreshold",
+                        "jointDiscontinuityThreshold",
+                        "seedCandidates",
+                        "rollerSeeds"
+                    ],
+                    "additionalProperties": false
+                },
+                "pct": {
+                    "description": "Solver config for setting up Path-Conditioned Trajectory (PCT) planning",
+                    "type": "object",
+                    "properties": {
+                        "numberOfPointsPerSegment": {
+                            "description": "Number of target points to be assigned per segment or solver",
+                            "type": "number",
+                            "default": 150
+                        },
+                        "assimilationTolerancePerc": {
+                            "description": "Percentage to determine the maximum number of points in the last segment, such that for a lower number, it will be assimilated into the previous segment",
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 100,
+                            "default": 10
+                        },
+                        "poseTolerance": {
+                            "description": "Maximum allowable error tolerance in pose comparison while solving for continuous, collision-free trajectory",
+                            "type": "number",
+                            "minimum": 1e-5,
+                            "default": 0.02
+                        },
+                        "singularityTolerance": {
+                            "description": "Minimum allowable value for the determinant of the product of jacobiand and its transpose. If the values is less than this for any pose, then that pose is at a singularity.",
+                            "type": "number",
+                            "minimum": 1e-8,
+                            "default": 0.9
+                        },
+                        "postProcessingIterations": {
+                            "description": "Number of postprocessing iterations",
+                            "type": "number",
+                            "minimum": 0,
+                            "default": 2
+                        },
+                        "postProcessingDiscontinuityThreshold": {
+                            "description": "Maximum allowable error threshold while checking for postprocessing discontinuity between two poses",
+                            "type": "number",
+                            "minimum": 0.001,
+                            "default": 0.03
+                        },
+                        "blendDiscontinuityTheshold": {
+                            "description": "Maximum allowable error threshold while checking for blending discontinuity between two poses",
+                            "type": "number",
+                            "minimum": 0.001,
+                            "default": 0.02
+                        },
+                        "useMultipleThreads": {
+                            "description": "Enables the mutlithreading capability of solvers",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "enableDiscreteCollision": {
+                            "description": "Enables discrete collision check for a single joint pose",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "separateWithSeed": {
+                            "description": "Enables separating points based upon seed assignment while setting point relations",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "separateWithTCP": {
+                            "description": "Enables separating points based upon the tcp while setting point relations",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "mesh2meshCheck": {
+                            "description": "Enables mesh to mesh collision checking",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "wpCollisionOffset": {
+                            "description": "Collision offset for workpiece collision checking",
+                            "type": "number",
+                            "minimum": 0,
+                            "default": 0.001
+                        },
+                        "envCollisionOffset": {
+                            "description": "Collision offset for environment collision checking",
+                            "type": "number",
+                            "minimum": 0,
+                            "default": 0.025
+                        },
+                        "selfCollisionOffset": {
+                            "description": "Collision offset for self collision checking",
+                            "type": "number",
+                            "minimum": 0,
+                            "default": 0.025
+                        }
+                    },
+                    "required": [
+                        "numberOfPointsPerSegment",
+                        "assimilationTolerancePerc",
+                        "poseTolerance",
+                        "singularityTolerance",
+                        "postProcessingIterations",
+                        "postProcessingDiscontinuityThreshold",
+                        "blendDiscontinuityTheshold",
+                        "useMultipleThreads",
+                        "enableDiscreteCollision",
+                        "separateWithSeed",
+                        "separateWithTCP",
+                        "mesh2meshCheck",
+                        "wpCollisionOffset",
+                        "envCollisionOffset",
+                        "selfCollisionOffset"
+                    ],
+                    "additionalProperties": false
+                }
+            },
+            "required": [
+                "reachabilityHandler",
+                "instance",
+                "pct"
+            ],
+            "additionalProperties": false
+        },
+        "p2p": {
+            "description": "Solver config for setting up Point-to-Point (P2P) trajectory planning",
+            "type": "object",
+            "properties": {
+                "trajectoryHandler": {
+                    "description": "Solver config for setting up trajectory handler",
+                    "type": "object",
+                    "properties": {
+                        "maxInterposes": {
+                            "description": "Maximum number of multi-threaded interposes created for jump planning (maxInterposes = 1 for go target planning)",
+                            "type": "number",
+                            "minimum": 1,
+                            "default": 32
+                        },
+                        "goTargetCNT": {
+                            "description": "CNT value for the planned jump trajectory",
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 100,
+                            "default": 100
+                        },
+                        "jumpCNT": {
+                            "description": "CNT value for the planned jump trajectory",
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 100,
+                            "default": 90
+                        }
+                    },
+                    "required": [
+                        "maxInterposes",
+                        "goTargetCNT",
+                        "jumpCNT"
+                    ],
+                    "additionalProperties": false
+                },
+                "optimization": {
+                    "description": "Solver config for P2P optimization",
+                    "type": "object",
+                    "properties": {
+                        "configInterpolationStepSize": {
+                            "description": "Linear interpolation step size in configuration space for P2P path planning",
+                            "type": "number",
+                            "minimum": 0.001,
+                            "default": 0.01
+                        },
+                        "workspaceInterpolationStepSize": {
+                            "description": "Linear interpolation step size in operational space for P2P path planning",
+                            "type": "number",
+                            "minimum": 1e-4,
+                            "default": 0.002
+                        },
+                        "useInfNormInConfigSpace": {
+                            "description": "Enables using infinity norm for calculating distance in configuration space",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "configSpaceEpsilon": {
+                            "description": "Linear interpolation threshold in configuration space to compare against target pose",
+                            "type": "number",
+                            "minimum": 1e-11,
+                            "default": 1e-10
+                        },
+                        "workspacePositionEpsilon": {
+                            "description": "Linear interpolation threshold in operational space to compare against target pose position",
+                            "type": "number",
+                            "minimum": 1e-4,
+                            "default": 0.002
+                        },
+                        "workspaceOrientationEpsilon": {
+                            "description": "Linear interpolation threshold in operational space to compare against target pose orientation",
+                            "type": "number",
+                            "minimum": 0.001,
+                            "default": 0.02
+                        },
+                        "workspaceInterpolationMaxIterations": {
+                            "description": "Linear interpolation maximum iterations in operational space for P2P path planning",
+                            "type": "number",
+                            "minimum": 100,
+                            "default": 300
+                        },
+                        "planningMaxTime": {
+                            "description": "Maximum time limit for P2P path planning (in seconds). The planner will find n best solutions or until max time is reached, whichever comes first.",
+                            "type": "number",
+                            "minimum": 10,
+                            "default": 200
+                        },
+                        "planningMaxIterations": {
+                            "description": "Maximum number of iterations for finding the next best solution for P2P path planning. The planner will find n best solutions or until max time is reached, whichever comes first.",
+                            "type": "number",
+                            "minimum": 1,
+                            "default": 1
+                        },
+                        "planningLowerLimitTime": {
+                            "description": "Lower limit on time for P2P path planning (in seconds)",
+                            "type": "number",
+                            "minimum": 0.001,
+                            "default": 0.01
+                        },
+                        "jacobianLambda": {
+                            "description": "Regularization parameter used in the computation of Jacobian pseudo-inverse",
+                            "type": "number",
+                            "minimum": 0.001,
+                            "default": 0.1
+                        },
+                        "groundFloor": {
+                            "description": "Lowest z coordinate of any robot link, based upon the position of the ground or floor",
+                            "type": "number",
+                            "default": -3.0
+                        },
+                        "useSkipPoints": {
+                            "description": "Enables skipping points in the resultant path after linear interpolation",
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "numSkipPoints": {
+                            "description": "Number of points to skip in the resultant path after linear interpolation",
+                            "type": "number",
+                            "minimum": 1,
+                            "default": 2
+                        },
+                        "workspaceLimits": {
+                            "description": "Defines the limits of the workspace in three dimensions (X, Y, and Z)",
+                            "type": "object",
+                            "properties": {
+                                "xmin": {
+                                    "type": "number"
+                                },
+                                "xmax": {
+                                    "type": "number"
+                                },
+                                "ymin": {
+                                    "type": "number"
+                                },
+                                "ymax": {
+                                    "type": "number"
+                                },
+                                "zmin": {
+                                    "type": "number"
+                                },
+                                "zmax": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "xmin",
+                                "xmax",
+                                "ymin",
+                                "ymax",
+                                "zmin",
+                                "zmax"
+                            ],
+                            "additionalProperties": false
+                        },
+                        "strategy": {
+                            "type": "array",
+                            "description": "Strategy vector for selecting various aspects in the P2P path planning process",
+                            "items": [
+                                {
+                                    "description": "Strategy for selecting workspace focus (workspace ball vs uniform)",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "number",
+                                            "description": "Weight for workspace ball workspace focusing"
+                                        }
+                                    ],
+                                    "minItems": 1,
+                                    "maxItems": 1
+                                },
+                                {
+                                    "description": "Strategy for selecting tree (random vs population difference)",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "number",
+                                            "description": "Weight for random tree selection"
+                                        },
+                                        {
+                                            "type": "number",
+                                            "description": "Weight for population difference tree selection"
+                                        }
+                                    ],
+                                    "minItems": 2,
+                                    "maxItems": 2
+                                },
+                                {
+                                    "description": "Strategy for selecting focus (configuration space vs workspace)",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "number",
+                                            "description": "Weight for configuration space focus"
+                                        }
+                                    ],
+                                    "minItems": 1,
+                                    "maxItems": 1
+                                },
+                                {
+                                    "description": "Strategy for selecting node (configuration space, workspace, or F cost)",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "number",
+                                            "description": "Weight for configuration space node selection"
+                                        },
+                                        {
+                                            "type": "number",
+                                            "description": "Weight for workspace node selection"
+                                        }
+                                    ],
+                                    "minItems": 2,
+                                    "maxItems": 2
+                                },
+                                {
+                                    "description": "Strategy for selecting target (configuration space, workspace, or F cost)",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "number",
+                                            "description": "Weight for configuration space target selection"
+                                        },
+                                        {
+                                            "type": "number",
+                                            "description": "Weight for workspace target selection"
+                                        }
+                                    ],
+                                    "minItems": 2,
+                                    "maxItems": 2
+                                },
+                                {
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "number"
+                                        },
+                                        {
+                                            "type": "number"
+                                        }
+                                    ],
+                                    "minItems": 2,
+                                    "maxItems": 2
+                                },
+                                {
+                                    "description": "Strategy for connecting trees (configuration space, workspace)",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "number",
+                                            "description": "Weight for connecting trees in configuration space"
+                                        },
+                                        {
+                                            "type": "number",
+                                            "description": "Weight for connecting trees in workspace"
+                                        }
+                                    ],
+                                    "minItems": 2,
+                                    "maxItems": 2
+                                }
+                            ],
+                            "minItems": 7,
+                            "maxItems": 7
+                        },
+                        "checkCollisionDuringInterpolation": {
+                            "description": "Enables collision checking during linear interpolation",
+                            "type": "boolean",
+                            "default": true
+                        }
+                    },
+                    "required": [
+                        "configInterpolationStepSize",
+                        "workspaceInterpolationStepSize",
+                        "useInfNormInConfigSpace",
+                        "configSpaceEpsilon",
+                        "workspacePositionEpsilon",
+                        "workspaceOrientationEpsilon",
+                        "workspaceInterpolationMaxIterations",
+                        "planningMaxTime",
+                        "planningMaxIterations",
+                        "planningLowerLimitTime",
+                        "jacobianLambda",
+                        "groundFloor",
+                        "useSkipPoints",
+                        "numSkipPoints",
+                        "workspaceLimits",
+                        "strategy",
+                        "checkCollisionDuringInterpolation"
+                    ],
+                    "additionalProperties": false
+                },
+                "refinement": {
+                    "description": "Solver config for P2P refinement",
+                    "type": "object",
+                    "properties": {
+                        "refinementStepSize": {
+                            "description": "Linear interpolation step size in configuration space for P2P path refinement",
+                            "type": "number",
+                            "minimum": 0.001,
+                            "default": 0.02
+                        },
+                        "maxPathRefinementAttempts": {
+                            "description": "Maximum number of attempts to refine P2P path",
+                            "type": "number",
+                            "minimum": 100,
+                            "default": 200
+                        },
+                        "maxNodeSequenceRefinementAttempts": {
+                            "description": "Maximum number of attempts to refine P2P node sequence",
+                            "type": "number",
+                            "minimum": 10,
+                            "default": 100
+                        },
+                        "pathRefinementThreshRel": {
+                            "description": "Maximum threshold for the the ratio of new with the previous path costs after P2P path refinement",
+                            "type": "number",
+                            "minimum": 1e-11,
+                            "default": 5e-10
+                        },
+                        "replanOnCollision": {
+                            "description": "Enables replanning if a collision is found during refinement",
+                            "type": "boolean",
+                            "default": true
+                        }
+                    },
+                    "required": [
+                        "refinementStepSize",
+                        "maxPathRefinementAttempts",
+                        "maxNodeSequenceRefinementAttempts",
+                        "pathRefinementThreshRel",
+                        "replanOnCollision"
+                    ],
+                    "additionalProperties": false
+                },
+                "wsb": {
+                    "description": "Solver config for P2P WSB tree creation",
+                    "type": "object",
+                    "properties": {
+                        "numSurfacePoints": {
+                            "description": "Number of points to be randomly sampled on the surface of each workspace ball",
+                            "type": "number",
+                            "minimum": 1,
+                            "default": 10
+                        },
+                        "obstacleEpsilon": {
+                            "description": "Obstacle threshold to determine the validity of a sample ball center. If the center is closer to the world object cloud than this value, then it is invalid.",
+                            "type": "number",
+                            "minimum": 1e-4,
+                            "default": 0.02
+                        },
+                        "maxWSBRadius": {
+                            "description": "Maximum radius of a newly sampled workspace ball. Increasing this value would force the planner to explore the space much faster as discretization will happen in potentially bigger units.",
+                            "type": "number",
+                            "minimum": 1e-3,
+                            "default": 0.2
+                        },
+                        "maxWSBAttempts": {
+                            "description": "Maximum number of attempts to execute A* and create WSB tree",
+                            "type": "number",
+                            "minimum": 1,
+                            "default": 15
+                        },
+                        "maxWSBIters": {
+                            "description": "Maximum number of iterations to execute A*for each attempt. For longer paths, a higher iteration limit will help.",
+                            "type": "number",
+                            "minimum": 1,
+                            "default": 200
+                        },
+                        "useWSBUniformSampling": {
+                            "description": "Enables WSB computation to use uniform sampling instead of random sampling",
+                            "type": "boolean",
+                            "default": "false"
+                        }
+                    },
+                    "required": [
+                        "numSurfacePoints",
+                        "obstacleEpsilon",
+                        "maxWSBRadius",
+                        "maxWSBAttempts",
+                        "maxWSBIters",
+                        "useWSBUniformSampling"
+                    ],
+                    "additionalProperties": false
+                },
+                "passtopass": {
+                    "description": "Solver config for P2P for pass to pass feature, where the robot can go from the end of one pass to the start of another",
+                    "type": "object",
+                    "properties": {
+                        "activate": {
+                            "description": "Enables the use of the passtopass feature",
+                            "type": "boolean",
+                            "default": "false"
+                        }
+                    },
+                    "required": [
+                        "activate"
+                    ],
+                    "additionalProperties": false
+                },
+                "p2pCollisionThresholds": {
+                    "description": "The collision offsets for collision checking. if the distance between any two objects is less than this threshold, we will say that the object is in collision.",
+                    "type": "object",
+                    "properties": {
+                        "wpCollisionOffset": {
+                            "description": "Sets the collision threshold between the robot and the workpiece",
+                            "type": "number",
+                            "minimum": 0,
+                            "default": 0.05
+                        },
+                        "envCollisionOffset": {
+                            "description": "Sets the collision threshold between the robot and the environment",
+                            "type": "number",
+                            "minimum": 0,
+                            "default": 0.07
+                        },
+                        "selfCollisionOffset": {
+                            "description": "Sets the collision threshold between the links of the robots",
+                            "type": "number",
+                            "minimum": 0,
+                            "default": 0.03
+                        }
+                    },
+                    "required": [
+                        "wpCollisionOffset",
+                        "envCollisionOffset",
+                        "selfCollisionOffset"
+                    ],
+                    "additionalProperties": false
+                },
+                "spacing_modifier": {
+                    "description": "Parameters to control the collision distance based spacing function in P2P. If enabled, it helps in speeding up P2P motions.",
+                    "type": "object",
+                    "properties": {
+                        "activate": {
+                            "description": "If true, it enables this feature.",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "factor": {
+                            "description": "Multiplier for the exponential function that determines the minimum spacing between poses based on the distance.",
+                            "type": "number",
+                            "default": 0.01
+                        },
+                        "exponent_factor": {
+                            "description": "Exponent factor for the exponential function that determines the minimum spacing between poses based on the distance.",
+                            "type": "number",
+                            "default": 0.1
+                        }
+                    },
+                    "required": [
+                        "activate",
+                        "factor",
+                        "exponent_factor"
+                    ]
+                }
+            },
+            "required": [
+                "trajectoryHandler",
+                "optimization",
+                "refinement",
+                "wsb",
+                "p2pCollisionThresholds",
+                "spacing_modifier"
+            ],
+            "additionalProperties": false
+        },
+        "IK_solver": {
+            "description": "Solver config for setting up IK solver, for the solve IK and solve FK services",
+            "type": "object",
+            "properties": {
+                "optimizer": {
+                    "description": "Solver config for setting up nlopt optimizer, atomic optimization, and manipulator",
+                    "type": "object",
+                    "properties": {
+                        "joints": {
+                            "description": "Solver config for joint optimization",
+                            "type": "object",
+                            "properties": {
+                                "optXtolRel": {
+                                    "description": "Relative tolerance for joint optimization convergence -- optimization will stop iterating when the relative change in the parameter values between two consecutive iterations falls below this threshold.",
+                                    "type": "number",
+                                    "minimum": 1e-10,
+                                    "maximum": 0.1,
+                                    "default": 1e-8
+                                },
+                                "optFtolRel": {
+                                    "description": "Relative tolerance for joint optimization convergence -- optimization will stop iterating when the relative change in the objective function values between two consecutive iterations falls below this threshold.",
+                                    "type": "number",
+                                    "minimum": 1e-10,
+                                    "maximum": 0.1,
+                                    "default": 1e-8
+                                },
+                                "optMaxTime": {
+                                    "description": "Maximum time limit for joint optimization (in seconds)",
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 50,
+                                    "default": 0.5
+                                },
+                                "optMaxEval": {
+                                    "description": "Maximum number of objective function evaluations allowed during joint optimization",
+                                    "type": "integer",
+                                    "minimum": 100,
+                                    "maximum": 4000,
+                                    "default": 3000
+                                },
+                                "optGradientx": {
+                                    "description": "Step size for numerical gradient computation",
+                                    "type": "number",
+                                    "minimum": 1e-9,
+                                    "maximum": 0.01,
+                                    "default": 1e-8
+                                },
+                                "optMaxAttempts": {
+                                    "description": "Maximum number of attempts to solve joint optimization",
+                                    "type": "integer",
+                                    "minimum": 1,
+                                    "default": 3
+                                },
+                                "oriOptions": {
+                                    "description": "Selects the axes around which orientation needs to be fixed. Order: [X, Y, Z]. Setting any two of the axes to true automaticlly constrains all three",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "boolean"
+                                    },
+                                    "minItems": 3,
+                                    "maxItems": 3,
+                                    "examples": [
+                                        [
+                                            false,
+                                            false,
+                                            true
+                                        ],
+                                        [
+                                            false,
+                                            true,
+                                            false
+                                        ],
+                                        [
+                                            true,
+                                            false,
+                                            false
+                                        ]
+                                    ]
+                                },
+                                "errorEqualizer": {
+                                    "description": "Scaling factor applied to error terms for fine-tuning",
+                                    "type": "number",
+                                    "minimum": 1e-8,
+                                    "default": 1e-7
+                                },
+                                "jointChangeGraduation": {
+                                    "description": "Graduation value used to quantify the change between joint positions",
+                                    "type": "number",
+                                    "minimum": 0.001,
+                                    "default": 0.02
+                                }
+                            },
+                            "required": [
+                                "optXtolRel",
+                                "optFtolRel",
+                                "optMaxTime",
+                                "optGradientx",
+                                "optMaxAttempts",
+                                "oriOptions",
+                                "errorEqualizer",
+                                "jointChangeGraduation"
+                            ],
+                            "additionalProperties": false
+                        },
+                        "extender": {
+                            "description": "Solver config for extender optimization",
+                            "type": "object",
+                            "properties": {
+                                "extenderOptMaxTime": {
+                                    "description": "Maximum time limit for extender optimization (in seconds)",
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 50,
+                                    "default": 0.2
+                                },
+                                "extenderChangeGraduation": {
+                                    "description": "Graduation value used to quantify the change between extender position",
+                                    "type": "number",
+                                    "minimum": 1e-8,
+                                    "default": 1e-6
+                                },
+                                "enableCloseProximityOptimization": {
+                                    "description": "Enables close proximity surface motion planning",
+                                    "type": "boolean",
+                                    "default": true
+                                }
+                            },
+                            "required": [
+                                "extenderOptMaxTime",
+                                "extenderChangeGraduation",
+                                "enableCloseProximityOptimization"
+                            ],
+                            "additionalProperties": false
+                        }
+                    },
+                    "required": [
+                        "joints",
+                        "extender"
+                    ],
+                    "additionalProperties": false
+                },
+                "poseTolerance": {
+                    "description": "Maximum allowable error tolerance in pose comparison while solving for continuous, collision-free trajectory",
+                    "type": "number",
+                    "minimum": 0.001,
+                    "default": 0.02
+                }
+            },
+            "required": [
+                "optimizer",
+                "poseTolerance"
+            ],
+            "additionalProperties": false
+        },
+        "seed_advisor": {
+            "description": "Solver config for seed advisor, which basically gets all the first time reachability inputs from toolpath planner, saves the clouds and transforms, checks for reachability using all seeds in the seeds database, creates the seed report for each segment each seed, and then runs the script seed_vis_tool.py to visualize the seed report",
+            "type": "object",
+            "properties": {
+                "activate": {
+                    "description": "Enables the seed advisor feature",
+                    "type": "boolean",
+                    "default": true
+                },
+                "runNewPlan": {
+                    "description": "Runs seed advisor with a new plan, i.e., runs segmentation, then toolpath planner sends all first time reachability requests, seed advisor saves all the inputs, and then runs the reachability checks using all seeds. If runNewPlan is false but activate is true, then seed advisor uses the reachability inputs currently cached in the run directory.",
+                    "type": "boolean",
+                    "default": true
+                }
+            },
+            "required": [
+                "activate",
+                "runNewPlan"
+            ]
+        },
+        "SDF_settings": {
+            "description": "Describes the parameters to generate an SDF. CHANGE THIS WITH CAUTION",
+            "type": "object",
+            "properties": {
+                "spacing": {
+                    "description": "The spacing to place between every voxel generated for any mesh. These voxel will contain a distance value for the mesh",
+                    "type": "number",
+                    "default": 0.01
+                },
+                "subgridSize": {
+                    "description": "This value determines whether we use a sparse SDF or a dense SDF. currently we only support dense SDF so leave this to 0",
+                    "type": "number",
+                    "default": 0
+                },
+                "numThreadsForSdfConstruction": {
+                    "description": "The number of threads that are launched to compute the signed distance field.",
+                    "type": "integer",
+                    "default": 20
+                },
+                "bitsPerSubgridPixel": {
+                    "description": "Enumeration that defines the number of bits per subgrid pixel (either 32, 16 or 8bits)",
+                    "type": "integer",
+                    "default": 8
+                }
+            },
+            "required": [
+                "spacing",
+                "subgridSize",
+                "numThreadsForSdfConstruction",
+                "bitsPerSubgridPixel"
+            ]
+        },
+        "smart_retrieve": {
+            "type": "object",
+            "description": "Solver config for the smart retrieve feature.",
+            "properties": {
+                "pose_threshold": {
+                    "type": "number",
+                    "description": "Minimum difference between the last recorded pose and the current pose, for the current pose to be recorded. The difference is calculated as the Euclidean norm of the difference between the poses.",
+                    "default": 0.05
+                }
+            },
+            "required": [
+                "pose_threshold"
+            ]
+        },
+        "scan_planner": {
+            "type": "object",
+            "description": "Solver config for the scan planner feature.",
+            "properties": {
+                "mesh2meshCheck": {
+                    "description": "Enables mesh to mesh collision checking",
+                    "type": "boolean",
+                    "default": false
+                }
+            },
+            "required": [
+                "mesh2meshCheck"
+            ]
+        }
+    },
+    "required": [
+        "optimizer",
+        "reachability",
+        "p2p",
+        "IK_solver",
+        "SDF_settings",
+        "smart_retrieve",
+        "scan_planner"
+    ],
+    "additionalProperties": false
+}

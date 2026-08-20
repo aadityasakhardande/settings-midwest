@@ -1,0 +1,263 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://graymatter-robotics.com/system_config/scene_config.schema.json",
+    "title": "Scene Configuration and Description",
+    "description": "A configuration file for describing the robot setup along with the environment objects",
+    "type": "object",
+    "properties": {
+        "robots": {
+            "description": "All the robots in the system",
+            "type": "array",
+            "items": {
+                "description": "Description of the robot",
+                "type": "object",
+                "required": [
+                    "name",
+                    "path",
+                    "chains",
+                    "basePosition",
+                    "baseOrientation",
+                    "singularityThreshold",
+                    "poseTolerance"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Unique ID of this robot"
+                    },
+                    "path": {
+                        "type": "string",
+                        "description": "Path to the URDF file for the robot. If URDF file is in a ROS package, you can use \"package://\" relative path."
+                    },
+                    "robot_sphere_model_path": {
+                        "type": "string",
+                        "description": "Path to the robot_sphere file. If the file is in a ROS package, you can use \"package://\" relative path. loads up the spheres for collision"
+                    },
+                    "chains": {
+                        "description": "All the kinematic chains in the robot",
+                        "type": "array",
+                        "items": {
+                            "description": "Description of the kinematic chain in the robot",
+                            "type": "object",
+                            "required": [
+                                "rootLink",
+                                "leafLink",
+                                "baseLink",
+                                "jointLowerLimits",
+                                "jointUpperLimits",
+                                "axisOptions",
+                                "frames",
+                                "axisLowerLimits",
+                                "axisUpperLimits",
+                                "rollerAxisOptions",
+                                "rollerLowerLimits",
+                                "rollerUpperLimits",
+                                "collisionMask"
+                            ],
+                            "properties": {
+                                "rootLink": {
+                                    "type": "string",
+                                    "description": "Name of the root or start link in the kinematic chain, should be one of the links mentioned in the URDF"
+                                },
+                                "leafLink": {
+                                    "type": "string",
+                                    "description": "Name of the leaf or end link in the kinematic chain, should be one of the links mentioned in the URDF"
+                                },
+                                "baseLink": {
+                                    "type": "string",
+                                    "description": "Name of the link that is the beginning of the arm, usually the link that is mounted on a pedestal or extender"
+                                },
+                                "jointLowerLimits": {
+                                    "type": "array",
+                                    "description": "Lower limit of all the joints in the kinematic chain",
+                                    "items": {
+                                        "type": "number"
+                                    },
+                                    "minItems": 6
+                                },
+                                "jointUpperLimits": {
+                                    "type": "array",
+                                    "description": "Upper limit of all the joints in the kinematic chain",
+                                    "items": {
+                                        "type": "number"
+                                    },
+                                    "minItems": 6
+                                },
+                                "axisOptions": {
+                                    "type": "array",
+                                    "description": "Defines which axis direction are being used as extenders",
+                                    "items": {
+                                        "type": "boolean",
+                                        "description": "true if there is an extender in this direction. The order is [x,y,z]"
+                                    },
+                                    "minItems": 3,
+                                    "maxItems": 3
+                                },
+                                "frames": {
+                                    "type": "array",
+                                    "description": "Defines the transform from the root link to the base link with the extender links in between",
+                                    "items": {
+                                        "type": "array",
+                                        "description": "Transform from the previous link to the next, Position, followed by Orientation as quaternion (x,y,z,w)",
+                                        "minItems": 7,
+                                        "maxItems": 7
+                                    }
+                                },
+                                "axisLowerLimits": {
+                                    "type": "array",
+                                    "description": "Lower limit of the all the extender axes, in the same order [x,y,z]",
+                                    "items": {
+                                        "type": "number",
+                                        "desciption": "Lower limit"
+                                    },
+                                    "minItems": 3,
+                                    "maxItems": 3
+                                },
+                                "axisUpperLimits": {
+                                    "type": "array",
+                                    "description": "Upper limit of the all the extender axes, in the same order [x,y,z]",
+                                    "items": {
+                                        "type": "number",
+                                        "desciption": "Upper limit"
+                                    },
+                                    "minItems": 3,
+                                    "maxItems": 3
+                                },
+                                "rollerAxisOptions": {
+                                    "type": "array",
+                                    "description": "Defines which axis direction are being used as rollers",
+                                    "items": {
+                                        "type": "boolean",
+                                        "description": "true if there is an roller in this direction. The order is [x,y,z]"
+                                    },
+                                    "minItems": 3,
+                                    "maxItems": 3
+                                },
+                                "rollerLowerLimits": {
+                                    "type": "array",
+                                    "description": "Lower limit of the all the roller axes, in the same order [x,y,z]",
+                                    "items": {
+                                        "type": "number",
+                                        "desciption": "Lower limit"
+                                    },
+                                    "minItems": 3,
+                                    "maxItems": 3
+                                },
+                                "rollerUpperLimits": {
+                                    "type": "array",
+                                    "description": "Upper limit of the all the roller axes, in the same order [x,y,z]",
+                                    "items": {
+                                        "type": "number",
+                                        "desciption": "Upper limit"
+                                    },
+                                    "minItems": 3,
+                                    "maxItems": 3
+                                },
+                                "collisionMask": {
+                                    "type": "array",
+                                    "description": "Masks collision between a robot link and environment objects, i.e. collisions between this robot link and the listed environment objects will be ignored",
+                                    "items": {
+                                        "type": "object",
+                                        "required": [
+                                            "robot_link",
+                                            "masked_env"
+                                        ],
+                                        "properties": {
+                                            "robot_link": {
+                                                "type": "string",
+                                                "description": "Name of the robot link against which certain environment collisions will be ignored"
+                                            },
+                                            "masked_env": {
+                                                "type": "array",
+                                                "description": "List of all the environment objects againt which collisions will be ignored for this robot link",
+                                                "items": {
+                                                    "type": "string",
+                                                    "description": "Unique ID of the environment object"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "basePosition": {
+                        "type": "array",
+                        "description": "[Deprecated] Position of the base from world frame as a vector"
+                    },
+                    "baseOrientation": {
+                        "type": "array",
+                        "description": "[Deprecated] Orientation of the base from the world frame as a quaternion"
+                    },
+                    "singularityThreshold": {
+                        "type": "number",
+                        "description": "Minimum value of the manipulatibility measure (J*inv(J), where J is the geometric jacobian of the robot), under which the robot is considered to be in a singularity",
+                        "maximum": 1e-4
+                    },
+                    "poseTolerance": {
+                        "type": "number",
+                        "description": "Minimum pose error, in radians, for the internal optimizer",
+                        "maximum": 1
+                    }
+                }
+            }
+        },
+        "env": {
+            "type": "array",
+            "description": "All the environment objects in the cell setup that the robot might potentially collide with",
+            "items": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "type",
+                    "path",
+                    "position",
+                    "orientation"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Unique ID of the environment object"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of geometry, For now only MESH is supported",
+                        "enum": [
+                            "MESH"
+                        ]
+                    },
+                    "path": {
+                        "type": "string",
+                        "description": "Path to the mesh file, can use full path or \"package://\" relative path"
+                    },
+                    "size": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
+                    },
+                    "position": {
+                        "type": "array",
+                        "description": "Position of the object as a vector",
+                        "items": {
+                            "type": "number",
+                            "description": "Coordinate of the environment object from world frame, in order x,y,z"
+                        },
+                        "minItems": 3,
+                        "maxItems": 3
+                    },
+                    "orientation": {
+                        "type": "array",
+                        "description": "Orientation of the object as a quaternion",
+                        "items": {
+                            "type": "number",
+                            "description": "Quaternion coordinate of the environment object from world frame, in order x,y,z,w"
+                        },
+                        "minItems": 4,
+                        "maxItems": 4
+                    }
+                }
+            }
+        }
+    }
+}

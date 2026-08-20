@@ -1,0 +1,84 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Zone Definition Config",
+    "type": "object",
+    "properties": {
+        "zone_info": {
+            "description": "zone_info contains the settings for each zone, if the zone_info is empty, the workpiece frame will be set to be world automatically",
+            "type": "array",
+            "items": {
+                "description": "settings for a zone",
+                "type": "object",
+                "required": [
+                    "zone_id",
+                    "workpiece_frame",
+                    "pointcloud_stitch_frame"
+                ],
+                "properties": {
+                    "zone_id": {
+                        "description": "the id number for the zone",
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "workpiece_frame": {
+                        "description": "the workpiece frame config for the zone",
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "description": "the workpiece frame name for the zone",
+                                "type": "string",
+                                "default": "world"
+                            },
+                            "transformation": {
+                                "description": "the transformation from world to this workpiece frame",
+                                "properties": {
+                                    "translation": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "number"
+                                        },
+                                        "minItems": 3,
+                                        "maxItems": 3,
+                                        "default": [
+                                            0,
+                                            0,
+                                            0
+                                        ]
+                                    },
+                                    "quaternion": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "number"
+                                        },
+                                        "minItems": 4,
+                                        "maxItems": 4,
+                                        "default": [
+                                            0,
+                                            0,
+                                            0,
+                                            1
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "translation",
+                                    "quaternion"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "name",
+                            "transformation"
+                        ]
+                    },
+                    "pointcloud_stitch_frame": {
+                        "description": "the name of the frame around which the pointcloud will be stitched",
+                        "type": "string",
+                        "default": "world"
+                    }
+                }
+            }
+        },
+        "required": true
+    }
+}

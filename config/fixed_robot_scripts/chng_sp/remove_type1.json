@@ -1,0 +1,163 @@
+{
+    "header": {
+        "angleUnits": "d",
+        "timeUnits": "ms"
+    },
+    "path": [
+        {
+            "type": "movej",
+            "target": [
+                8.152,
+                -1.322,
+                -42.989,
+                -11.977,
+                42.630,
+                9.611
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 1000,
+            "CNT": 80,
+            "RPM": 0,
+            "motion_type": 0,
+            "tool_status": false,
+            "force": 15
+        },
+        {
+            "type": "movej",
+            "target": [
+                13.624,
+                15.757,
+                -38.055,
+                -16.560,
+                55.298,
+                10.381
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 1000,
+            "CNT": 80,
+            "RPM": 0,
+            "motion_type": 0,
+            "tool_status": false,
+            "force": 15
+        },
+        {
+            "type": "movej",
+            "target": [
+                12.865,
+                26.252,
+                -34.044,
+                -13.878,
+                66.791,
+                7.502
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 1000,
+            "CNT": 60,
+            "RPM": 0,
+            "motion_type": 0,
+            "tool_status": false,
+            "force": 15
+        },
+        {
+            "type": "movej",
+            "target": [
+                13.627,
+                22.143,
+                -38.626,
+                -15.396,
+                61.997,
+                8.14
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 1000,
+            "CNT": 60,
+            "RPM": 0,
+            "motion_type": 0,
+            "tool_status": false,
+            "force": 15
+        },
+        {
+            "type": "movej",
+            "target": [
+                14.076,
+                16.430,
+                -40.808,
+                -18.663,
+                48.052,
+                10.936
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 1000,
+            "CNT": 60,
+            "RPM": 0,
+            "motion_type": 0,
+            "tool_status": false,
+            "force": 15
+        },
+        {
+            "type": "movej",
+            "target": [
+                13.623,
+                15.756,
+                -38.054,
+                -16.559,
+                55.200,
+                10.380
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 1000,
+            "CNT": 80,
+            "RPM": 0,
+            "motion_type": 0,
+            "tool_status": false,
+            "force": 15
+        },
+        {
+            "type": "movej",
+            "target": [
+                8.152,
+                -1.322,
+                -42.989,
+                -11.977,
+                42.630,
+                9.611
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 1000,
+            "CNT": 80,
+            "RPM": 0,
+            "motion_type": 0,
+            "tool_status": false,
+            "force": 15
+        }
+    ],
+    "comment": "Removing Sequence"
+}

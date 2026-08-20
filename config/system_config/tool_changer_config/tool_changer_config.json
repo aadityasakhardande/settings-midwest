@@ -1,0 +1,30 @@
+{
+    "$schema": "./schemas/tool_changer_config_schema.json",
+    "title": "Tool Changer Config",
+    "number_of_tools": 1,
+    "use_clamp_register": false,
+    "check_clamp_pressure": false,
+    "pressure_timeout_s": 5,
+    "required_clamp_pressure": 80,
+    "min_clamp_pressure_reg_value": 3840,
+    "max_clamp_pressure_reg_value": 32000,
+    "min_clamp_pressure_psi": -14.5,
+    "max_clamp_pressure_psi": 145,
+    "use_payload_double_check": false,
+    "no_tool_payload": 10.9,
+    "tool_payload_list": [
+        18.15
+    ],
+    "payload_tollerance": 0.4,
+    "behavior_type": 1,
+    "end_effector_max_extension": 20,
+    "contact_detection_threshold": 5,
+    "bucket_driven": false,
+    "bucket_setup": [
+        {
+            "display_name": "bucket 1",
+            "tool_id": 0,
+            "max_consumption": 1
+        }
+    ]
+}

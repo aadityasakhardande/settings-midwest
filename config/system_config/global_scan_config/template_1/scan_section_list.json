@@ -1,0 +1,28 @@
+{
+    "$schema": "../.schemas/scan_section_list.schema.json",
+    "scan_sections": [
+        {
+            "scan_type": 0,
+            "encoder_start": 100,
+            "encoder_end": 500,
+            "scan_pose": [
+                0.5,
+                1.0,
+                1.5,
+                2.0,
+                2.5,
+                3.0
+            ],
+            "ext_start": [
+                0.1,
+                0.2,
+                0.3
+            ],
+            "ext_end": [
+                0.4,
+                0.5,
+                0.6
+            ]
+        }
+    ]
+}

@@ -1,0 +1,77 @@
+{
+    "$schema": "./schemas/compound_gui_config_schema.json",
+    "data": [
+        {
+            "compound_string": "A80",
+            "refill_start_instructions": [
+                {
+                    "instruction_string": "Make sure the pressure indicator is at 0 psi before opening the lid",
+                    "instruction_image_directory": "no_image.png"
+                },
+                {
+                    "instruction_string": "Please use the indicator label to refill compound in the right pot",
+                    "instruction_image_directory": "no_image.png"
+                }
+            ],
+            "refill_end_instructions": [
+                {
+                    "instruction_string": "Make sure to \nfill compound to the line",
+                    "instruction_image_directory": "no_image.png"
+                },
+                {
+                    "instruction_string": "Make sure to \nalign and tighten the lid",
+                    "instruction_image_directory": "no_image.png"
+                },
+                {
+                    "instruction_string": "Make sure to \nrelease valve is closed",
+                    "instruction_image_directory": "no_image.png"
+                }
+            ]
+        },
+        {
+            "compound_string": "BlackMagic",
+            "refill_start_instructions": [
+                {
+                    "instruction_string": "Make sure the pressure indicator is at 30 psi before opening the lid",
+                    "instruction_image_directory": "no_image.png"
+                },
+                {
+                    "instruction_string": "Please use the indicator label to refill BlackMagic in the right pot",
+                    "instruction_image_directory": "no_image.png"
+                }
+            ],
+            "refill_end_instructions": [
+                {
+                    "instruction_string": "Make sure to \nfill BlackMagic to the line",
+                    "instruction_image_directory": "no_image.png"
+                },
+                {
+                    "instruction_string": "Make sure to \nalign and tighten the lid",
+                    "instruction_image_directory": "no_image.png"
+                },
+                {
+                    "instruction_string": "Make sure to \nrelease valve is closed",
+                    "instruction_image_directory": "no_image.png"
+                }
+            ]
+        }
+    ],
+    "overpressure_routine": {
+        "pre_routine_instruction": {
+            "instruction_string": "Please make sure no personnel is in the zone. Robot is about to move!",
+            "instruction_image_directory": "no_image.png"
+        },
+        "in_routine_instruction": {
+            "instruction_string": "Please wait for the routine to\ncomplete.",
+            "instruction_image_directory": "no_image.png"
+        },
+        "routine_success_instruction": {
+            "instruction_string": "The routine has completed!\nPlease move the robot back to home before new cycle.",
+            "instruction_image_directory": "no_image.png"
+        },
+        "routine_failure_instruction": {
+            "instruction_string": "The routine has failed!\nPlease contact GMR support team!",
+            "instruction_image_directory": "no_image.png"
+        }
+    }
+}

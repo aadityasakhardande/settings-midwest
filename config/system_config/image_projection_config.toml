@@ -1,0 +1,127 @@
+[image_data_defaults]
+  [image_data_defaults.camera_settings]
+  focal_length_mm = -1.0
+  F_stop = -1.0
+  exposure_time_us = -1.0
+  gain_dB = -1.0
+
+  [image_data_defaults.robot_state]
+  time_secs = -1
+  time_nsecs = -1
+  j1 = 0.0
+  j2 = 0.0
+  j3 = 0.0
+  j4 = 0.0 
+  j5 = 0.0 
+  j6 = 0.0 
+  ext_y = 0.0
+  
+[file_info]
+# these are used to assemble file names. i.e. with index_0=0 and index_last=5 with base_name = "position" the program will find the files: ["position0", "position1", "position2", "position3", "position4", "position5"]
+image_base_name = "image"
+image_index_0 = 0
+image_index_last = 35
+############################################
+
+automatically_find_file_names = true
+
+images_path = "images" 
+image_data_path = "image_data" 
+
+image_file_type = "png"
+image_data_file_type = "toml"
+
+# pointcloud_path = "data/mergedPointcloud.ply" # possibly temp, could wrap into srv
+
+#[camera_calibration]
+#camera_matrix = [1938.291250, 0.0, 1036.794550, 0.0, 1937.242862, 767.446479, 0.0, 0.0, 1.0]
+#distortion_coefficients = [-0.027204, 0.140401, -0.000055, 0.000185, -0.709244]
+#tool0_to_camera_transform = [[0.010854, -0.999853, -0.013289, 0.223868], [0.999871, 0.010694, 0.012000, -0.001085], [-0.011856, -0.013417, 0.999840, -0.176025], [0.0, 0.0, 0.0, 1.0]]
+
+[camera_calibration]
+camera_matrix = [1936.495407, 0.0, 1053.146745, 0.0, 1936.849648, 722.372734, 0.0, 0.0, 1.0]
+distortion_coefficients = [-0.026348, -0.053840, -0.001906, 0.001558, 0.114940]
+tool0_to_camera_transform = [[-0.006337, 0.987373, -0.158288, -0.197383], [-0.999937, -0.004793, 0.010137, 0.084247], [0.009250, 0.158343, 0.987341, -0.191760], [0.0, 0.0, 0.0, 1.0]]
+
+
+# for pixelink, 17.6 mm diameter with 3216x2200 resolution -> ~ 14.53 mm x 9.94 mm sensor size
+#camera_sensor_width_mm = 14.53
+#camera_sensor_height_mm = 9.94
+camera_sensor_width_mm = 6.6792
+camera_sensor_height_mm = 4.1952
+[occlusion]
+radius = 10.0 # radius for the HPR operator
+near_frustum_plane_m = 0.0
+far_frustum_plane_m = 10.0
+# distance = 0.01 # range (meters) around closest point to camera that points are allowed to be assigned to the same pixel
+minimum_x = -40.0
+maximum_x = 40.0 
+minimum_y = -40.0 
+maximum_y = 40.0 
+minimum_z = -40.0
+maximum_z = 40.0
+
+[general]
+projection_method = "opencv" # "opencv" or "pcl"
+# amount of pixels to remove (x2) from image(s) in both dimensions
+camera_pixel_trim_x = 150 # 500
+camera_pixel_trim_y = 60# 300
+save_alt_with_noncolored_removed = true # if true, will save version of pointcloud with non-colored points removed
+debug_logging = true
+save_garbage = true
+saveDebugImages = true
+
+[color_segmentation]
+nearby_point_search_K = 30 
+point_colorimetrical_similarity_threshold = 8.0
+point_distance_threshold = 0.03 
+nearby_region_search_K = 30
+region_colorimetrical_similarity_threshold = 10.0
+region_distance_threshold = 0.02
+minimum_region_size = 250
+maximum_colorimetrical_difference = 13.0
+maximum_region_merging_distance = 0.2
+minimum_merging_region_search_K = 50
+leftover_threshold = 250 # number of points which under is just garbage
+
+use_CIELAB_color_difference = false # colorimetrical similarity vs CIELAB color difference 
+
+point_CIELAB_color_difference_threshold = 12.0 
+region_CIELAB_color_difference_threshold = 10.0 
+maximum_CIELAB_color_difference = 20.0
+
+similar_final_regions_CIELAB_color_difference = 20.0 # threshold for where the program considers these final regions to be a similar color (there is really no reason for this to be different thn maximum_color_difference)
+
+# these control sensitivity of color difference formula to various aspects of the color
+k_L = 2.0 # recommend value greater than 1
+k_C = 1.0 # recommend 1
+k_H = 1.0 # recommend 1
+
+tape_colors = [
+  [196.578, 134.071, 6.429],
+  [15.468, 15.7726, 15.5132],
+  [13.8618, 62.2262, 146.661],
+  [131.225, 34.2803, 13.7908]
+]
+
+tape_object_image_size = 256 # dimensions of "images" used to represent detected tape components
+
+[pointcloud_parameterization]
+  k = 25
+  # if getting errors where R_i is empty, likely it is becaues these are too restrictive:
+  c_1_degree = 0.0 # paper recommends 15.0
+  c_2_degree = 180.0 # paper recommends 120.0
+  [pointcloud_parameterization.boundary_estimation]
+  dbscan_epsilon = 0.05
+  dbscan_min_points = 2 # probably should be so low it really won't matter
+  radius = 0.05
+
+[specific_color] 
+#Colors supported are Red and Blue
+  project_specific_color = true
+  min_hsv_thresholds = [[73, 5, 5]]   #[[min_threshold for color 1], [min_threshold for color 2]]
+  max_hsv_thresholds = [[111, 255, 255]]  #[[max_threshold for color 1], [max_threshold for color 2]]
+  rgb_tags = [[0,255,0]]          #[[rgb tag for color 1], [rgb tag for color 2]]
+  erosion_x = 1
+  erosion_y = 1
+  contour_area_threshold = 100

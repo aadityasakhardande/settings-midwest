@@ -1,0 +1,14 @@
+[general]
+hand_eye_method = "park" # tsai, park, horaud, andreff, daniilidis (recommend park or horaud)
+camera_matrix = [1938.291250, 0.0, 1036.794550, 0.0, 1937.242862, 767.446479, 0.0, 0.0, 1.0]
+distortion_coefficients = [-0.027204, 0.140401, -0.000055, 0.000185, -0.709244]
+
+[chessboard]
+chessboard_x = 6 
+chessboard_y = 7 
+square_size_mm = 30.0
+binary_threshold_value = 100
+
+[images]
+number_of_images = 20
+image_file_extension = "png"

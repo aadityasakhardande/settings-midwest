@@ -1,0 +1,220 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "poses and trajectories schema",
+    "description": "Configuration for dynamic go target sequences",
+    "type": "object",
+    "properties": {
+        "task_map": {
+            "type": "object",
+            "description": "A map between the task type (a number) to the name of the trajectory"
+        },
+        "joint_poses": {
+            "type": "object",
+            "description": "Pre-defined joint poses.",
+            "properties": {
+                "static": {
+                    "$ref": "#/$defs/static_joint"
+                },
+                "custom": {
+                    "$ref": "#/$defs/custom_joint"
+                }
+            },
+            "required": [
+                "static",
+                "custom"
+            ]
+        },
+        "ext_poses": {
+            "type": "object",
+            "description": "Pre-defined extender poses.",
+            "properties": {
+                "static": {
+                    "$ref": "#/$defs/static_ext"
+                },
+                "custom": {
+                    "$ref": "#/$defs/custom_ext"
+                }
+            },
+            "required": [
+                "static",
+                "custom"
+            ]
+        },
+        "trajectories": {
+            "type": "object",
+            "description": "Pre-defined trajectory for specified target. Currently support go home and go clean pose.",
+            "properties": {
+                "go_home": {
+                    "description": "The trajectory to go home",
+                    "$ref": "#/$defs/trajectory"
+                },
+                "go_clean_home": {
+                    "description": "The trajectory to go lower home or clean home or maintenance home",
+                    "$ref": "#/$defs/trajectory"
+                }
+            },
+            "required": [
+                "go_home",
+                "go_clean_home"
+            ]
+        }
+    },
+    "$defs": {
+        "joint": {
+            "type": "array",
+            "minItems": 6,
+            "maxItems": 6,
+            "items": {
+                "type": "number"
+            }
+        },
+        "ext": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 3,
+            "items": {
+                "type": "number"
+            }
+        },
+        "static_joint": {
+            "description": "No spaces allowed for the keys. Joint poses maintained by software team. These will also be parse to ros parameter server for backend use. The rosparam will be / + whatever the key string is. For example, global_home will be /global_home",
+            "type": "object",
+            "properties": {
+                "global_home": {
+                    "description": "home position",
+                    "$ref": "#/$defs/joint"
+                },
+                "clean_home": {
+                    "description": "lower home or clean or maintenance position",
+                    "$ref": "#/$defs/joint"
+                },
+                "chng_sp_joint_home_r": {
+                    "description": "The home pose for change sandpaper",
+                    "$ref": "#/$defs/joint"
+                },
+                "tool_changer_local_home_jnt": {
+                    "description": "The home pose for tool changer",
+                    "$ref": "#/$defs/joint"
+                },
+                "pre_transition_pose": {
+                    "description": "Pre transition position. Mainly used for dual robots. Will be activated if one of the use transition pose flag is true",
+                    "$ref": "#/$defs/joint"
+                },
+                "scan_transition_pose": {
+                    "description": "Scan transition position. Mainly used for dual robots. Will be activated if use_scan_transition flag is true",
+                    "$ref": "#/$defs/joint"
+                },
+                "reload_transition_pose": {
+                    "description": "Reload transition position. Mainly used for dual robots. Will be activated if use_reload_transition flag is true",
+                    "$ref": "#/$defs/joint"
+                },
+                "sand_transition_pose": {
+                    "description": "Sand transition position. Mainly used for dual robots. Will be activated if use_sand_transition flag is true",
+                    "$ref": "#/$defs/joint"
+                }
+            },
+            "required": [
+                "global_home",
+                "clean_home",
+                "chng_sp_joint_home_r",
+                "tool_changer_local_home_jnt",
+                "pre_transition_pose",
+                "scan_transition_pose",
+                "reload_transition_pose",
+                "sand_transition_pose"
+            ]
+        },
+        "custom_joint": {
+            "description": "No spaces allowed for the keys. Feel free to add more poses here. Joint poses maintained by SAE. These will be used for constructing the trajectory.",
+            "type": "object",
+            "patternProperties": {
+                "^[a-zA-Z0-9_]+$": {
+                    "description": "No spaces allowed for the keys.",
+                    "$ref": "#/$defs/joint"
+                }
+            },
+            "additionalProperties": false
+        },
+        "static_ext": {
+            "description": "No spaces allowed for the keys. Extender poses maintained by software team. These will also be parse to ros parameter server for backend use. The rosparam will be / + whatever the key string is. For example, global_home will be /global_home",
+            "type": "object",
+            "properties": {
+                "rail_home": {
+                    "description": "rail home position",
+                    "$ref": "#/$defs/ext"
+                },
+                "chng_sp_rail_home": {
+                    "description": "sandpaper change rail home position",
+                    "$ref": "#/$defs/ext"
+                },
+                "compound_application_rail_home": {
+                    "description": "compound application rail home position",
+                    "$ref": "#/$defs/ext"
+                },
+                "tool_changer_local_home_ext": {
+                    "description": "tool changer rail home position",
+                    "$ref": "#/$defs/ext"
+                }
+            },
+            "required": [
+                "rail_home",
+                "chng_sp_rail_home",
+                "compound_application_rail_home",
+                "tool_changer_local_home_ext"
+            ]
+        },
+        "custom_ext": {
+            "description": "No spaces allowed for the keys. Extender poses maintained by SAE. These will be used for constructing the trajectory.",
+            "type": "object",
+            "patternProperties": {
+                "^[a-zA-Z0-9_]+$": {
+                    "description": "No spaces allowed for the keys.",
+                    "$ref": "#/$defs/ext"
+                }
+            },
+            "additionalProperties": false
+        },
+        "trajectory": {
+            "type": "object",
+            "properties": {
+                "path": {
+                    "type": "array",
+                    "description": "Defines the sequence of poses you want the robot to follow. ",
+                    "items": {
+                        "$ref": "#/$defs/path"
+                    }
+                }
+            },
+            "required": [
+                "path"
+            ]
+        },
+        "path": {
+            "type": "object",
+            "properties": {
+                "joint_target": {
+                    "description": "Choose a target from static joint pose or custom joint pose. To use static joint pose type static/<whatever-key> and to use custom joint pose type custom/<whatever-key>",
+                    "type": "string"
+                },
+                "ext_target": {
+                    "description": "Choose a target from static ext pose or custom ext pose. To use static ext pose type static/<whatever-key> and to use custom ext pose type custom/<whatever-key>",
+                    "type": "string"
+                },
+                "move_extender": {
+                    "description": "Specify whether to move the extender to ext_target or not. Developed for dual robot. But can also be helpful if you have a tight space for single robot.",
+                    "type": "boolean"
+                },
+                "plan": {
+                    "description": "Specify whether to plan for this motion or not. If used correctly can reduce cycle time. Use this carefully as this might cause collision.",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "joint_target",
+                "ext_target",
+                "move_extender",
+                "plan"
+            ]
+        }
+    }
+}

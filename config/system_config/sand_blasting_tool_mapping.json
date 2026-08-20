@@ -1,0 +1,15 @@
+{
+    "$schema": "./schemas/sand_blasting_tool_mapping.schema.json",
+    "pressure_mapping": {
+        "min_pressure": 0,
+        "max_pressure": 125,
+        "min_reg_val": 0,
+        "max_reg_val": 32767
+    },
+    "valve_mapping": {
+        "min_position": 0,
+        "max_position": 100,
+        "min_reg_val": 0,
+        "max_reg_val": 32767
+    }
+}

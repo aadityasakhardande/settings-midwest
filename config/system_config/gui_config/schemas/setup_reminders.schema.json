@@ -1,0 +1,36 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "setup reminder",
+    "type": "object",
+    "properties": {
+        "reminders": {
+            "description": "This data contains a list of reminders before a cycle starts",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "$ref": "#/$defs/reminder_item"
+            }
+        }
+    },
+    "required": [
+        "reminders"
+    ],
+    "$defs": {
+        "reminder_item": {
+            "properties": {
+                "description": {
+                    "description": "Things needs to be done before cycle starts",
+                    "type": "string"
+                },
+                "image": {
+                    "description": "The image path related to the description. Should be image name",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "description",
+                "image"
+            ]
+        }
+    }
+}

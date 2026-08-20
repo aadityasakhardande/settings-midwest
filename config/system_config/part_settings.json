@@ -1,0 +1,38 @@
+{
+    "$schema": "./schemas/part_settings.schema.json",
+    "groups": {
+        "0": {
+            "display_name": "Calibration",
+            "colors": "Purple, Red, Silver, Yellow",
+            "path": "capture_settings/ZIVID2+_new.yml",
+            "planner_param_folder": [
+                {
+                    "display_name": "Calibration",
+                    "folder_path": "part_class_settings/Calibration"
+                }
+            ],
+            "lmi_settings_path": "part_class_settings/Calibration",
+            "stitch_config_path": "part_class_settings/Calibration",
+            "intended_gsa_path": ""
+        },
+        "1": {
+            "display_name": "Midwest",
+            "colors": "Purple, Red, Silver, Yellow",
+            "path": "capture_settings/ZIVID2+_new.yml",
+            "planner_param_folder": [
+                {
+                    "display_name": "Nordam-Style Midwest",
+                    "folder_path": "part_class_settings/midwest_nordam-style"
+                },
+                {
+                    "display_name": "RHC-Style Midwest",
+                    "folder_path": "part_class_settings/midwest_rhc-style"
+                }
+            ],
+            "lmi_settings_path": "part_class_settings/midwest_nordam-style",
+            "stitch_config_path": "part_class_settings/midwest_nordam-style",
+            "intended_gsa_path": ""
+        }
+    },
+    "doc": "planner_param_folder = /etc/ss/config/system_config/ + folder_path"
+}

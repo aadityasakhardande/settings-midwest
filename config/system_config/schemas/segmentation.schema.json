@@ -1,0 +1,1875 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "globals": {
+            "type": "object",
+            "properties": {
+                "debug_mode": {
+                    "type": "boolean",
+                    "default": false
+                }
+            },
+            "required": [
+                "debug_mode"
+            ],
+            "default": {
+                "debug_mode": true
+            }
+        },
+        "functions": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "function": {
+                        "type": "string",
+                        "enum": [
+                            "downsample",
+                            "remove_outliers",
+                            "compute_normal",
+                            "eucledian_clustering",
+                            "swept_cylinder",
+                            "remove_colored_X_region",
+                            "curvature_segmentation",
+                            "sharp_curvature_segmentation",
+                            "projection_segmentation",
+                            "mask_filter_segmentation",
+                            "remove_void_X_region",
+                            "area_detection_filter",
+                            "refine_normals",
+                            "bilateral_smoothening",
+                            "vcm_segmentation",
+                            "detect_helmet",
+                            "remove_mask_filter",
+                            "flip_normals",
+                            "remove_colored_X_region_2",
+                            "plane_estimation_and_reconstruction",
+                            "stitch_clouds",
+                            "assign_color_from_radius_search",
+                            "assign_color_from_normal_aware_radius_search"
+                        ]
+                    },
+                    "params": {
+                        "type": "object"
+                    }
+                },
+                "required": [
+                    "function"
+                ],
+                "dependencies": {
+                    "function": {
+                        "oneOf": [
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "stitch_clouds"
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "plane_estimation_and_reconstruction"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "plane_estimation_inlier_threshold": {
+                                                "type": "number",
+                                                "default": 0.005
+                                            },
+                                            "grid_len_major_axis": {
+                                                "type": "number",
+                                                "default": 0.002
+                                            },
+                                            "grid_len_minor_axis": {
+                                                "type": "number",
+                                                "default": 0.002
+                                            },
+                                            "boundary_estimation_radius": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            },
+                                            "inflation_value": {
+                                                "type": "number",
+                                                "default": 0.0
+                                            },
+                                            "downsampling_leaf_size": {
+                                                "type": "array",
+                                                "default": [
+                                                    0.005,
+                                                    0.005,
+                                                    0.005
+                                                ]
+                                            },
+                                            "probability": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            },
+                                            "min_pts": {
+                                                "type": "integer",
+                                                "default": 50
+                                            },
+                                            "cluster_epsilon": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            },
+                                            "normal_threshold": {
+                                                "type": "number",
+                                                "default": 0.0
+                                            },
+                                            "keep_non_planar_clouds": {
+                                                "type": "boolean",
+                                                "default": false
+                                            }
+                                        },
+                                        "required": [
+                                            "plane_estimation_inlier_threshold",
+                                            "grid_len_major_axis",
+                                            "grid_len_minor_axis",
+                                            "boundary_estimation_radius",
+                                            "inflation_value",
+                                            "downsampling_leaf_size",
+                                            "probability",
+                                            "min_pts",
+                                            "cluster_epsilon",
+                                            "normal_threshold",
+                                            "keep_non_planar_clouds"
+                                        ],
+                                        "default": {
+                                            "plane_estimation_inlier_threshold": 0.005,
+                                            "grid_len_major_axis": 0.002,
+                                            "grid_len_minor_axis": 0.002,
+                                            "boundary_estimation_radius": 0.01,
+                                            "inflation_value": 0.0,
+                                            "keep_non_planar_clouds": false,
+                                            "downsampling_leaf_size": [
+                                                0.005,
+                                                0.005,
+                                                0.005
+                                            ],
+                                            "probability": 0.01,
+                                            "min_pts": 50,
+                                            "cluster_epsilon": 0.01,
+                                            "normal_threshold": 0.2
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "assign_color_from_radius_search"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "masks": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "integer"
+                                                },
+                                                "default": [
+                                                    255,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    255
+                                                ]
+                                            },
+                                            "radius": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            }
+                                        },
+                                        "required": [
+                                            "masks",
+                                            "radius"
+                                        ],
+                                        "default": {
+                                            "masks": [
+                                                255,
+                                                0,
+                                                0,
+                                                0,
+                                                0,
+                                                255
+                                            ],
+                                            "radius": 0.01
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "assign_color_from_normal_aware_radius_search"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "masks": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "integer"
+                                                },
+                                                "default": [
+                                                    255,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    255
+                                                ]
+                                            },
+                                            "radius": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            },
+                                            "dot_product_threshold": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            }
+                                        },
+                                        "required": [
+                                            "masks",
+                                            "radius",
+                                            "dot_product_threshold"
+                                        ],
+                                        "default": {
+                                            "masks": [
+                                                255,
+                                                0,
+                                                0,
+                                                0,
+                                                0,
+                                                255
+                                            ],
+                                            "radius": 0.01,
+                                            "dot_product_threshold": 0.85
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "downsample"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "leaf_sizes": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "number"
+                                                },
+                                                "default": [
+                                                    0.005,
+                                                    0.005,
+                                                    0.005
+                                                ]
+                                            }
+                                        },
+                                        "required": [
+                                            "leaf_sizes"
+                                        ],
+                                        "default": {
+                                            "leaf_sizes": [
+                                                0.004,
+                                                0.004,
+                                                0.004
+                                            ]
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "function",
+                                    "params"
+                                ]
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "remove_outliers"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "mean_k": {
+                                                "type": "integer",
+                                                "default": 50
+                                            },
+                                            "StddevMulThresh": {
+                                                "type": "number",
+                                                "default": 1.0
+                                            }
+                                        },
+                                        "required": [
+                                            "mean_k",
+                                            "StddevMulThresh"
+                                        ],
+                                        "default": {
+                                            "mean_k": 6,
+                                            "StddevMulThresh": 1.82
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "function",
+                                    "params"
+                                ]
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "compute_normal"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "use_pcl": {
+                                                "type": "boolean",
+                                                "default": true
+                                            },
+                                            "use_jet": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "use_radius": {
+                                                "type": "boolean",
+                                                "default": true
+                                            },
+                                            "K": {
+                                                "type": "integer",
+                                                "default": 50
+                                            },
+                                            "radius_normal": {
+                                                "type": "number",
+                                                "default": 0.03
+                                            },
+                                            "viewpoint_normal": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "number"
+                                                },
+                                                "default": [
+                                                    1.0,
+                                                    1.5,
+                                                    2.0
+                                                ]
+                                            },
+                                            "flip_normals": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "maintain_normals": {
+                                                "type": "boolean",
+                                                "default": true
+                                            },
+                                            "colourize": {
+                                                "type": "boolean",
+                                                "default": true
+                                            },
+                                            "field": {
+                                                "type": "integer",
+                                                "default": 1
+                                            },
+                                            "eucledian_cluster": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "cluster_tolerance": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            },
+                                            "min_cluster_size": {
+                                                "type": "integer",
+                                                "default": 100
+                                            },
+                                            "max_cluster_size": {
+                                                "type": "integer",
+                                                "default": 10000000
+                                            }
+                                        },
+                                        "required": [
+                                            "use_pcl",
+                                            "use_radius",
+                                            "K",
+                                            "radius_normal",
+                                            "viewpoint_normal",
+                                            "colourize",
+                                            "max_cluster_size",
+                                            "min_cluster_size",
+                                            "cluster_tolerance",
+                                            "eucledian_cluster",
+                                            "maintain_normals",
+                                            "flip_normals"
+                                        ],
+                                        "default": {
+                                            "use_pcl": true,
+                                            "use_jet": false,
+                                            "use_radius": true,
+                                            "K": 50,
+                                            "radius_normal": 0.03,
+                                            "viewpoint_normal": [
+                                                1.0,
+                                                1.5,
+                                                2.0
+                                            ],
+                                            "flip_normals": false,
+                                            "maintain_normals": true,
+                                            "colourize": true,
+                                            "field": 1,
+                                            "eucledian_cluster": false,
+                                            "cluster_tolerance": 0.01,
+                                            "min_cluster_size": 10,
+                                            "max_cluster_size": 10000000
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "function",
+                                    "params"
+                                ]
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "vcm_segmentation"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "distribute": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "convolution_radius": {
+                                                "type": "integer",
+                                                "default": 0.012
+                                            },
+                                            "offset_radius": {
+                                                "type": "number",
+                                                "default": 0.018
+                                            },
+                                            "vis_minValRatio": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            },
+                                            "vis_maxValRatio": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            },
+                                            "algo_type": {
+                                                "type": "integer",
+                                                "default": 1
+                                            },
+                                            "no_of_segments": {
+                                                "type": "number",
+                                                "default": 36
+                                            },
+                                            "direction": {
+                                                "type": "number",
+                                                "default": 1
+                                            },
+                                            "min_width": {
+                                                "type": "integer",
+                                                "default": 0.15
+                                            },
+                                            "cluster_tolerance": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            },
+                                            "min_cluster_size": {
+                                                "type": "integer",
+                                                "default": 100
+                                            },
+                                            "max_cluster_size": {
+                                                "type": "integer",
+                                                "default": 10000000
+                                            }
+                                        },
+                                        "required": [
+                                            "distribute",
+                                            "convolution_radius",
+                                            "offset_radius",
+                                            "vis_minValRatio",
+                                            "vis_maxValRatio",
+                                            "algo_type",
+                                            "max_cluster_size",
+                                            "min_cluster_size",
+                                            "cluster_tolerance",
+                                            "min_width",
+                                            "direction",
+                                            "no_of_segments"
+                                        ],
+                                        "default": {
+                                            "convolution_radius": 0.012,
+                                            "offset_radius": 0.018,
+                                            "threshold_ratio": 0.06,
+                                            "distribute": false,
+                                            "cluster_tolerance": 0.01,
+                                            "min_cluster_size": 1000,
+                                            "max_cluster_size": 10000000,
+                                            "vis_minValRatio": 0.05,
+                                            "vis_maxValRatio": 0.1,
+                                            "algo_type": 1,
+                                            "no_of_segments": 36,
+                                            "direction": 1,
+                                            "min_width": 0.15
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "function",
+                                    "params"
+                                ]
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "eucledian_clustering"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "cluster_tolerance": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            },
+                                            "min_cluster_size": {
+                                                "type": "integer",
+                                                "default": 1000
+                                            },
+                                            "max_cluster_size": {
+                                                "type": "integer",
+                                                "default": 10000000
+                                            },
+                                            "save_debug": {
+                                                "type": "boolean",
+                                                "default": false
+                                            }
+                                        },
+                                        "required": [
+                                            "cluster_tolerance",
+                                            "min_cluster_size",
+                                            "max_cluster_size",
+                                            "save_debug"
+                                        ],
+                                        "default": {
+                                            "cluster_tolerance": 0.01,
+                                            "min_cluster_size": 100,
+                                            "max_cluster_size": 10000000,
+                                            "save_debug": false
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "function",
+                                    "params"
+                                ]
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "remove_colored_X_region"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "masks": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "integer"
+                                                },
+                                                "default": [
+                                                    255,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    255
+                                                ]
+                                            },
+                                            "mask_cluster": {
+                                                "type": "boolean",
+                                                "default": true
+                                            },
+                                            "mask_cluster_tolerance": {
+                                                "type": "number",
+                                                "default": 0.015
+                                            },
+                                            "mask_min_cluster_size": {
+                                                "type": "integer",
+                                                "default": 50
+                                            },
+                                            "mask_max_cluster_size": {
+                                                "type": "integer",
+                                                "default": 100000000
+                                            },
+                                            "mask_do_radius_search": {
+                                                "type": "boolean",
+                                                "default": true
+                                            },
+                                            "mask_search_radius": {
+                                                "type": "number",
+                                                "default": 0.005
+                                            },
+                                            "min_x_region_size": {
+                                                "type": "integer",
+                                                "default": 500
+                                            },
+                                            "boundary_detection_feature_size": {
+                                                "type": "number",
+                                                "default": 0.015
+                                            },
+                                            "min_output_size": {
+                                                "type": "integer",
+                                                "default": 5000
+                                            },
+                                            "normal_aware_radius_search_toggle": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "normal_aware_search_radius": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            },
+                                            "normal_aware_dot_pdt_threshold": {
+                                                "type": "number",
+                                                "default": 0.8
+                                            },
+                                            "split_by_thin": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "thin_feature_measure": {
+                                                "type": "number",
+                                                "default": 0.1
+                                            },
+                                            "boundary_detection_tol": {
+                                                "type": "number",
+                                                "default": 0.02
+                                            },
+                                            "approx_density_measure": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            },
+                                            "combine_all_input": {
+                                                "type": "boolean",
+                                                "default": false
+                                            }
+                                        },
+                                        "required": [
+                                            "masks",
+                                            "mask_cluster",
+                                            "mask_cluster_tolerance",
+                                            "mask_min_cluster_size",
+                                            "mask_max_cluster_size",
+                                            "mask_do_radius_search",
+                                            "mask_search_radius",
+                                            "min_x_region_size",
+                                            "boundary_detection_feature_size",
+                                            "min_output_size",
+                                            "normal_aware_radius_search_toggle",
+                                            "normal_aware_search_radius",
+                                            "normal_aware_dot_pdt_threshold",
+                                            "split_by_thin",
+                                            "thin_feature_measure",
+                                            "boundary_detection_tol",
+                                            "approx_density_measure",
+                                            "combine_all_input"
+                                        ],
+                                        "default": {
+                                            "masks": [
+                                                255,
+                                                0,
+                                                0,
+                                                0,
+                                                0,
+                                                255
+                                            ],
+                                            "mask_cluster": true,
+                                            "mask_cluster_tolerance": 0.015,
+                                            "mask_min_cluster_size": 50,
+                                            "mask_max_cluster_size": 100000000,
+                                            "mask_do_radius_search": true,
+                                            "mask_search_radius": 0.005,
+                                            "min_x_region_size": 500,
+                                            "boundary_detection_feature_size": 0.015,
+                                            "min_output_size": 500,
+                                            "normal_aware_radius_search_toggle": false,
+                                            "normal_aware_search_radius": 0.01,
+                                            "normal_aware_dot_pdt_threshold": 0.85,
+                                            "split_by_thin": false,
+                                            "thin_feature_measure": 0.1,
+                                            "boundary_detection_tol": 0.02,
+                                            "approx_density_measure": 0.01,
+                                            "combine_all_input": false
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "function",
+                                    "params"
+                                ]
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "curvature_segmentation"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "curvature_threshold": {
+                                                "type": "number",
+                                                "default": 0.00465
+                                            },
+                                            "princ_curv_radius": {
+                                                "type": "number",
+                                                "default": 0.015
+                                            },
+                                            "cluster_tolerance": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            },
+                                            "min_cluster_size": {
+                                                "type": "integer",
+                                                "default": 250
+                                            },
+                                            "max_cluster_size": {
+                                                "type": "integer",
+                                                "default": 10000000
+                                            },
+                                            "noise_max_size": {
+                                                "type": "integer",
+                                                "default": 50
+                                            },
+                                            "distribute": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "cluster": {
+                                                "type": "boolean",
+                                                "default": true
+                                            },
+                                            "keep_only_high_curvatures": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "debug": {
+                                                "type": "boolean",
+                                                "default": true
+                                            },
+                                            "ignore_lower_percentage": {
+                                                "type": "integer",
+                                                "default": 0
+                                            },
+                                            "ignore_top_percentage": {
+                                                "type": "integer",
+                                                "default": 100
+                                            },
+                                            "leaf_size": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "number"
+                                                },
+                                                "default": [
+                                                    0.01,
+                                                    0.01,
+                                                    0.01
+                                                ]
+                                            },
+                                            "split_by_thin": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "thin_feature_measure": {
+                                                "type": "number",
+                                                "default": 0.1
+                                            },
+                                            "boundary_detection_tol": {
+                                                "type": "number",
+                                                "default": 0.02
+                                            },
+                                            "preserve_corners": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "min_regular_cluster": {
+                                                "type": "integer",
+                                                "default": 100
+                                            },
+                                            "approx_density_measure": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            }
+                                        },
+                                        "required": [
+                                            "curvature_threshold",
+                                            "princ_curv_radius",
+                                            "cluster_tolerance",
+                                            "min_cluster_size",
+                                            "max_cluster_size",
+                                            "noise_max_size",
+                                            "distribute",
+                                            "cluster",
+                                            "debug",
+                                            "ignore_lower_percentage",
+                                            "ignore_top_percentage",
+                                            "leaf_size",
+                                            "split_by_thin",
+                                            "thin_feature_measure",
+                                            "boundary_detection_tol",
+                                            "preserve_corners",
+                                            "min_regular_cluster",
+                                            "approx_density_measure",
+                                            "keep_only_high_curvatures"
+                                        ],
+                                        "default": {
+                                            "curvature_threshold": 0.00465,
+                                            "princ_curv_radius": 0.015,
+                                            "cluster_tolerance": 0.01,
+                                            "min_cluster_size": 250,
+                                            "max_cluster_size": 10000000,
+                                            "noise_max_size": 50,
+                                            "distribute": false,
+                                            "cluster": true,
+                                            "keep_only_high_curvatures": false,
+                                            "debug": true,
+                                            "ignore_lower_percentage": 0,
+                                            "ignore_top_percentage": 100,
+                                            "leaf_size": [
+                                                0.01,
+                                                0.01,
+                                                0.01
+                                            ],
+                                            "split_by_thin": false,
+                                            "thin_feature_measure": 0.1,
+                                            "boundary_detection_tol": 0.02,
+                                            "preserve_corners": false,
+                                            "min_regular_cluster": 100,
+                                            "approx_density_measure": 0.01
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "function",
+                                    "params"
+                                ]
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "swept_cylinder"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "radius": {
+                                                "type": "number",
+                                                "default": 0.05
+                                            },
+                                            "height": {
+                                                "type": "number",
+                                                "default": 2.0
+                                            },
+                                            "surface_offset": {
+                                                "type": "number",
+                                                "default": 0.03
+                                            },
+                                            "include_high_curvature": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "downsample": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "include_euclidean_discard": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "include_self": {
+                                                "type": "boolean",
+                                                "default": true
+                                            },
+                                            "leaf_size": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "number"
+                                                },
+                                                "default": [
+                                                    0.01,
+                                                    0.01,
+                                                    0.01
+                                                ]
+                                            },
+                                            "cluster": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "cluster_tolerance": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            },
+                                            "min_cluster_size": {
+                                                "type": "integer",
+                                                "default": 3000
+                                            },
+                                            "max_cluster_size": {
+                                                "type": "integer",
+                                                "default": 10000000
+                                            },
+                                            "fast_mode": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "use_old": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "save_debug": {
+                                                "type": "boolean",
+                                                "default": false
+                                            }
+                                        },
+                                        "required": [
+                                            "radius",
+                                            "height",
+                                            "surface_offset",
+                                            "include_high_curvature",
+                                            "downsample",
+                                            "include_euclidean_discard",
+                                            "include_self",
+                                            "leaf_size",
+                                            "cluster",
+                                            "cluster_tolerance",
+                                            "min_cluster_size",
+                                            "max_cluster_size",
+                                            "fast_mode",
+                                            "use_old",
+                                            "save_debug"
+                                        ],
+                                        "default": {
+                                            "radius": 0.05,
+                                            "height": 2.0,
+                                            "surface_offset": 0.03,
+                                            "include_high_curvature": false,
+                                            "downsample": false,
+                                            "include_euclidean_discard": false,
+                                            "include_self": true,
+                                            "leaf_size": [
+                                                0.01,
+                                                0.01,
+                                                0.01
+                                            ],
+                                            "cluster": false,
+                                            "cluster_tolerance": 0.01,
+                                            "min_cluster_size": 3000,
+                                            "max_cluster_size": 10000000,
+                                            "fast_mode": false,
+                                            "use_old": false,
+                                            "save_debug": false
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "function",
+                                    "params"
+                                ]
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "mask_filter_segmentation"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "masks": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "integer"
+                                                },
+                                                "default": [
+                                                    255,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    255
+                                                ]
+                                            },
+                                            "mask_cluster": {
+                                                "type": "boolean",
+                                                "default": true
+                                            },
+                                            "mask_cluster_tolerance": {
+                                                "type": "number",
+                                                "default": 0.015
+                                            },
+                                            "mask_min_cluster_size": {
+                                                "type": "integer",
+                                                "default": 50
+                                            },
+                                            "mask_max_cluster_size": {
+                                                "type": "integer",
+                                                "default": 100000000
+                                            },
+                                            "mask_do_radius_search": {
+                                                "type": "boolean",
+                                                "default": true
+                                            },
+                                            "mask_search_radius": {
+                                                "type": "number",
+                                                "default": 0.005
+                                            },
+                                            "normal_aware_radius_search_toggle": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "normal_aware_search_radius": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            },
+                                            "normal_aware_dot_pdt_threshold": {
+                                                "type": "number",
+                                                "default": 0.8
+                                            }
+                                        },
+                                        "required": [
+                                            "masks",
+                                            "mask_cluster",
+                                            "mask_cluster_tolerance",
+                                            "mask_min_cluster_size",
+                                            "mask_max_cluster_size",
+                                            "mask_do_radius_search",
+                                            "mask_search_radius",
+                                            "normal_aware_radius_search_toggle",
+                                            "normal_aware_search_radius",
+                                            "normal_aware_dot_pdt_threshold"
+                                        ],
+                                        "default": {
+                                            "masks": [
+                                                255,
+                                                0,
+                                                0,
+                                                0,
+                                                0,
+                                                255
+                                            ],
+                                            "mask_cluster": true,
+                                            "mask_cluster_tolerance": 0.015,
+                                            "mask_min_cluster_size": 50,
+                                            "mask_max_cluster_size": 100000000,
+                                            "mask_do_radius_search": true,
+                                            "mask_search_radius": 0.005,
+                                            "normal_aware_radius_search_toggle": false,
+                                            "normal_aware_search_radius": 0.01,
+                                            "normal_aware_dot_pdt_threshold": 0.8
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "function",
+                                    "params"
+                                ]
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "remove_void_X_region"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "cluster_tolerance": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            },
+                                            "min_cluster_size": {
+                                                "type": "integer",
+                                                "default": 200
+                                            },
+                                            "max_cluster_size": {
+                                                "type": "integer",
+                                                "default": 10000000
+                                            },
+                                            "boundary_search_radius": {
+                                                "type": "number",
+                                                "default": 0.016
+                                            },
+                                            "boundary_cluster_tolerance": {
+                                                "type": "number",
+                                                "default": 0.025
+                                            },
+                                            "boundary_min_cluster_size": {
+                                                "type": "integer",
+                                                "default": 200
+                                            },
+                                            "boundary_max_cluster_size": {
+                                                "type": "integer",
+                                                "default": 10000000
+                                            }
+                                        },
+                                        "required": [
+                                            "cluster_tolerance",
+                                            "min_cluster_size",
+                                            "max_cluster_size",
+                                            "boundary_search_radius",
+                                            "boundary_cluster_tolerance",
+                                            "boundary_min_cluster_size",
+                                            "boundary_max_cluster_size"
+                                        ],
+                                        "default": {
+                                            "cluster_tolerance": 0.01,
+                                            "min_cluster_size": 200,
+                                            "max_cluster_size": 10000000,
+                                            "boundary_search_radius": 0.016,
+                                            "boundary_cluster_tolerance": 0.025,
+                                            "boundary_min_cluster_size": 200,
+                                            "boundary_max_cluster_size": 10000000
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "function",
+                                    "params"
+                                ]
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "area_detection_filter"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "masks": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "integer"
+                                                },
+                                                "default": [
+                                                    255,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    255
+                                                ]
+                                            },
+                                            "mask_cluster_tolerance": {
+                                                "type": "number",
+                                                "default": 0.015
+                                            },
+                                            "mask_min_cluster_size": {
+                                                "type": "integer",
+                                                "default": 3
+                                            },
+                                            "mask_search_radius": {
+                                                "type": "number",
+                                                "default": 0.005
+                                            },
+                                            "boundary_detection_radius": {
+                                                "type": "number",
+                                                "default": 0.015
+                                            },
+                                            "hidden_point_removal_radius": {
+                                                "type": "integer",
+                                                "default": 300
+                                            },
+                                            "outer_boundary_cluster_tolerance": {
+                                                "type": "number",
+                                                "default": 0.02
+                                            },
+                                            "boundary_continuity_dist": {
+                                                "type": "number",
+                                                "default": 0.1
+                                            },
+                                            "boundary_dist_2_nxt_pt": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            },
+                                            "min_dist_indv_boundary_pths": {
+                                                "type": "number",
+                                                "default": 0.05
+                                            },
+                                            "translate_in_z": {
+                                                "type": "number",
+                                                "default": -2.0
+                                            }
+                                        },
+                                        "required": [
+                                            "masks",
+                                            "mask_cluster_tolerance",
+                                            "mask_min_cluster_size",
+                                            "mask_search_radius",
+                                            "boundary_detection_radius",
+                                            "hidden_point_removal_radius",
+                                            "outer_boundary_cluster_tolerance",
+                                            "boundary_continuity_dist",
+                                            "boundary_dist_2_nxt_pt",
+                                            "min_dist_indv_boundary_pths",
+                                            "translate_in_z"
+                                        ],
+                                        "default": {
+                                            "masks": [
+                                                255,
+                                                0,
+                                                0,
+                                                0,
+                                                0,
+                                                255
+                                            ],
+                                            "mask_cluster_tolerance": 0.015,
+                                            "mask_min_cluster_size": 3,
+                                            "mask_search_radius": 0.015,
+                                            "boundary_detection_radius": 0.02,
+                                            "hidden_point_removal_radius": 300,
+                                            "outer_boundary_cluster_tolerance": 0.02,
+                                            "boundary_continuity_dist": 0.1,
+                                            "boundary_dist_2_nxt_pt": 0.01,
+                                            "min_dist_indv_boundary_pths": 0.05,
+                                            "translate_in_z": -2.0
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "function",
+                                    "params"
+                                ]
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "remove_mask_filter"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "masks": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "integer"
+                                                },
+                                                "default": [
+                                                    255,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    255
+                                                ]
+                                            },
+                                            "mask_search_radius": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "search_radius": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            }
+                                        },
+                                        "required": [
+                                            "masks",
+                                            "mask_search_radius",
+                                            "search_radius"
+                                        ]
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "remove_colored_X_region_2"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "masks": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "integer"
+                                                },
+                                                "default": [
+                                                    255,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    255
+                                                ]
+                                            },
+                                            "mask_cluster_tolerance": {
+                                                "type": "number",
+                                                "default": 0.015
+                                            },
+                                            "mask_min_cluster_size": {
+                                                "type": "integer",
+                                                "default": 100
+                                            },
+                                            "mask_do_radius_search": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "mask_search_radius": {
+                                                "type": "number",
+                                                "default": 0.005
+                                            },
+                                            "debug": {
+                                                "type": "boolean",
+                                                "default": true
+                                            },
+                                            "segment_cluster_tolerance": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            },
+                                            "segment_min_cluster_size": {
+                                                "type": "integer",
+                                                "default": 100
+                                            },
+                                            "normal_aware_radius_search_toggle": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "normal_aware_search_radius": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            },
+                                            "normal_aware_dot_pdt_threshold": {
+                                                "type": "number",
+                                                "default": 0.85
+                                            },
+                                            "combine_all_input": {
+                                                "type": "boolean",
+                                                "default": true
+                                            },
+                                            "allow_non_X_boundaries": {
+                                                "type": "boolean",
+                                                "default": true
+                                            },
+                                            "allow_non_X_noise": {
+                                                "type": "boolean",
+                                                "default": true
+                                            },
+                                            "cluster_final_output": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "expand_non_x_masks": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "non_x_masks_expansion_radius": {
+                                                "type": "number",
+                                                "default": 0.005
+                                            }
+                                        },
+                                        "required": [
+                                            "masks",
+                                            "mask_cluster_tolerance",
+                                            "mask_min_cluster_size",
+                                            "mask_do_radius_search",
+                                            "mask_search_radius",
+                                            "debug",
+                                            "segment_cluster_tolerance",
+                                            "segment_min_cluster_size",
+                                            "normal_aware_radius_search_toggle",
+                                            "normal_aware_search_radius",
+                                            "normal_aware_dot_pdt_threshold",
+                                            "combine_all_input",
+                                            "allow_non_X_boundaries",
+                                            "allow_non_X_noise",
+                                            "cluster_final_output",
+                                            "expand_non_x_masks",
+                                            "non_x_masks_expansion_radius"
+                                        ],
+                                        "default": {
+                                            "mask_cluster_tolerance": 0.015,
+                                            "mask_min_cluster_size": 150,
+                                            "mask_do_radius_search": false,
+                                            "mask_search_radius": 0.0,
+                                            "debug": true,
+                                            "segment_cluster_tolerance": 0.01,
+                                            "segment_min_cluster_size": 100,
+                                            "masks": [
+                                                0,
+                                                255,
+                                                0
+                                            ],
+                                            "normal_aware_radius_search_toggle": false,
+                                            "normal_aware_search_radius": 0.01,
+                                            "normal_aware_dot_pdt_threshold": 0.85,
+                                            "combine_all_input": false,
+                                            "allow_non_X_boundaries": false,
+                                            "cluster_final_output": true,
+                                            "expand_non_x_masks": false,
+                                            "non_x_masks_expansion_radius": 0.01
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "function",
+                                    "params"
+                                ]
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "refine_normals"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "k_neighbours": {
+                                                "type": "integer",
+                                                "default": 200
+                                            }
+                                        },
+                                        "required": [
+                                            "k_neighbours"
+                                        ],
+                                        "default": {
+                                            "k_neighbours": 200
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "function",
+                                    "params"
+                                ]
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "bilateral_smoothening"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "k_neighbours": {
+                                                "type": "integer",
+                                                "default": 20
+                                            },
+                                            "sharpness_angle": {
+                                                "type": "integer",
+                                                "default": 25
+                                            },
+                                            "iterations": {
+                                                "type": "integer",
+                                                "default": 30
+                                            }
+                                        },
+                                        "required": [
+                                            "k_neighbours",
+                                            "sharpness_angle",
+                                            "iterations"
+                                        ],
+                                        "default": {
+                                            "k_neighbours": 20,
+                                            "sharpness_angle": 25,
+                                            "iterations": 30
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "function",
+                                    "params"
+                                ]
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "jet_smoothening"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "k_neighbours": {
+                                                "type": "integer",
+                                                "default": 50
+                                            }
+                                        },
+                                        "required": [
+                                            "k_neighbours"
+                                        ],
+                                        "default": {
+                                            "k_neighbours": 50
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "function",
+                                    "params"
+                                ]
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "flip_normals"
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "sharp_curvature_segmentation"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "princ_curv_radius": {
+                                                "type": "number",
+                                                "default": 0.015
+                                            },
+                                            "debug": {
+                                                "type": "boolean",
+                                                "default": true
+                                            },
+                                            "ignore_lower_percentage": {
+                                                "type": "integer",
+                                                "default": 0
+                                            },
+                                            "ignore_top_percentage": {
+                                                "type": "integer",
+                                                "default": 100
+                                            },
+                                            "leaf_size": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "number"
+                                                },
+                                                "default": [
+                                                    0.01,
+                                                    0.01,
+                                                    0.01
+                                                ]
+                                            },
+                                            "sharp_curv_thresh": {
+                                                "type": "number",
+                                                "default": 0.00968
+                                            },
+                                            "sharp_curv_search_rad": {
+                                                "type": "number",
+                                                "default": 0.03
+                                            },
+                                            "sharp_curv_distribute": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "sharp_curv_cluster": {
+                                                "type": "boolean",
+                                                "default": true
+                                            },
+                                            "sharp_curv_clstr_tol": {
+                                                "type": "number",
+                                                "default": 0.0075
+                                            },
+                                            "sharp_curv_min_clstr_sz": {
+                                                "type": "integer",
+                                                "default": 4000
+                                            },
+                                            "sharp_curv_max_clstr_sz": {
+                                                "type": "integer",
+                                                "default": 10000000
+                                            },
+                                            "split_by_thin": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "thin_feature_measure": {
+                                                "type": "number",
+                                                "default": 0.1
+                                            },
+                                            "boundary_detection_tol": {
+                                                "type": "number",
+                                                "default": 0.02
+                                            },
+                                            "preserve_corners": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "min_regular_cluster": {
+                                                "type": "integer",
+                                                "default": 100
+                                            },
+                                            "approx_density_measure": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            }
+                                        },
+                                        "required": [
+                                            "princ_curv_radius",
+                                            "debug",
+                                            "ignore_lower_percentage",
+                                            "ignore_top_percentage",
+                                            "leaf_size",
+                                            "sharp_curv_thresh",
+                                            "sharp_curv_search_rad",
+                                            "sharp_curv_distribute",
+                                            "sharp_curv_cluster",
+                                            "sharp_curv_clstr_tol",
+                                            "sharp_curv_min_clstr_sz",
+                                            "sharp_curv_max_clstr_sz",
+                                            "split_by_thin",
+                                            "thin_feature_measure",
+                                            "boundary_detection_tol",
+                                            "preserve_corners",
+                                            "min_regular_cluster",
+                                            "approx_density_measure"
+                                        ],
+                                        "default": {
+                                            "princ_curv_radius": 0.015,
+                                            "debug": true,
+                                            "ignore_lower_percentage": 0,
+                                            "ignore_top_percentage": 100,
+                                            "leaf_size": [
+                                                0.01,
+                                                0.01,
+                                                0.01
+                                            ],
+                                            "sharp_curv_thresh": 0.00968,
+                                            "sharp_curv_search_rad": 0.03,
+                                            "sharp_curv_distribute": false,
+                                            "sharp_curv_cluster": true,
+                                            "sharp_curv_clstr_tol": 0.0075,
+                                            "sharp_curv_min_clstr_sz": 4000,
+                                            "sharp_curv_max_clstr_sz": 10000000,
+                                            "split_by_thin": false,
+                                            "thin_feature_measure": 0.1,
+                                            "boundary_detection_tol": 0.02,
+                                            "preserve_corners": false,
+                                            "min_regular_cluster": 100,
+                                            "approx_density_measure": 0.01
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "function",
+                                    "params"
+                                ]
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "projection_segmentation"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "algorithm": {
+                                                "type": "integer",
+                                                "default": 3
+                                            },
+                                            "maxAngleDeviation": {
+                                                "type": "integer",
+                                                "default": 40
+                                            },
+                                            "custom_seed_activate": {
+                                                "type": "boolean",
+                                                "default": false
+                                            },
+                                            "custom_first_seed": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "number"
+                                                },
+                                                "default": [
+                                                    0.0,
+                                                    0.0,
+                                                    1.0
+                                                ]
+                                            },
+                                            "cluster_tolerance": {
+                                                "type": "number",
+                                                "default": 0.014
+                                            },
+                                            "min_cluster_size": {
+                                                "type": "integer",
+                                                "default": 5000
+                                            },
+                                            "max_cluster_size": {
+                                                "type": "integer",
+                                                "default": 10000000
+                                            },
+                                            "noise_max_size": {
+                                                "type": "integer",
+                                                "default": 50
+                                            },
+                                            "introduce_overlap": {
+                                                "type": "boolean",
+                                                "default": true
+                                            },
+                                            "overlap_radius": {
+                                                "type": "number",
+                                                "default": 0.1
+                                            },
+                                            "boundary_radius": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            },
+                                            "overlap_mode": {
+                                                "type": "integer",
+                                                "default": 2
+                                            },
+                                            "debug": {
+                                                "type": "boolean",
+                                                "default": true
+                                            },
+                                            "remove_clouds_along": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "integer"
+                                                },
+                                                "default": [
+                                                    5
+                                                ]
+                                            },
+                                            "leaf_size": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "number"
+                                                },
+                                                "default": [
+                                                    0.01,
+                                                    0.01,
+                                                    0.01
+                                                ]
+                                            },
+                                            "multiple_custom_seeds": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "array"
+                                                },
+                                                "default": [
+                                                    [
+                                                        0.0,
+                                                        0.0,
+                                                        1.0
+                                                    ],
+                                                    [
+                                                        1,
+                                                        0,
+                                                        0
+                                                    ]
+                                                ]
+                                            }
+                                        },
+                                        "required": [
+                                            "algorithm",
+                                            "maxAngleDeviation",
+                                            "custom_seed_activate",
+                                            "custom_first_seed",
+                                            "multiple_custom_seeds",
+                                            "cluster_tolerance",
+                                            "min_cluster_size",
+                                            "max_cluster_size",
+                                            "noise_max_size",
+                                            "introduce_overlap",
+                                            "overlap_radius",
+                                            "boundary_radius",
+                                            "overlap_mode",
+                                            "debug",
+                                            "remove_clouds_along",
+                                            "leaf_size"
+                                        ],
+                                        "default": {
+                                            "algorithm": 3,
+                                            "maxAngleDeviation": 40,
+                                            "custom_seed_activate": false,
+                                            "custom_first_seed": [
+                                                0.0,
+                                                0.0,
+                                                1.0
+                                            ],
+                                            "cluster_tolerance": 0.014,
+                                            "min_cluster_size": 5000,
+                                            "max_cluster_size": 10000000,
+                                            "noise_max_size": 50,
+                                            "introduce_overlap": true,
+                                            "overlap_radius": 0.1,
+                                            "boundary_radius": 0.01,
+                                            "overlap_mode": 2,
+                                            "debug": true,
+                                            "remove_clouds_along": [
+                                                5
+                                            ],
+                                            "leaf_size": [
+                                                0.01,
+                                                0.01,
+                                                0.01
+                                            ],
+                                            "multiple_custom_seeds": [
+                                                [
+                                                    0.0,
+                                                    0.0,
+                                                    1.0
+                                                ],
+                                                [
+                                                    1,
+                                                    0,
+                                                    0
+                                                ]
+                                            ]
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "function": {
+                                        "const": "detect_helmet"
+                                    },
+                                    "params": {
+                                        "properties": {
+                                            "half_of_fixture_diagonal_dimension": {
+                                                "type": "number",
+                                                "default": 0.0762
+                                            },
+                                            "midplane_offset": {
+                                                "type": "number",
+                                                "default": 0.01
+                                            },
+                                            "percentage_threshold": {
+                                                "type": "number",
+                                                "default": 50
+                                            }
+                                        },
+                                        "required": [
+                                            "half_of_fixture_diagonal_dimension",
+                                            "midplane_offset",
+                                            "percentage_threshold"
+                                        ],
+                                        "default": {
+                                            "half_of_fixture_diagonal_dimension": 0.0762,
+                                            "midplane_offset": 0.01,
+                                            "percentage_threshold": 50
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "default": [
+                {
+                    "function": "eucledian_clustering",
+                    "params": {
+                        "cluster_tolerance": 0.01,
+                        "min_cluster_size": 100,
+                        "max_cluster_size": 10000000,
+                        "save_debug": false
+                    }
+                }
+            ]
+        },
+        "examples": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "function": {
+                        "type": "string"
+                    },
+                    "params": {
+                        "type": "object"
+                    }
+                },
+                "required": [
+                    "function",
+                    "params"
+                ]
+            }
+        }
+    },
+    "required": [
+        "functions",
+        "globals"
+    ]
+}

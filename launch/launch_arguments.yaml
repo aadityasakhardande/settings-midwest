@@ -1,0 +1,143 @@
+mode:
+  debug_mode: true
+  developer_mode: true
+  online_mode: true
+  simulation_mode: false
+  use_on_prem_api: false
+general:
+  uint_type: 0
+  design_mode_password: $6$gSLu7QRM$DixAwGfUvXS3mkK4Uw3YLFY2PcD/dhdd2a4D3YOyPsvN7rN8iT0ZJjjNFG4Yp5mbVXjNxhuXchXuSWLhokxM./
+  extender_length: 4500
+  process_type: 0
+  scene_config_file: /etc/ss/config/system_config/scene_config_m710.json
+  gui_layout_path: null
+process:
+  boundingbox_min_x: -5000
+  boundingbox_max_x: 5000
+  boundingbox_min_y: -2000
+  boundingbox_max_y: 10000
+  boundingbox_min_z: -10000
+  boundingbox_max_z: 10000
+  min_force: 5.0
+  max_force: 80.0
+  force_step: 1.0
+  default_force: 25.0
+  min_velocity: 0.05
+  max_velocity: 2.0
+  velocity_step: 0.025
+  default_velocity: 0.25
+  min_rpm: 100.0
+  max_rpm: 12000.0
+  rpm_step: 50.0
+  default_rpm: 2500.0
+feature_flag:
+  polygon_filter: false
+  color_pointcloud: false
+  rgb_line_scan: true
+  interlock_control: false
+  do_registration: false
+  sand_request_on: true
+  enable_ambient_light_control: false
+  enable_line_scan: true
+  enable_shot_scan: true
+  enable_ext_line_scan: true
+  protect_motion: false
+  role_based_control: false
+  enable_calibration: true
+  enable_alvium_calibration: true
+  enable_countdown: false
+  use_smart_retrieve: false
+  use_tool_box: true
+session_info:
+  enable: false
+  user_id: false
+  job_id: false
+  part_id: false
+network:
+  host_ip: 192.168.11.23
+  robot_ip: 192.168.11.101
+  lmi_ip: 192.168.11.10
+  zivid_ip: 192.168.11.105
+  turck_ip: 192.168.11.199
+  compound_plc_ip: 192.168.11.205
+  akd2g_ip: 192.168.11.12
+  fcu_ip: 192.168.11.228
+  alvium_ip: 192.168.12.92
+scanning:
+  enable_ambient_light_control: false
+  rgb_scan: true
+  scan_mode: 2
+  scan_transition_mode: 0
+  scan_force: 10
+  scan_speed: 300.0
+  retry_scanning: false
+  boundary_gap_x: 0.01
+  intensity_threshold: 0.0
+  allow_featured_scan: false
+  plan_last_scan_transition: false
+  custom_wp_collision_offset: 0.03
+  custom_env_collision_offset: 0.03
+  custom_self_collision_offset: 0.03
+sandpaper:
+  chng_sp_num_try: 2
+  sandpaper_on: false
+  skip_first_reload_verification: false
+  assume_first_pass_paper_on: false
+  use_cognex: true
+polish:
+  use_compound_manager: false
+  purge_time_s: 3
+  num_nozzles: 2
+tool:
+  use_tool_changer: 0
+  is_tool_changer_fallback_needed: false
+  tool_change_for_sandpaper: false
+trajectory_planner:
+  discontinuity_threshold: 0.85
+  debug_mode: false
+  scene_config_file: /etc/ss/config/system_config/scene_config_m710.json
+  override_file_path: /etc/ss/launch/override_file.yaml
+  zone_seed_file: /etc/ss/config/system_config/zone_seeds.json
+task:
+  enable_readiness_check: true
+  manual_spatter: false
+  pass_reload_policy: 0
+data_record:
+  activate_lambda_alert: false
+  customer: Midwest
+  facility: Chicago
+  record_on: true
+  robot: Midwest M710
+force:
+  static_force: 8
+safety:
+  safeguard_on: true
+  safety_device: banner
+  use_banner_services: true
+motion:
+  home_before_scan: 0
+  home_after_scan: 0
+  cmd_q_size: 4
+  move_blending_radius: 95
+  move_time_msec: 8
+  noncontact_force: -15
+  override_speed: false
+  pose_and_trajectory_file: /etc/ss/config/fixed_robot_scripts/misc/poses_and_trajectories.json
+  robot_urdf_file: /etc/ss/robots/fanuc_m710/robot.urdf
+  robot_type: fanuc_m710
+  use_reload_transition: false
+  use_sand_transition: false
+  use_scan_transition: false
+  p2p_use_percent: false
+  enable_pause_planner: true
+  motion_preview_on: false
+  go_home_after_process: false
+multi_robot:
+  multi_robot_system: false
+  robot_mapping_settings_path: null
+  multi_profile_selection: false
+  is_master_system: false
+  local_robot_id: 1
+  reverse_follower_profile: false
+  scan_separately: true
+  base_type: single

@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "session information",
+    "type": "object",
+    "properties": {
+        "USER_ID_LIST": {
+            "description": "The user id list",
+            "type": "array"
+        }
+    },
+    "required": [
+        "USER_ID_LIST"
+    ]
+}

@@ -1,0 +1,66 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Profile mapping configuration",
+    "description": "Configuration for profile mapping",
+    "type": "object",
+    "properties": {
+        "MAPPING_KEY": {
+            "description": "Maps user interface selection to profiles by using specific keywords to name your profiles.\n The naming convention is [part]_[proc]_[zone]",
+            "type": "object",
+            "required": [
+                "ZONE",
+                "PROC",
+                "PART"
+            ],
+            "properties": {
+                "ZONE": {
+                    "description": "An array of available keywords for zones (if any)",
+                    "type": "array",
+                    "items": {
+                        "description": "Specify available [zone] keywords for profile naming",
+                        "type": "string"
+                    }
+                },
+                "PROC": {
+                    "description": "An array of available keywords for processes (if any)",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/process_items"
+                    }
+                },
+                "PART": {
+                    "description": "An array of available keywords for parts",
+                    "type": "array",
+                    "items": {
+                        "description": "Specify available [part] keywords for profile naming",
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    },
+    "$defs": {
+        "process_items": {
+            "description": "Specify available [process] keywords for profile naming",
+            "type": "object",
+            "required": [
+                "INDICATOR",
+                "SELECTIONS"
+            ],
+            "properties": {
+                "INDICATOR": {
+                    "description": "Specify what process this is from the user interface",
+                    "type": "string"
+                },
+                "SELECTIONS": {
+                    "description": "An array of available keywords under this process type",
+                    "type": "array",
+                    "items": {
+                        "description": "Specify process keywords for profile naming",
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

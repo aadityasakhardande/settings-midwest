@@ -1,0 +1,36 @@
+{
+    "$schema": "../schema/fixed_robot_scripts_schema.json",
+    "header": {
+        "angleUnits": "d",
+        "timeUnits": "ms"
+    },
+    "path": [
+        {
+            "type": "movej",
+            "target": [
+                146.687,
+                28.708,
+                -33.927,
+                -3.409,
+                64.229,
+                1.257
+            ],
+            "time": 500,
+            "tool_status": false
+        },
+        {
+            "type": "movej",
+            "target": [
+                146.689,
+                21.131,
+                -33.747,
+                -3.688,
+                56.481,
+                1.813
+            ],
+            "time": 500,
+            "tool_status": false
+        }
+    ],
+    "comment": "From home to camera for inspection."
+}

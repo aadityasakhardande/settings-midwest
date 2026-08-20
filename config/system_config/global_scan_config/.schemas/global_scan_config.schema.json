@@ -1,0 +1,48 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://graymatter-robotics.com/scan_plan_handler/test/data/.schemas/global_scan_config.schema.json",
+    "type": "object",
+    "properties": {
+        "$schema": {
+            "type": "string",
+            "description": "Schema identifier (not part of actual data)"
+        }
+    },
+    "patternProperties": {
+        "^[a-zA-Z0-9_-]+$": {
+            "type": "object",
+            "required": [
+                "template",
+                "workpiece_frame_name",
+                "workpiece_position",
+                "workpiece_orientation"
+            ],
+            "properties": {
+                "template": {
+                    "type": "string"
+                },
+                "workpiece_frame_name": {
+                    "type": "string"
+                },
+                "workpiece_position": {
+                    "type": "array",
+                    "minItems": 3,
+                    "maxItems": 3,
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "workpiece_orientation": {
+                    "type": "array",
+                    "minItems": 4,
+                    "maxItems": 4,
+                    "items": {
+                        "type": "number"
+                    }
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false
+}

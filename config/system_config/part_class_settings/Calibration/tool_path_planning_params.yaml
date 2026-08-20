@@ -1,0 +1,103 @@
+# yaml-language-server: $schema=../../schemas/tool_path_planning_params.part_class.schema.json
+tpp_sanding_behaviour: {
+  turn_on_sander_above_part: false,
+  outer_boundary_subtraction: 0.0,
+  inner_boundary_subtraction: 0.02,
+  entry_exit_offset: 0.5,
+  entry_exit_inclination_angle: 0.0,
+}
+#################################################################################################################
+
+tpp_planning_parameters: {
+  pathgap_sanding_line: 0.02,
+  pathgap_connection_line: 0.02,
+  pathgap_entry_exit_line: 0.015,
+  continuity_distance: 0.06,
+  boundary_detection_dist: 0.03,
+  cnt_sanding_line: 85,
+  cnt_connection_line: 85,
+  cnt_start_end_line: 95,
+  cnt_boundary_sanding_line: 90,
+  remove_unreachable_pts_radius_multiplier: 4,
+  acceptable_dist_2_next_line_percentage: 600,
+  normal_estimation_radius: 0.02,
+  z_estimation_radius: 0.02,
+  acceptable_neighbours_in_radius: 3,
+  remove_pts_outside_boundary: false,
+  acceptable_sanding_path_length: 0.01,
+}
+#################################################################################################################
+
+tpp_boundary: {
+  offset_to_actual_boundary: 0.0,
+}
+#################################################################################################################
+
+tpp_tool_characteristic: {
+  tool_contact_width: 0.155,
+}
+#################################################################################################################
+
+midpass_SPC_anywhere: {
+  activate: true,
+  small_length_to_ignore: 0.0,
+  use_paper_across_passes: false,
+}
+#################################################################################################################
+
+ramp_force_entryexit: {
+  activate: true,
+  entry_start_value_multiplier: 1.0,
+  entry_delay_length: 0.0,
+  entry_ramp_dist: 0.0,
+  entry_ramp_style: "power",
+  exit_end_value_multiplier: 0.67,
+  exit_delay_length: -0.1,
+  exit_ramp_dist: 0.1,
+  exit_ramp_style: "power",
+  ramp_style_power: 2,
+}
+#################################################################################################################
+
+ramp_force_nearconnection: {
+  activate: true,
+  entry_ramp_dist: -0.04,
+  entry_ramp_style: "power",
+  connection_value_multiplier: 0.67,
+  exit_ramp_dist: 0.04,
+  exit_ramp_style: "power",
+  ramp_style_power: 2,
+}
+#################################################################################################################
+
+ramp_rpm_entryexit: {
+  activate: true,
+  entry_start_value_multiplier: 0.6,
+  entry_delay_length: -0.04,
+  entry_ramp_dist: 0.04,
+  entry_ramp_style: "linear",
+  exit_end_value_multiplier: 0.4,
+  exit_delay_length: -0.04,
+  exit_ramp_dist: 0.04,
+  exit_ramp_style: "linear",
+  ramp_style_power: 1,
+}
+#################################################################################################################
+
+ramp_cnt_entryexit: {
+  activate: true,
+  entry_start_value_multiplier: 0.6,
+  entry_delay_length: -0.04,
+  entry_ramp_dist: 0.06,
+  entry_ramp_style: "linear",
+  exit_end_value_multiplier: 0.6,
+  exit_delay_length: -0.04,
+  exit_ramp_dist: 0.06,
+  exit_ramp_style: "linear",
+  ramp_style_power: 2,
+}
+#################################################################################################################
+
+trajectory_planner: {
+  ori_options: [false, false, true],
+}

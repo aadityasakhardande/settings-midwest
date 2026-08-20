@@ -1,0 +1,120 @@
+api_version: 1.000
+
+cspace:
+  - joint_1
+  - joint_2
+  - joint_3
+  - joint_4
+  - joint_5
+  - joint_6
+
+default_q: [0.000, 0.000, -0.000, 0.000, -0.000, -0.000]
+
+acceleration_limits:
+  - 10
+  - 10
+  - 10
+  - 10
+  - 10
+  - 10
+
+jerk_limits:
+  - 10000
+  - 10000
+  - 10000
+  - 10000
+  - 10000
+  - 10000
+
+cspace_to_urdf_rules: null
+
+collision_spheres:
+  - tool0:
+      - center: [0.001, 0.009, 0.111]
+        radius: 0.121
+      - center: [-0.018, -0.001, 0.261]
+        radius: 0.100
+      - center: [0.043, 0.135, 0.110]
+        radius: 0.114
+      - center: [0.042, 0.007, 0.113]
+        radius: 0.119
+      - center: [0.001, -0.130, 0.023]
+        radius: 0.070
+      - center: [-0.038, -0.003, 0.099]
+        radius: 0.109
+      - center: [-0.056, 0.117, 0.092]
+        radius: 0.102
+      - center: [-0.051, -0.012, 0.162]
+        radius: 0.100
+      - center: [0.087, -0.037, 0.069]
+        radius: 0.075
+      - center: [-0.090, 0.128, 0.164]
+        radius: 0.070
+      - center: [0.101, -0.047, 0.174]
+        radius: 0.061
+      - center: [-0.089, 0.001, 0.322]
+        radius: 0.030
+      - center: [-0.122, 0.001, 0.263]
+        radius: 0.070
+      - center: [-0.097, -0.058, 0.051]
+        radius: 0.054
+      - center: [0.076, 0.090, 0.076]
+        radius: 0.086
+      - center: [0.003, -0.046, 0.286]
+        radius: 0.066
+      - center: [0.001, 0.034, 0.294]
+        radius: 0.066
+      - center: [0.070, 0.149, 0.143]
+        radius: 0.091
+      - center: [0.089, 0.232, 0.162]
+        radius: 0.045
+      - center: [0.090, 0.233, 0.112]
+        radius: 0.045
+      - center: [0.087, 0.221, 0.065]
+        radius: 0.050
+      - center: [0.087, 0.211, 0.014]
+        radius: 0.045
+      - center: [-0.011, 0.187, 0.110]
+        radius: 0.114
+      - center: [-0.105, 0.229, 0.072]
+        radius: 0.045
+      - center: [-0.104, 0.232, 0.121]
+        radius: 0.045
+      - center: [-0.104, 0.232, 0.160]
+        radius: 0.045
+      - center: [0.009, -0.250, 0.128]
+        radius: 0.110
+      - center: [-0.007, -0.243, 0.207]
+        radius: 0.120
+      - center: [0.007, -0.244, -0.017]
+        radius: 0.087
+      - center: [-0.25, 0, 0.258]
+        radius: 0.025
+      - center: [-0.25, 0.038, 0.258]
+        radius: 0.025
+      - center: [-0.25, 0.029, 0.283]
+        radius: 0.025
+      - center: [-0.25, 0.007, 0.296]
+        radius: 0.025
+      - center: [-0.25, -0.019, 0.291]
+        radius: 0.025
+      - center: [-0.25, -0.036, 0.271]
+        radius: 0.025
+      - center: [-0.25, -0.036, 0.245]
+        radius: 0.025
+      - center: [-0.25, -0.019, 0.225]
+        radius: 0.025
+      - center: [-0.25, 0.007, 0.220]
+        radius: 0.025
+      - center: [-0.25, 0.029, 0.233]
+        radius: 0.025
+      - center: [-0.2, 0, 0.258]
+        radius: 0.062
+      - center: [-0.155, 0, 0.258]
+        radius: 0.062
+      - center: [-0.155, 0, 0.258]
+        radius: 0.062
+      - center: [-0.155, -0.2, 0.258]
+        radius: 0.062
+      - center: [-0.155, -0.1, 0.258]
+        radius: 0.062

@@ -1,0 +1,119 @@
+{
+    "header": {
+        "angleUnits": "d",
+        "timeUnits": "ms"
+    },
+    "path": [
+        {
+            "type": "movej",
+            "target": [
+                8.152,
+                -1.322,
+                -42.989,
+                -11.977,
+                42.630,
+                9.611
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 1000,
+            "CNT": 80,
+            "RPM": 0,
+            "motion_type": 0,
+            "tool_status": false,
+            "force": 10
+        },
+        {
+            "type": "movej",
+            "target": [
+                0.824,
+                16.123,
+                -40.725,
+                -0.897,
+                57.163,
+                1.183
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 150,
+            "CNT": 80,
+            "RPM": 0,
+            "motion_type": 0,
+            "tool_status": false,
+            "force": 10
+        },
+        {
+            "type": "movej",
+            "target": [
+                0.824,
+                20.771,
+                -41.016,
+                -0.853,
+                62.096,
+                1.095
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 500,
+            "CNT": 80,
+            "RPM": 0,
+            "motion_type": 0,
+            "tool_status": false,
+            "force": 10
+        },
+        {
+            "type": "movej",
+            "target": [
+                0.824,
+                23.186,
+                -40.994,
+                -0.836,
+                64.485,
+                1.058
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 800,
+            "CNT": 80,
+            "RPM": 0,
+            "motion_type": 1,
+            "tool_status": false,
+            "force": 35
+        },
+        {
+            "type": "movej",
+            "target": [
+                0.824,
+                24.363,
+                -40.944,
+                -0.830,
+                65.608,
+                1.042
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 1000,
+            "CNT": 80,
+            "RPM": 0,
+            "motion_type": 1,
+            "tool_status": false,
+            "force": 35
+        }
+    ],
+    "comment": "From home to pick type 1."
+}

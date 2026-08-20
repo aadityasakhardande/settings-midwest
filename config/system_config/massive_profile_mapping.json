@@ -1,0 +1,24 @@
+{
+    "$schema": "./schemas/massive_profile_mapping.schema.json",
+    "MAPPING_KEY": {
+        "ZONE": [
+            "a"
+        ],
+        "PROC": [
+            {
+                "INDICATOR": "Coat",
+                "SELECTIONS": [
+                    "GEL",
+                    "PRIMER"
+                ]
+            }
+        ],
+        "PART": [
+            "Door",
+            "Flat_Pontoons",
+            "Curved_Pontoons",
+            "Front",
+            "Fence"
+        ]
+    }
+}

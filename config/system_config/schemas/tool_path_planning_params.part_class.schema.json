@@ -1,0 +1,2392 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TPP Part-Class Parameters",
+  "description": "Tool Path Planning parameters for a part class. Required sections must be present; feature sections are activated by their activate flag.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "tpp_sanding_behaviour",
+    "tpp_planning_parameters",
+    "tpp_boundary",
+    "tpp_tool_characteristic"
+  ],
+  "properties": {
+    "tpp_sanding_behaviour": {
+      "type": "object",
+      "title": "Sanding Behaviour",
+      "description": "Core sanding entry/exit and boundary offset settings. All fields are compulsory.",
+      "additionalProperties": false,
+      "required": [
+        "turn_on_sander_above_part",
+        "outer_boundary_subtraction",
+        "inner_boundary_subtraction",
+        "entry_exit_offset",
+        "entry_exit_inclination_angle"
+      ],
+      "properties": {
+        "turn_on_sander_above_part": {
+          "type": "boolean",
+          "title": "Turn On Sander Above Part",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nIf true, the sander is turned on while the tool is above the part (approach phase), not just during contact.",
+          "default": false
+        },
+        "outer_boundary_subtraction": {
+          "type": "number",
+          "title": "Outer Boundary Subtraction",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.005` | **Unit**: meters\n\nDistance to subtract from the outer boundary when computing the sanding region. \n\nFor concave boundaries, recommendation is to keep this value same as `inner_boundary_subtraction` due to algorithm design.",
+          "default": 0.005,
+          "minimum": 0.0
+        },
+        "inner_boundary_subtraction": {
+          "type": "number",
+          "title": "Inner Boundary Subtraction",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.005` | **Unit**: meters\n\nDistance to subtract from the inner boundary when computing the sanding region. \n\nFor concave boundaries, recommendation is to keep this value same as `outer_boundary_subtraction` due to algorithm design.",
+          "default": 0.005,
+          "minimum": 0.0
+        },
+        "entry_exit_offset": {
+          "type": "number",
+          "title": "Entry/Exit Offset",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.1` | **Unit**: meters\n\nRetraction distance for entry/exit paths above the part surface.",
+          "default": 0.1,
+          "minimum": 0.0
+        },
+        "entry_exit_inclination_angle": {
+          "title": "Entry/Exit Inclination Angle",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.0` | **Unit**: degrees\n\nScalar form: single angle applied to all entry/exit paths.\n\nVector form: `[[primary_tilt, secondary_tilt], ...]` \u2014 Multiple options to improve chances of reachability success. Priority order is determined by the order in the list.\n\n[→ Documentation](https://github.com/GrayMatter-Robotics/platform/tree/main/src/planners/tool_path_planner/docs/EntryExitInclination.md)",
+          "default": 0.0,
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "allOf": [
+                  {
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "tpp_planning_parameters": {
+      "type": "object",
+      "title": "Planning Parameters",
+      "description": "Core path planning parameters. Most fields are compulsory; smoothening and repeat_reachable_pts_analysis are optional.",
+      "additionalProperties": false,
+      "required": [
+        "pathgap_sanding_line",
+        "pathgap_connection_line",
+        "pathgap_entry_exit_line",
+        "continuity_distance",
+        "boundary_detection_dist",
+        "cnt_sanding_line",
+        "cnt_connection_line",
+        "cnt_start_end_line",
+        "cnt_boundary_sanding_line",
+        "remove_unreachable_pts_radius_multiplier",
+        "acceptable_sanding_path_length",
+        "acceptable_dist_2_next_line_percentage",
+        "normal_estimation_radius",
+        "z_estimation_radius",
+        "acceptable_neighbours_in_radius",
+        "remove_pts_outside_boundary"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "remove_pts_outside_boundary": {
+                "const": true
+              }
+            },
+            "required": [
+              "remove_pts_outside_boundary"
+            ]
+          },
+          "then": {
+            "required": [
+              "feature_radius_boundary_estimation"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "smoothening_repeat": {
+                "exclusiveMinimum": 0
+              }
+            },
+            "required": [
+              "smoothening_repeat"
+            ]
+          },
+          "then": {
+            "required": [
+              "path_smoothing_weight"
+            ]
+          }
+        }
+      ],
+      "properties": {
+        "pathgap_sanding_line": {
+          "type": "number",
+          "title": "Pathgap Sanding Line",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.01` | **Unit**: meters\n\nPoint spacing along sanding lines.",
+          "default": 0.01,
+          "exclusiveMinimum": 0
+        },
+        "pathgap_connection_line": {
+          "type": "number",
+          "title": "Pathgap Connection Line",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.01` | **Unit**: meters\n\nPoint spacing along connection lines",
+          "default": 0.01,
+          "exclusiveMinimum": 0
+        },
+        "pathgap_entry_exit_line": {
+          "type": "number",
+          "title": "Pathgap Entry/Exit Line",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.01` | **Unit**: meters\n\nPoint spacing along entry/exit retraction paths.",
+          "default": 0.01,
+          "exclusiveMinimum": 0
+        },
+        "continuity_distance": {
+          "type": "number",
+          "title": "Continuity Distance",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.06` | **Unit**: meters\n\nMaximum gap between consecutive points before a jump is inserted.",
+          "default": 0.06,
+          "exclusiveMinimum": 0
+        },
+        "boundary_detection_dist": {
+          "type": "number",
+          "title": "Boundary Detection Distance",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.03` | **Unit**: meters\n\nA sanding line is split wherever consecutive points are more than this distance apart (e.g. across a hole or gap in the surface).",
+          "default": 0.03,
+          "exclusiveMinimum": 0
+        },
+        "cnt_sanding_line": {
+          "type": "integer",
+          "title": "CNT Sanding Line",
+          "markdownDescription": "**Scope**: part-class | **Default**: `90` | **Range**: 1\u2013100\n\nFanuc CNT (approximate motion) value for sanding line segments.",
+          "default": 90,
+          "minimum": 1,
+          "maximum": 100
+        },
+        "cnt_connection_line": {
+          "type": "integer",
+          "title": "CNT Connection Line",
+          "markdownDescription": "**Scope**: part-class | **Default**: `90` | **Range**: 1\u2013100\n\nFanuc CNT value for connection line segments.",
+          "default": 90,
+          "minimum": 1,
+          "maximum": 100
+        },
+        "cnt_start_end_line": {
+          "type": "integer",
+          "title": "CNT Start/End Line",
+          "markdownDescription": "**Scope**: part-class | **Default**: `95` | **Range**: 1\u2013100\n\nFanuc CNT value for start/end (entry/exit) line segments.",
+          "default": 95,
+          "minimum": 1,
+          "maximum": 100
+        },
+        "cnt_boundary_sanding_line": {
+          "type": "integer",
+          "title": "CNT Boundary Sanding Line",
+          "markdownDescription": "**Scope**: part-class | **Default**: `90` | **Range**: 1\u2013100\n\nFanuc CNT value for boundary sanding line segments.",
+          "default": 90,
+          "minimum": 1,
+          "maximum": 100
+        },
+        "remove_unreachable_pts_radius_multiplier": {
+          "type": "number",
+          "title": "Remove Unreachable Pts Radius Multiplier",
+          "markdownDescription": "**Scope**: part-class | **Default**: `4`\n\nMultiplier applied to `pathgap_connection_line` to compute the exclusion radius around unreachable path points. \n\nIncrease to remove more points around unreachable areas and coverge on a plan faster. Decrease to keep more points and potentially find a plan where others fail, at the risk of longer planning time.",
+          "default": 4,
+          "exclusiveMinimum": 0
+        },
+        "acceptable_sanding_path_length": {
+          "type": "number",
+          "title": "Acceptable Sanding Path Length",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.2` | **Unit**: meters\n\nMinimum path length for a sanding segment to be retained (shorter segments are discarded).",
+          "default": 0.2,
+          "minimum": 0
+        },
+        "acceptable_dist_2_next_line_percentage": {
+          "type": "number",
+          "title": "Acceptable Distance to Next Line Percentage",
+          "markdownDescription": "**Scope**: part-class | **Default**: `600`\n\nMaximum allowable connection distance expressed as `(100 + value)%` of the stepover distance (distance between consecutive sanding lines). \n\nE.g. 600 means 700% of stepover distance. \n\n Negative = Infinite distance. \n\nIncrease or make negative to allow connections between lines that are farther apart.",
+          "default": 600
+        },
+        "normal_estimation_radius": {
+          "type": "number",
+          "title": "Normal Estimation Radius",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.01` | **Unit**: meters\n\nNeighbourhood radius for estimating surface normals at each grid point.",
+          "default": 0.01,
+          "exclusiveMinimum": 0
+        },
+        "z_estimation_radius": {
+          "type": "number",
+          "title": "Z Estimation Radius",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.02` | **Unit**: meters\n\nNeighbourhood radius for estimating Z height at each grid point.",
+          "default": 0.02,
+          "exclusiveMinimum": 0
+        },
+        "acceptable_neighbours_in_radius": {
+          "type": "integer",
+          "title": "Acceptable Neighbours in Radius",
+          "markdownDescription": "**Scope**: part-class | **Default**: `3`\n\nMinimum number of neighbours required within the normal estimation radius for a point to be considered valid.",
+          "default": 3,
+          "minimum": 1
+        },
+        "remove_pts_outside_boundary": {
+          "type": "boolean",
+          "title": "Remove Points Outside Boundary",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nWhen true, points outside the detected boundary are removed. Requires `feature_radius_boundary_estimation`.",
+          "default": false
+        },
+        "feature_radius_boundary_estimation": {
+          "type": "number",
+          "title": "Feature Radius Boundary Estimation",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.03` | **Unit**: meters\n\n**Compulsory when `remove_pts_outside_boundary: true`.**\nRadius used to compute the boundary during outside-boundary point removal.",
+          "default": 0.03,
+          "exclusiveMinimum": 0
+        },
+        "smoothening_repeat": {
+          "type": "integer",
+          "title": "Smoothening Repeat",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0`\n\nNumber of path smoothing passes. `0` = disabled. When > 0, `path_smoothing_weight` is compulsory.",
+          "default": 0,
+          "minimum": 0
+        },
+        "path_smoothing_weight": {
+          "type": "number",
+          "title": "Path Smoothing Weight",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.05`\n\n**Compulsory when `smoothening_repeat > 0`.**\nWeight factor for path smoothing (higher = more smoothing).",
+          "default": 0.05,
+          "minimum": 0,
+          "maximum": 1
+        },
+        "repeat_reachable_pts_analysis": {
+          "type": "integer",
+          "title": "Repeat Reachable Points Analysis",
+          "markdownDescription": "**Scope**: part-class | **Default**: `5`\n\nNumber of times to repeat the reachability analysis pass. Increase to potentially reduce number of jumps at the cost of longer planning time.",
+          "default": 5,
+          "minimum": 0
+        }
+      }
+    },
+    "tpp_boundary": {
+      "type": "object",
+      "title": "Boundary Configuration",
+      "description": "Boundary offset and optional boundary pass coordinator/clip settings.",
+      "additionalProperties": false,
+      "required": [
+        "offset_to_actual_boundary"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "outer_boundary_pass_coordinator_cloud": {
+                "const": true
+              }
+            },
+            "required": [
+              "outer_boundary_pass_coordinator_cloud"
+            ]
+          },
+          "then": {
+            "required": [
+              "allow_inner_boundary_pass_coordinator_cloud",
+              "use_stitched_tpp_input",
+              "coordinator_cloud_cluster_tolerance",
+              "outer_boundary_pass_pcl_boundary_radius",
+              "outer_boundary_pass_pcl_boundary_cluster_tol",
+              "outer_boundary_pass_tpp_boundary_search_radius"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "clip_boundary_path": {
+                "const": true
+              }
+            },
+            "required": [
+              "clip_boundary_path"
+            ]
+          },
+          "then": {
+            "required": [
+              "clip_boundary_path_distance"
+            ]
+          }
+        }
+      ],
+      "properties": {
+        "offset_to_actual_boundary": {
+          "type": "number",
+          "title": "Offset to Actual Boundary",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.0` | **Unit**: meters\n\nOffset applied to shrink the detected boundary before planning.",
+          "default": 0.0,
+          "minimum": 0
+        },
+        "outer_boundary_pass_coordinator_cloud": {
+          "type": "boolean",
+          "title": "Outer Boundary Pass Coordinator Cloud",
+          "markdownDescription": "**Scope**: part-class (feature opt-in) | **Default**: `false`\n\nActivates boundary pass planning using the pre-segmentation cloud. When true, all `outer_boundary_pass_*` sub-parameters are compulsory.\n\n[→ Documentation](https://github.com/GrayMatter-Robotics/platform/tree/main/src/planners/tool_path_planner/docs/OuterBoundaryPass.md)",
+          "default": false
+        },
+        "allow_inner_boundary_pass_coordinator_cloud": {
+          "type": "boolean",
+          "title": "Allow Inner Boundary Pass Coordinator Cloud",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\n**Compulsory when `outer_boundary_pass_coordinator_cloud: true`.**\nIf true, generates paths for both inner and outer boundaries.",
+          "default": false
+        },
+        "use_stitched_tpp_input": {
+          "type": "boolean",
+          "title": "Use Stitched TPP Input",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\n**Compulsory when `outer_boundary_pass_coordinator_cloud: true`.**\nIf true, uses the stitched segmented clouds; if false, uses the pre-segmentation cloud.",
+          "default": false
+        },
+        "coordinator_cloud_cluster_tolerance": {
+          "type": "number",
+          "title": "Coordinator Cloud Cluster Tolerance",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.03` | **Unit**: meters\n\n**Compulsory when `outer_boundary_pass_coordinator_cloud: true`.**\nClustering tolerance for the pre-segmentation cloud (used when multiple parts are present).",
+          "default": 0.03,
+          "exclusiveMinimum": 0
+        },
+        "outer_boundary_pass_pcl_boundary_radius": {
+          "type": "number",
+          "title": "Outer Boundary Pass PCL Boundary Radius",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.015` | **Unit**: meters\n\n**Compulsory when `outer_boundary_pass_coordinator_cloud: true`.**",
+          "default": 0.015,
+          "exclusiveMinimum": 0
+        },
+        "outer_boundary_pass_pcl_boundary_cluster_tol": {
+          "type": "number",
+          "title": "Outer Boundary Pass PCL Boundary Cluster Tolerance",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.02` | **Unit**: meters\n\n**Compulsory when `outer_boundary_pass_coordinator_cloud: true`.**",
+          "default": 0.02,
+          "exclusiveMinimum": 0
+        },
+        "outer_boundary_pass_tpp_boundary_search_radius": {
+          "type": "number",
+          "title": "Outer Boundary Pass TPP Boundary Search Radius",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.01` | **Unit**: meters\n\n**Compulsory when `outer_boundary_pass_coordinator_cloud: true`.**",
+          "default": 0.01,
+          "exclusiveMinimum": 0
+        },
+        "clip_boundary_path": {
+          "type": "boolean",
+          "title": "Clip Boundary Path",
+          "markdownDescription": "**Scope**: part-class (feature opt-in) | **Default**: `false`\n\nWhen true, clips boundary paths of length `clip_boundary_path_distance` from the start and end points.",
+          "default": false
+        },
+        "clip_boundary_path_distance": {
+          "type": "number",
+          "title": "Clip Boundary Path Distance",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.1` | **Unit**: meters\n\n**Compulsory when `clip_boundary_path: true`.**",
+          "default": 0.1,
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "tpp_tool_characteristic": {
+      "type": "object",
+      "title": "Tool Characteristic",
+      "description": "Tool geometry parameters. All fields are compulsory.",
+      "additionalProperties": false,
+      "required": [
+        "tool_contact_width"
+      ],
+      "properties": {
+        "tool_contact_width": {
+          "type": "number",
+          "title": "Tool Contact Width",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.155` | **Unit**: meters\n\nContact diameter (orbital sander) or width of the tool that touches the surface.",
+          "default": 0.155,
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "thin_features_subtraction": {
+      "type": "object",
+      "title": "Thin Features Subtraction",
+      "markdownDescription": "**Feature opt-in** \u2014 set `activate: true` to enable. All sub-parameters become compulsory when activated.",
+      "additionalProperties": false,
+      "if": {
+        "properties": {
+          "activate": {
+            "const": true
+          }
+        },
+        "required": [
+          "activate"
+        ]
+      },
+      "then": {
+        "required": [
+          "subtraction_value",
+          "inner_outer_boundary_cluster_tolerance",
+          "consider_inside_boundary",
+          "feature_size",
+          "preserve_corners"
+        ]
+      },
+      "properties": {
+        "activate": {
+          "type": "boolean",
+          "title": "Activate Thin Features Subtraction",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nEnables thin feature subtraction. When true, all other fields in this section are compulsory.",
+          "default": false
+        },
+        "subtraction_value": {
+          "type": "number",
+          "title": "Subtraction Value",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.0` | **Unit**: meters\n\nAmount to subtract for thin features.",
+          "default": 0.0
+        },
+        "inner_outer_boundary_cluster_tolerance": {
+          "type": "number",
+          "title": "Inner/Outer Boundary Cluster Tolerance",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.01` | **Unit**: meters\n\nTolerance to differentiate between inner and outer boundaries.",
+          "default": 0.01,
+          "exclusiveMinimum": 0
+        },
+        "consider_inside_boundary": {
+          "type": "boolean",
+          "title": "Consider Inside Boundary",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `true`\n\nIf true, searches for disconnected inner boundaries.",
+          "default": true
+        },
+        "feature_size": {
+          "type": "number",
+          "title": "Feature Size",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.0` | **Unit**: meters\n\nThickness of the thin feature (used by algorithm 2).",
+          "default": 0.0,
+          "minimum": 0
+        },
+        "preserve_corners": {
+          "type": "boolean",
+          "title": "Preserve Corners",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `true`\n\nIf true, corner geometry is preserved during thin feature subtraction.",
+          "default": true
+        }
+      }
+    },
+    "tpp_ZigZag_pattern": {
+      "type": "object",
+      "title": "ZigZag Pattern",
+      "markdownDescription": "**Feature opt-in** \u2014 set `activate: true` to enable. `amplitude` is compulsory when activated.",
+      "additionalProperties": false,
+      "if": {
+        "properties": {
+          "activate": {
+            "const": true
+          }
+        },
+        "required": [
+          "activate"
+        ]
+      },
+      "then": {
+        "required": [
+          "amplitude"
+        ]
+      },
+      "properties": {
+        "activate": {
+          "type": "boolean",
+          "title": "Activate ZigZag Pattern",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nEnables zigzag sanding pattern. When true, `amplitude` is compulsory.",
+          "default": false
+        },
+        "amplitude": {
+          "type": "number",
+          "title": "ZigZag Amplitude",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.05` | **Unit**: meters\n\nPeak-to-centre amplitude of the zigzag pattern.",
+          "default": 0.05,
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "multiTCP": {
+      "type": "object",
+      "title": "Multi-TCP",
+      "markdownDescription": "**Feature opt-in** \u2014 set `activate: true` to enable multi-TCP planning. `activate_single_tcp_collision_check` works independently.\n\nNested feature: `is_sandblasting: true` requires its own set of sub-parameters.\n\n[→ Documentation](https://github.com/GrayMatter-Robotics/platform/tree/main/src/planners/tool_path_planner/docs/MultiTCPUpdates.md)",
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "activate": {
+                "const": true
+              }
+            },
+            "required": [
+              "activate"
+            ]
+          },
+          "then": {
+            "required": [
+              "rot_shift_angles_allAx",
+              "trans_shift_angles",
+              "offset_radius",
+              "collision_radius",
+              "height",
+              "surface_offset",
+              "trans_rot_only",
+              "trans_only",
+              "prefer_trans_only",
+              "separate_mTCP_paths"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "is_sandblasting": {
+                "const": true
+              }
+            },
+            "required": [
+              "is_sandblasting"
+            ]
+          },
+          "then": {
+            "required": [
+              "allow_free_space_blasting",
+              "prefer_non_free_space_blasting",
+              "do_not_blast_red_pts",
+              "raytrace_cluster_tolerance"
+            ]
+          }
+        }
+      ],
+      "properties": {
+        "activate": {
+          "type": "boolean",
+          "title": "Activate Multi-TCP",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nEnables multi-TCP planning. When true, all compulsory sub-parameters must be present.",
+          "default": false
+        },
+        "activate_single_tcp_collision_check": {
+          "type": "boolean",
+          "title": "Activate Single-TCP Collision Check",
+          "markdownDescription": "**Scope**: part-class (optional) | **Default**: `false`\n\nRemoves points potentially in collision with the pre-segmentation cloud during single-TCP planning. Works independently of `activate`.",
+          "default": false
+        },
+        "rot_shift_angles_allAx": {
+          "type": "array",
+          "title": "Rotation Shift Angles (All Axes)",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `activate: true`** | **Default**: `[[15,0,0],[0,15,0],[-15,0,0],[0,-15,0]]` | **Unit**: degrees\n\nList of `[x, y, z]` rotation shift angle vectors. Each inner array must have exactly 3 elements.",
+          "default": [
+            [
+              15,
+              0,
+              0
+            ],
+            [
+              0,
+              15,
+              0
+            ],
+            [
+              -15,
+              0,
+              0
+            ],
+            [
+              0,
+              -15,
+              0
+            ]
+          ],
+          "allOf": [
+            {
+              "items": {
+                "type": "array",
+                "allOf": [
+                  {
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 3,
+                    "maxItems": 3
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "trans_shift_angles": {
+          "type": "array",
+          "title": "Translation Shift Angles",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `activate: true`** | **Default**: `[0, 90, 180, 270]` | **Unit**: degrees\n\nAngles at which translational TCP shifts are attempted.",
+          "default": [
+            0,
+            90,
+            180,
+            270
+          ],
+          "allOf": [
+            {
+              "items": {
+                "type": "number"
+              }
+            }
+          ]
+        },
+        "offset_radius": {
+          "type": "number",
+          "title": "Offset Radius",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `activate: true`** | **Default**: `0.06` | **Unit**: meters\n\nRadius of the translational TCP offset circle.",
+          "default": 0.06,
+          "exclusiveMinimum": 0
+        },
+        "collision_radius": {
+          "type": "number",
+          "title": "Collision Radius",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `activate: true`** | **Default**: `0.08` | **Unit**: meters\n\nRadius of the swept cylinder used for collision detection in multi-TCP planning.",
+          "default": 0.08,
+          "exclusiveMinimum": 0
+        },
+        "height": {
+          "type": "number",
+          "title": "Height",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `activate: true`** | **Default**: `1`\n\nHeight parameter for multi-TCP swept cylinder check.",
+          "default": 1
+        },
+        "surface_offset": {
+          "type": "number",
+          "title": "Surface Offset",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `activate: true`** | **Default**: `0.004` | **Unit**: meters\n\nHeight offset from the surface used for the swept cylinder in multi-TCP collision detection.",
+          "default": 0.004
+        },
+        "trans_rot_only": {
+          "type": "boolean",
+          "title": "Translation + Rotation Only",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `activate: true`** | **Default**: `false`\n\nIf true, only combined translation+rotation TCPs are used.",
+          "default": false
+        },
+        "trans_only": {
+          "type": "boolean",
+          "title": "Translation Only",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `activate: true`** | **Default**: `false`\n\nIf true, only translational TCPs are used.",
+          "default": false
+        },
+        "prefer_trans_only": {
+          "type": "boolean",
+          "title": "Prefer Translation Only",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `activate: true`** | **Default**: `false`\n\nIf true, translational TCPs are preferred over rotational ones.",
+          "default": false
+        },
+        "separate_mTCP_paths": {
+          "type": "boolean",
+          "title": "Separate Multi-TCP Paths",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `activate: true`** | **Default**: `false`\n\nIf true, generates separate paths per TCP.",
+          "default": false
+        },
+        "skip_center_tcp_swptcyl_check": {
+          "type": "boolean",
+          "title": "Skip Center TCP Swept Cylinder Check",
+          "markdownDescription": "**Scope**: part-class | **Optional when `activate: true`** | **Default**: `false`\n\nSkips the swept cylinder collision check for the centre TCP. Useful when applying z-axis tool rotations.",
+          "default": false
+        },
+        "is_sandblasting": {
+          "type": "boolean",
+          "title": "Is Sandblasting",
+          "markdownDescription": "**Scope**: part-class | **Optional when `activate: true`** | **Default**: `false`\n\nEnables sandblasting mode. When true, sandblasting sub-parameters are compulsory.",
+          "default": false
+        },
+        "allow_free_space_blasting": {
+          "type": "boolean",
+          "title": "Allow Free Space Blasting",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `is_sandblasting: true`** | **Default**: `true`\n\nAllows the tool to blast the free space.",
+          "default": true
+        },
+        "prefer_non_free_space_blasting": {
+          "type": "boolean",
+          "title": "Prefer Non-Free-Space Blasting",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `is_sandblasting: true`** | **Default**: `true`\n\nPrefers pointing towards the surface over free space when both are feasible.",
+          "default": true
+        },
+        "do_not_blast_red_pts": {
+          "type": "boolean",
+          "title": "Do Not Blast Red Points",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `is_sandblasting: true`** | **Default**: `true`\n\nSkips blasting at points marked red (unreachable/restricted).",
+          "default": true
+        },
+        "raytrace_cluster_tolerance": {
+          "type": "number",
+          "title": "Raytrace Cluster Tolerance",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `is_sandblasting: true`** | **Default**: `0.01` | **Unit**: meters\n\nClustering tolerance used during raytrace-based blasting analysis.",
+          "default": 0.01,
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "tpp_variable_pathgap": {
+      "type": "object",
+      "title": "Variable Pathgap",
+      "markdownDescription": "**Feature opt-in** \u2014 set `activate: true`. `target_norm_change` and `gap_range` are compulsory when activated.",
+      "additionalProperties": false,
+      "if": {
+        "properties": {
+          "activate": {
+            "const": true
+          }
+        },
+        "required": [
+          "activate"
+        ]
+      },
+      "then": {
+        "required": [
+          "target_norm_change",
+          "gap_range"
+        ]
+      },
+      "properties": {
+        "activate": {
+          "type": "boolean",
+          "title": "Activate Variable Pathgap",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nEnables adaptive pathgap based on surface curvature.",
+          "default": false
+        },
+        "target_norm_change": {
+          "type": "number",
+          "title": "Target Normal Change",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.687`\n\nTarget cos(angle) between consecutive surface normals. `cos(46.7\u00b0) \u2248 0.687`.",
+          "default": 0.687,
+          "minimum": 0,
+          "maximum": 1
+        },
+        "gap_range": {
+          "type": "array",
+          "title": "Gap Range",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `[0.004, 0.03]` | **Unit**: meters\n\n`[min_gap, max_gap]` \u2014 the pathgap adapts between these values. Preferably multiples of the grid length.",
+          "default": [
+            0.004,
+            0.03
+          ],
+          "allOf": [
+            {
+              "items": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          ]
+        }
+      }
+    },
+    "tpp_contact_analysis": {
+      "type": "object",
+      "title": "Contact Analysis",
+      "markdownDescription": "**Scope**: part-class (optional) \u2014 no activate flag; all parameters are independently optional.",
+      "additionalProperties": false,
+      "properties": {
+        "auto_calculate_radius": {
+          "type": "boolean",
+          "title": "Auto Calculate Radius",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nIf true, calculates the tool radius as half the sanding line spacing (changes with overlap percentage).",
+          "default": false
+        },
+        "backing_pad_height": {
+          "type": "number",
+          "title": "Backing Pad Height",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.025` | **Unit**: meters\n\nHeight of the backing pad used in pad coverage calculation.",
+          "default": 0.025,
+          "exclusiveMinimum": 0
+        },
+        "force_calc_opposite_cyl_height": {
+          "type": "number",
+          "title": "Force Calc Opposite Cylinder Height",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.1` | **Unit**: meters",
+          "default": 0.1,
+          "exclusiveMinimum": 0
+        },
+        "force_calc_radius_step_percent": {
+          "type": "number",
+          "title": "Force Calc Radius Step Percent",
+          "markdownDescription": "**Scope**: part-class | **Default**: `10` | **Unit**: percent\n\nStep size (as a percentage of radius) used in pad coverage calculation iterations.",
+          "default": 10,
+          "exclusiveMinimum": 0
+        },
+        "force_calc_angle_step": {
+          "type": "number",
+          "title": "Force Calc Angle Step",
+          "markdownDescription": "**Scope**: part-class | **Default**: `10` | **Unit**: degrees\n\nAngular step size used in pad coverage calculation iterations.",
+          "default": 10,
+          "exclusiveMinimum": 0
+        },
+        "write_all_files": {
+          "type": "boolean",
+          "title": "Write All Files",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nIf true, writes all intermediate contact analysis files to disk.",
+          "default": false
+        }
+      }
+    },
+    "boundary_normal_retention": {
+      "type": "object",
+      "title": "Boundary Normal Retention",
+      "markdownDescription": "**Feature opt-in** \u2014 set `activate: true`. All sub-parameters are compulsory when activated.",
+      "additionalProperties": false,
+      "if": {
+        "properties": {
+          "activate": {
+            "const": true
+          }
+        },
+        "required": [
+          "activate"
+        ]
+      },
+      "then": {
+        "required": [
+          "boundary_width",
+          "refine_normals_neighbours",
+          "removeBottomPoints",
+          "reference_pt",
+          "plusY_angle",
+          "negY_angle"
+        ]
+      },
+      "properties": {
+        "activate": {
+          "type": "boolean",
+          "title": "Activate Boundary Normal Retention",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nRetains surface normals at the boundary region.",
+          "default": false
+        },
+        "boundary_width": {
+          "type": "number",
+          "title": "Boundary Width",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.035` | **Unit**: meters\n\nWidth of the boundary zone where normals are retained.",
+          "default": 0.035,
+          "exclusiveMinimum": 0
+        },
+        "refine_normals_neighbours": {
+          "type": "integer",
+          "title": "Refine Normals Neighbours",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0`\n\nNumber of neighbours used for normal refinement. `0` = no refinement.",
+          "default": 0,
+          "minimum": 0
+        },
+        "removeBottomPoints": {
+          "type": "boolean",
+          "title": "Remove Bottom Points",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `false`\n\nIf true, removes points at the bottom of the part based on reference_pt geometry.",
+          "default": false
+        },
+        "reference_pt": {
+          "type": "array",
+          "title": "Reference Point",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `[1.02, -0.15, 0.41]` | **Unit**: meters\n\n`[x, y, z]` reference point for bottom-point removal geometry.",
+          "default": [
+            1.02,
+            -0.15,
+            0.41
+          ],
+          "allOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "minItems": 3,
+              "maxItems": 3
+            }
+          ]
+        },
+        "plusY_angle": {
+          "type": "number",
+          "title": "+Y Angle",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `60` | **Unit**: degrees\n\nAngle threshold in the +Y direction for bottom-point removal.",
+          "default": 60,
+          "minimum": 0,
+          "maximum": 180
+        },
+        "negY_angle": {
+          "type": "number",
+          "title": "-Y Angle",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `60` | **Unit**: degrees\n\nAngle threshold in the -Y direction for bottom-point removal.",
+          "default": 60,
+          "minimum": 0,
+          "maximum": 180
+        }
+      }
+    },
+    "midpass_SPC_near_boundary": {
+      "type": "object",
+      "title": "Mid-Pass SPC Near Boundary",
+      "markdownDescription": "**Feature opt-in** \u2014 set `activate: true`. `dist_from_boundary` and `min_sanding_distance` are compulsory when activated. Part-class based \u2014 each part class controls independently.",
+      "additionalProperties": false,
+      "if": {
+        "properties": {
+          "activate": {
+            "const": true
+          }
+        },
+        "required": [
+          "activate"
+        ]
+      },
+      "then": {
+        "required": [
+          "dist_from_boundary",
+          "min_sanding_distance"
+        ]
+      },
+      "properties": {
+        "activate": {
+          "type": "boolean",
+          "title": "Activate Mid-Pass SPC Near Boundary",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nEnables sandpaper changing (SPC) near boundary in the middle of a pass.",
+          "default": false
+        },
+        "dist_from_boundary": {
+          "type": "number",
+          "title": "Distance from Boundary",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.03` | **Unit**: meters\n\nDistance from boundary within which SPC is applied.",
+          "default": 0.03,
+          "exclusiveMinimum": 0
+        },
+        "min_sanding_distance": {
+          "type": "number",
+          "title": "Minimum Sanding Distance",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.3` | **Unit**: meters\n\nMinimum total sanding path length required before SPC is applied.",
+          "default": 0.3,
+          "minimum": 0
+        }
+      }
+    },
+    "midpass_SPC_anywhere": {
+      "type": "object",
+      "title": "Mid-Pass SPC Anywhere",
+      "markdownDescription": "**Feature opt-in** \u2014 set `activate: true`. `small_length_to_ignore` is compulsory when activated.",
+      "additionalProperties": false,
+      "if": {
+        "properties": {
+          "activate": {
+            "const": true
+          }
+        },
+        "required": [
+          "activate"
+        ]
+      },
+      "then": {
+        "required": [
+          "small_length_to_ignore"
+        ]
+      },
+      "properties": {
+        "activate": {
+          "type": "boolean",
+          "title": "Activate Mid-Pass SPC Anywhere",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nEnables sandpaper changing (SPC) insertions anywhere in the mid-pass.",
+          "default": false
+        },
+        "small_length_to_ignore": {
+          "type": "number",
+          "title": "Small Length to Ignore",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.0` | **Unit**: meters\n\nSanding segments shorter than this value are skipped for SPC insertion.",
+          "default": 0.0,
+          "minimum": 0
+        }
+      }
+    },
+    "ramp_force_entryexit": {
+      "type": "object",
+      "title": "Force Ramp \u2014 Entry/Exit",
+      "markdownDescription": "**Feature opt-in** \u2014 set `activate: true`. All sub-parameters are compulsory when activated.\n\nRamp styles: `instant` | `linear` | `power` | `inverse_power`\n\n[→ Documentation](https://github.com/GrayMatter-Robotics/platform/tree/main/src/planners/tool_path_planner/docs/ProcessPropertiesModulation.md)",
+      "additionalProperties": false,
+      "if": {
+        "properties": {
+          "activate": {
+            "const": true
+          }
+        },
+        "required": [
+          "activate"
+        ]
+      },
+      "then": {
+        "required": [
+          "entry_start_value_multiplier",
+          "entry_delay_length",
+          "entry_ramp_dist",
+          "entry_ramp_style",
+          "exit_end_value_multiplier",
+          "exit_delay_length",
+          "exit_ramp_dist",
+          "exit_ramp_style",
+          "ramp_style_power"
+        ]
+      },
+      "properties": {
+        "activate": {
+          "type": "boolean",
+          "default": false,
+          "title": "Activate Force Entry/Exit Ramp",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`"
+        },
+        "entry_start_value_multiplier": {
+          "type": "number",
+          "default": 0.2,
+          "title": "Entry Start Value Multiplier",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.2`\n\nForce multiplier at the start of the entry ramp (relative to nominal)."
+        },
+        "entry_delay_length": {
+          "type": "number",
+          "default": -0.2,
+          "title": "Entry Delay Length",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `-0.2` | **Unit**: meters\n\nDistance before the surface at which the entry ramp starts. Negative = starts before contact."
+        },
+        "entry_ramp_dist": {
+          "type": "number",
+          "default": 0.4,
+          "title": "Entry Ramp Distance",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.4` | **Unit**: meters\n\nLength of the entry ramp.",
+          "exclusiveMinimum": 0
+        },
+        "entry_ramp_style": {
+          "type": "string",
+          "default": "inverse_power",
+          "title": "Entry Ramp Style",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `inverse_power`\n\nProfile shape of the entry ramp.",
+          "enum": [
+            "instant",
+            "linear",
+            "power",
+            "inverse_power"
+          ]
+        },
+        "exit_end_value_multiplier": {
+          "type": "number",
+          "default": 2,
+          "title": "Exit End Value Multiplier",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `2`\n\nForce multiplier at the end of the exit ramp."
+        },
+        "exit_delay_length": {
+          "type": "number",
+          "default": -0.2,
+          "title": "Exit Delay Length",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `-0.2` | **Unit**: meters"
+        },
+        "exit_ramp_dist": {
+          "type": "number",
+          "default": 0.4,
+          "title": "Exit Ramp Distance",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.4` | **Unit**: meters",
+          "exclusiveMinimum": 0
+        },
+        "exit_ramp_style": {
+          "type": "string",
+          "default": "linear",
+          "title": "Exit Ramp Style",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `linear`",
+          "enum": [
+            "instant",
+            "linear",
+            "power",
+            "inverse_power"
+          ]
+        },
+        "ramp_style_power": {
+          "type": "number",
+          "default": 2,
+          "title": "Ramp Style Power",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `2`\n\nExponent used when ramp style is `power` or `inverse_power`.",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "ramp_force_nearconnection": {
+      "type": "object",
+      "title": "Force Ramp \u2014 Near Connection",
+      "markdownDescription": "**Feature opt-in** \u2014 set `activate: true`. All sub-parameters are compulsory when activated.\n\n[→ Documentation](https://github.com/GrayMatter-Robotics/platform/tree/main/src/planners/tool_path_planner/docs/ProcessPropertiesModulation.md)",
+      "additionalProperties": false,
+      "if": {
+        "properties": {
+          "activate": {
+            "const": true
+          }
+        },
+        "required": [
+          "activate"
+        ]
+      },
+      "then": {
+        "required": [
+          "entry_ramp_dist",
+          "entry_ramp_style",
+          "connection_value_multiplier",
+          "exit_ramp_dist",
+          "exit_ramp_style",
+          "ramp_style_power"
+        ]
+      },
+      "properties": {
+        "activate": {
+          "type": "boolean",
+          "default": false,
+          "title": "Activate Force Near-Connection Ramp",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`"
+        },
+        "entry_ramp_dist": {
+          "type": "number",
+          "default": 0.1,
+          "title": "Entry Ramp Distance",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.1` | **Unit**: meters",
+          "exclusiveMinimum": 0
+        },
+        "entry_ramp_style": {
+          "type": "string",
+          "default": "linear",
+          "title": "Entry Ramp Style",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `linear`",
+          "enum": [
+            "instant",
+            "linear",
+            "power",
+            "inverse_power"
+          ]
+        },
+        "connection_value_multiplier": {
+          "type": "number",
+          "default": 0.3,
+          "title": "Connection Value Multiplier",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.3`\n\nForce multiplier applied at the connection point."
+        },
+        "exit_ramp_dist": {
+          "type": "number",
+          "default": 0.1,
+          "title": "Exit Ramp Distance",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.1` | **Unit**: meters",
+          "exclusiveMinimum": 0
+        },
+        "exit_ramp_style": {
+          "type": "string",
+          "default": "power",
+          "title": "Exit Ramp Style",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `power`",
+          "enum": [
+            "instant",
+            "linear",
+            "power",
+            "inverse_power"
+          ]
+        },
+        "ramp_style_power": {
+          "type": "number",
+          "default": 2,
+          "title": "Ramp Style Power",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `2`",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "ramp_rpm_entryexit": {
+      "type": "object",
+      "title": "RPM Ramp \u2014 Entry/Exit",
+      "markdownDescription": "**Feature opt-in** \u2014 set `activate: true`. All sub-parameters are compulsory when activated.\n\n[→ Documentation](https://github.com/GrayMatter-Robotics/platform/tree/main/src/planners/tool_path_planner/docs/ProcessPropertiesModulation.md)",
+      "additionalProperties": false,
+      "if": {
+        "properties": {
+          "activate": {
+            "const": true
+          }
+        },
+        "required": [
+          "activate"
+        ]
+      },
+      "then": {
+        "required": [
+          "entry_start_value_multiplier",
+          "entry_delay_length",
+          "entry_ramp_dist",
+          "entry_ramp_style",
+          "exit_end_value_multiplier",
+          "exit_delay_length",
+          "exit_ramp_dist",
+          "exit_ramp_style",
+          "ramp_style_power"
+        ]
+      },
+      "properties": {
+        "activate": {
+          "type": "boolean",
+          "default": false,
+          "title": "Activate RPM Entry/Exit Ramp",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`"
+        },
+        "entry_start_value_multiplier": {
+          "type": "number",
+          "default": -0.3,
+          "title": "Entry Start Value Multiplier",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `-0.3`"
+        },
+        "entry_delay_length": {
+          "type": "number",
+          "default": 0.2,
+          "title": "Entry Delay Length",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.2` | **Unit**: meters"
+        },
+        "entry_ramp_dist": {
+          "type": "number",
+          "default": 0.4,
+          "title": "Entry Ramp Distance",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.4` | **Unit**: meters",
+          "exclusiveMinimum": 0
+        },
+        "entry_ramp_style": {
+          "type": "string",
+          "default": "inverse_power",
+          "title": "Entry Ramp Style",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `inverse_power`",
+          "enum": [
+            "instant",
+            "linear",
+            "power",
+            "inverse_power"
+          ]
+        },
+        "exit_end_value_multiplier": {
+          "type": "number",
+          "default": 0.3,
+          "title": "Exit End Value Multiplier",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.3`"
+        },
+        "exit_delay_length": {
+          "type": "number",
+          "default": 0.0,
+          "title": "Exit Delay Length",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.0` | **Unit**: meters"
+        },
+        "exit_ramp_dist": {
+          "type": "number",
+          "default": 0.1,
+          "title": "Exit Ramp Distance",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.1` | **Unit**: meters",
+          "exclusiveMinimum": 0
+        },
+        "exit_ramp_style": {
+          "type": "string",
+          "default": "linear",
+          "title": "Exit Ramp Style",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `linear`",
+          "enum": [
+            "instant",
+            "linear",
+            "power",
+            "inverse_power"
+          ]
+        },
+        "ramp_style_power": {
+          "type": "number",
+          "default": 2,
+          "title": "Ramp Style Power",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `2`",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "ramp_rpm_nearconnection": {
+      "type": "object",
+      "title": "RPM Ramp \u2014 Near Connection",
+      "markdownDescription": "**Feature opt-in** \u2014 set `activate: true`. All sub-parameters are compulsory when activated.\n\n[→ Documentation](https://github.com/GrayMatter-Robotics/platform/tree/main/src/planners/tool_path_planner/docs/ProcessPropertiesModulation.md)",
+      "additionalProperties": false,
+      "if": {
+        "properties": {
+          "activate": {
+            "const": true
+          }
+        },
+        "required": [
+          "activate"
+        ]
+      },
+      "then": {
+        "required": [
+          "entry_ramp_dist",
+          "entry_ramp_style",
+          "connection_value_multiplier",
+          "exit_ramp_dist",
+          "exit_ramp_style",
+          "ramp_style_power"
+        ]
+      },
+      "properties": {
+        "activate": {
+          "type": "boolean",
+          "default": false,
+          "title": "Activate RPM Near-Connection Ramp",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`"
+        },
+        "entry_ramp_dist": {
+          "type": "number",
+          "default": 0.01,
+          "title": "Entry Ramp Distance",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.01` | **Unit**: meters",
+          "exclusiveMinimum": 0
+        },
+        "entry_ramp_style": {
+          "type": "string",
+          "default": "instant",
+          "title": "Entry Ramp Style",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `instant`",
+          "enum": [
+            "instant",
+            "linear",
+            "power",
+            "inverse_power"
+          ]
+        },
+        "connection_value_multiplier": {
+          "type": "number",
+          "default": 0.3,
+          "title": "Connection Value Multiplier",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.3`"
+        },
+        "exit_ramp_dist": {
+          "type": "number",
+          "default": 0.1,
+          "title": "Exit Ramp Distance",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.1` | **Unit**: meters",
+          "exclusiveMinimum": 0
+        },
+        "exit_ramp_style": {
+          "type": "string",
+          "default": "instant",
+          "title": "Exit Ramp Style",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `instant`",
+          "enum": [
+            "instant",
+            "linear",
+            "power",
+            "inverse_power"
+          ]
+        },
+        "ramp_style_power": {
+          "type": "number",
+          "default": 2,
+          "title": "Ramp Style Power",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `2`",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "ramp_cnt_entryexit": {
+      "type": "object",
+      "title": "CNT Ramp \u2014 Entry/Exit",
+      "markdownDescription": "**Feature opt-in** \u2014 set `activate: true`. All sub-parameters are compulsory when activated.\n\n[→ Documentation](https://github.com/GrayMatter-Robotics/platform/tree/main/src/planners/tool_path_planner/docs/ProcessPropertiesModulation.md)",
+      "additionalProperties": false,
+      "if": {
+        "properties": {
+          "activate": {
+            "const": true
+          }
+        },
+        "required": [
+          "activate"
+        ]
+      },
+      "then": {
+        "required": [
+          "entry_start_value_multiplier",
+          "entry_delay_length",
+          "entry_ramp_dist",
+          "entry_ramp_style",
+          "exit_end_value_multiplier",
+          "exit_delay_length",
+          "exit_ramp_dist",
+          "exit_ramp_style",
+          "ramp_style_power"
+        ]
+      },
+      "properties": {
+        "activate": {
+          "type": "boolean",
+          "default": false,
+          "title": "Activate CNT Entry/Exit Ramp",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`"
+        },
+        "entry_start_value_multiplier": {
+          "type": "number",
+          "default": -0.3,
+          "title": "Entry Start Value Multiplier",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `-0.3`"
+        },
+        "entry_delay_length": {
+          "type": "number",
+          "default": 0.2,
+          "title": "Entry Delay Length",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.2` | **Unit**: meters"
+        },
+        "entry_ramp_dist": {
+          "type": "number",
+          "default": 0.4,
+          "title": "Entry Ramp Distance",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.4` | **Unit**: meters",
+          "exclusiveMinimum": 0
+        },
+        "entry_ramp_style": {
+          "type": "string",
+          "default": "inverse_power",
+          "title": "Entry Ramp Style",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `inverse_power`",
+          "enum": [
+            "instant",
+            "linear",
+            "power",
+            "inverse_power"
+          ]
+        },
+        "exit_end_value_multiplier": {
+          "type": "number",
+          "default": 0.3,
+          "title": "Exit End Value Multiplier",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.3`"
+        },
+        "exit_delay_length": {
+          "type": "number",
+          "default": 0.0,
+          "title": "Exit Delay Length",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.0` | **Unit**: meters"
+        },
+        "exit_ramp_dist": {
+          "type": "number",
+          "default": 0.1,
+          "title": "Exit Ramp Distance",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.1` | **Unit**: meters",
+          "exclusiveMinimum": 0
+        },
+        "exit_ramp_style": {
+          "type": "string",
+          "default": "linear",
+          "title": "Exit Ramp Style",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `linear`",
+          "enum": [
+            "instant",
+            "linear",
+            "power",
+            "inverse_power"
+          ]
+        },
+        "ramp_style_power": {
+          "type": "number",
+          "default": 2,
+          "title": "Ramp Style Power",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `2`",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "ramp_cnt_nearconnection": {
+      "type": "object",
+      "title": "CNT Ramp \u2014 Near Connection",
+      "markdownDescription": "**Feature opt-in** \u2014 set `activate: true`. All sub-parameters are compulsory when activated.\n\n[→ Documentation](https://github.com/GrayMatter-Robotics/platform/tree/main/src/planners/tool_path_planner/docs/ProcessPropertiesModulation.md)",
+      "additionalProperties": false,
+      "if": {
+        "properties": {
+          "activate": {
+            "const": true
+          }
+        },
+        "required": [
+          "activate"
+        ]
+      },
+      "then": {
+        "required": [
+          "entry_ramp_dist",
+          "entry_ramp_style",
+          "connection_value_multiplier",
+          "exit_ramp_dist",
+          "exit_ramp_style",
+          "ramp_style_power"
+        ]
+      },
+      "properties": {
+        "activate": {
+          "type": "boolean",
+          "default": false,
+          "title": "Activate CNT Near-Connection Ramp",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`"
+        },
+        "entry_ramp_dist": {
+          "type": "number",
+          "default": 0.5,
+          "title": "Entry Ramp Distance",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.5` | **Unit**: meters",
+          "exclusiveMinimum": 0
+        },
+        "entry_ramp_style": {
+          "type": "string",
+          "default": "inverse_power",
+          "title": "Entry Ramp Style",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `inverse_power`",
+          "enum": [
+            "instant",
+            "linear",
+            "power",
+            "inverse_power"
+          ]
+        },
+        "connection_value_multiplier": {
+          "type": "number",
+          "default": 0.3,
+          "title": "Connection Value Multiplier",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.3`"
+        },
+        "exit_ramp_dist": {
+          "type": "number",
+          "default": 0.1,
+          "title": "Exit Ramp Distance",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.1` | **Unit**: meters",
+          "exclusiveMinimum": 0
+        },
+        "exit_ramp_style": {
+          "type": "string",
+          "default": "power",
+          "title": "Exit Ramp Style",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `power`",
+          "enum": [
+            "instant",
+            "linear",
+            "power",
+            "inverse_power"
+          ]
+        },
+        "ramp_style_power": {
+          "type": "number",
+          "default": 2,
+          "title": "Ramp Style Power",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `2`",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "boundary_dist_based_force": {
+      "type": "object",
+      "title": "Boundary Distance-Based Force",
+      "markdownDescription": "**Feature opt-in** \u2014 set `activate: true`. `force_range` and `distance_range` are compulsory when activated.\n\nInterpolates force within `force_range` based on the point's distance to the boundary, within the zone defined by `distance_range`.",
+      "additionalProperties": false,
+      "if": {
+        "properties": {
+          "activate": {
+            "const": true
+          }
+        },
+        "required": [
+          "activate"
+        ]
+      },
+      "then": {
+        "required": [
+          "force_range",
+          "distance_range"
+        ]
+      },
+      "properties": {
+        "activate": {
+          "type": "boolean",
+          "default": false,
+          "title": "Activate Boundary Dist-Based Force",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`"
+        },
+        "force_range": {
+          "type": "array",
+          "title": "Force Range",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `[10, 30]` | **Unit**: Newtons\n\n`[min_force, max_force]`",
+          "default": [
+            10,
+            30
+          ],
+          "allOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          ]
+        },
+        "distance_range": {
+          "type": "array",
+          "title": "Distance Range",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `[0.1, 0.3]` | **Unit**: meters\n\n`[min_dist, max_dist]` from boundary.",
+          "default": [
+            0.1,
+            0.3
+          ],
+          "allOf": [
+            {
+              "items": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          ]
+        }
+      }
+    },
+    "boundary_dist_based_rpm": {
+      "type": "object",
+      "title": "Boundary Distance-Based RPM",
+      "markdownDescription": "**Feature opt-in** \u2014 set `activate: true`. `rpm_range` and `distance_range` are compulsory when activated.\n\nInterpolates RPM within `rpm_range` based on the point's distance to the boundary, within the zone defined by `distance_range`.",
+      "additionalProperties": false,
+      "if": {
+        "properties": {
+          "activate": {
+            "const": true
+          }
+        },
+        "required": [
+          "activate"
+        ]
+      },
+      "then": {
+        "required": [
+          "rpm_range",
+          "distance_range"
+        ]
+      },
+      "properties": {
+        "activate": {
+          "type": "boolean",
+          "default": false,
+          "title": "Activate Boundary Dist-Based RPM",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`"
+        },
+        "rpm_range": {
+          "type": "array",
+          "title": "RPM Range",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `[1000, 5000]` | **Unit**: RPM\n\n`[min_rpm, max_rpm]`",
+          "default": [
+            1000,
+            5000
+          ],
+          "allOf": [
+            {
+              "items": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          ]
+        },
+        "distance_range": {
+          "type": "array",
+          "title": "Distance Range",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `[0.04, 0.3]` | **Unit**: meters\n\n`[min_dist, max_dist]` from boundary.",
+          "default": [
+            0.04,
+            0.3
+          ],
+          "allOf": [
+            {
+              "items": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          ]
+        }
+      }
+    },
+    "tpp_advanced_planning_params": {
+      "type": "object",
+      "title": "Advanced Planning Parameters",
+      "markdownDescription": "**Scope**: part-class (optional)\n\nAdvanced tool, path, and planning configuration. Embedded features: `shape_following_path` and `keep_shifting_start_pts_around_corners`.\n\n**Note**: `parallel_planning`, `parallel_planning_batch_size`, `max_reachability_requests`, `max_parallel_astar_requests`, and `record_surface_normal_frame` are **global-only** \u2014 set them in the system config file.",
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "shape_following_path": {
+                "const": true
+              }
+            },
+            "required": [
+              "shape_following_path"
+            ]
+          },
+          "then": {
+            "required": [
+              "offset_values_for_shape_following",
+              "threshold_for_ignoring_rows"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "keep_shifting_start_pts_around_corners": {
+                "const": true
+              }
+            },
+            "required": [
+              "keep_shifting_start_pts_around_corners"
+            ]
+          },
+          "then": {
+            "required": [
+              "extra_jumps_allowed_for_shifting_pts"
+            ]
+          }
+        }
+      ],
+      "properties": {
+        "turn_off_tool": {
+          "type": "boolean",
+          "default": false,
+          "title": "Turn Off Tool",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nIf true, overrides all tool status to off (tool never activates)."
+        },
+        "delay_tool_start": {
+          "type": "integer",
+          "default": 0,
+          "title": "Delay Tool Start",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0`\n\n+ve = delay tool activation by N points after first touch; -ve = activate N points early."
+        },
+        "delay_tool_end": {
+          "type": "integer",
+          "default": 0,
+          "title": "Delay Tool End",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0`\n\n+ve = delay tool deactivation by N points after last touch; -ve = deactivate N points early."
+        },
+        "tilt_tcp_path_dir": {
+          "type": "number",
+          "default": 0,
+          "title": "Tilt TCP Path Direction",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0` | **Unit**: degrees\n\nTilt about the axis pointing toward the next waypoint."
+        },
+        "tilt_tcp_orth_dir": {
+          "type": "number",
+          "default": 0,
+          "title": "Tilt TCP Orthogonal Direction",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0` | **Unit**: degrees\n\nTilt about the axis orthogonal to the direction of travel."
+        },
+        "tcp_offset": {
+          "type": "number",
+          "default": 0.0,
+          "title": "TCP Offset",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.0` | **Unit**: meters\n\nRadius offset on the sanding pad."
+        },
+        "path_following_tilt": {
+          "type": "boolean",
+          "default": true,
+          "title": "Path Following Tilt",
+          "markdownDescription": "**Scope**: part-class | **Default**: `true`\n\nIf true, the tool tilts to follow the path direction."
+        },
+        "follow_path_TCP": {
+          "type": "boolean",
+          "default": false,
+          "title": "Follow Path TCP",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nIf true, TCP orientation follows the path tangent."
+        },
+        "entry_exit_inclination_angle_n_pts_avg_dir": {
+          "type": "integer",
+          "default": 5,
+          "title": "Entry/Exit Inclination Angle N-Pts Average Direction",
+          "markdownDescription": "**Scope**: part-class | **Default**: `5`\n\nNumber of points over which to average the path direction for entry/exit inclination.",
+          "minimum": 1
+        },
+        "tcp_rotation_angle_0": {
+          "type": "number",
+          "default": 0.0,
+          "title": "TCP Rotation Angle 0 (z+ normal)",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.0` | **Unit**: degrees\n\nTCP rotation override for x-y plane, z+ surface normal."
+        },
+        "tcp_rotation_angle_1": {
+          "type": "number",
+          "default": 0.0,
+          "title": "TCP Rotation Angle 1 (x- normal)",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.0` | **Unit**: degrees\n\nTCP rotation override for y-z plane, x- surface normal."
+        },
+        "tcp_rotation_angle_2": {
+          "type": "number",
+          "default": -90.0,
+          "title": "TCP Rotation Angle 2 (y- normal)",
+          "markdownDescription": "**Scope**: part-class | **Default**: `-90.0` | **Unit**: degrees\n\nTCP rotation override for x-z plane, y- surface normal."
+        },
+        "tcp_rotation_angle_3": {
+          "type": "number",
+          "default": 0.0,
+          "title": "TCP Rotation Angle 3 (x+ normal)",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.0` | **Unit**: degrees\n\nTCP rotation override for y-z plane, x+ surface normal."
+        },
+        "tcp_rotation_angle_4": {
+          "type": "number",
+          "default": 90.0,
+          "title": "TCP Rotation Angle 4 (y+ normal)",
+          "markdownDescription": "**Scope**: part-class | **Default**: `90.0` | **Unit**: degrees\n\nTCP rotation override for x-z plane, y+ surface normal."
+        },
+        "tcp_rotation_angle_5": {
+          "type": "number",
+          "default": 0.0,
+          "title": "TCP Rotation Angle 5 (z- normal)",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.0` | **Unit**: degrees\n\nTCP rotation override for x-y plane, z- surface normal."
+        },
+        "do_not_connect_sanding_lines": {
+          "type": "boolean",
+          "default": false,
+          "title": "Do Not Connect Sanding Lines",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nIf true, sanding lines are not connected during planning (no connection segments generated i.e. pre-reachability)."
+        },
+        "remove_surface_connection_lines": {
+          "type": "boolean",
+          "default": false,
+          "title": "Remove Surface Connection Lines",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nIf true, removes connection lines from the planned surface path output (i.e. post-reachability).\n\n[→ Documentation](https://github.com/GrayMatter-Robotics/platform/tree/main/src/planners/tool_path_planner/docs/RemoveSurfaceConnectionLines.md)"
+        },
+        "reorderBtwnSegments": {
+          "type": "boolean",
+          "default": false,
+          "title": "Reorder Between Segments",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nIf false, sands one segment at a time. If true, reorders points across segments."
+        },
+        "separate_by_seed_id": {
+          "type": "boolean",
+          "default": false,
+          "title": "Separate by Seed ID",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nIf true, separates output paths by seed ID."
+        },
+        "separate_by_tcp_id": {
+          "type": "boolean",
+          "default": false,
+          "title": "Separate by TCP ID",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nIf true, separates output paths by TCP ID."
+        },
+        "projection_mode": {
+          "type": "string",
+          "default": "obb",
+          "title": "Projection Mode",
+          "markdownDescription": "**Scope**: part-class | **Default**: `obb`\n\nMethod used to project fill points onto the surface.\n- `obb` = Optimal Bounding Box\n- `pca` = Principal Component Analysis\n- `preset` = World-axis alignment",
+          "enum": [
+            "obb",
+            "pca",
+            "preset"
+          ]
+        },
+        "grid_length_sanding_line_divisor": {
+          "type": "integer",
+          "default": 5,
+          "title": "Grid Length Sanding Line Divisor",
+          "markdownDescription": "**Scope**: part-class | **Default**: `5`\n\nGrid length = `pathgap_sanding_line / divisor`.",
+          "minimum": 1
+        },
+        "grid_length_connection_line_divisor": {
+          "type": "integer",
+          "default": 5,
+          "title": "Grid Length Connection Line Divisor",
+          "markdownDescription": "**Scope**: part-class | **Default**: `5`\n\nGrid length = `pathgap_connection_line / divisor`.",
+          "minimum": 1
+        },
+        "grid_addition": {
+          "type": "number",
+          "default": 0.0,
+          "title": "Grid Addition",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.0`\n\nAdditional offset added to the grid length."
+        },
+        "pca_similarity_threshold_percent": {
+          "type": "number",
+          "default": 85.0,
+          "title": "PCA Similarity Threshold Percent",
+          "markdownDescription": "**Scope**: part-class | **Default**: `85.0` | **Unit**: percent\n\nThreshold for considering PCA axes similar between segments.",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "pca_similarity_correction_angle": {
+          "type": "number",
+          "default": 45.0,
+          "title": "PCA Similarity Correction Angle",
+          "markdownDescription": "**Scope**: part-class | **Default**: `45.0` | **Unit**: degrees\n\nCorrection angle applied when PCA axes are deemed similar.",
+          "minimum": 0,
+          "maximum": 180
+        },
+        "outer_boundary_subtraction_x_dir": {
+          "type": "number",
+          "default": 0.0,
+          "title": "Outer Boundary Subtraction X Direction",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.0` | **Unit**: meters\n\nDirectional offset for outer boundary subtraction along X (sanding line direction)."
+        },
+        "outer_boundary_subtraction_y_dir": {
+          "type": "number",
+          "default": 0.0,
+          "title": "Outer Boundary Subtraction Y Direction",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.0` | **Unit**: meters\n\nDirectional offset for outer boundary subtraction along Y (perpendicular to sanding line direction)."
+        },
+        "retraction_lookAhead_dist": {
+          "type": "number",
+          "default": 0.1,
+          "title": "Retraction Look-Ahead Distance",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.1` | **Unit**: meters\n\nDistance ahead used to determine retraction points. The points within this look-ahead window are planned in parallel for reachability.\n\n[→ Documentation](https://github.com/GrayMatter-Robotics/platform/tree/main/src/planners/tool_path_planner/docs/SkipRetractionTries.md)",
+          "exclusiveMinimum": 0
+        },
+        "retraction_check_skip_n_pts": {
+          "type": "integer",
+          "default": 5,
+          "title": "Retraction Check Skip N Points",
+          "markdownDescription": "**Scope**: part-class | **Default**: `5`\n\nChecks for retraction every N points.\n\n[→ Documentation](https://github.com/GrayMatter-Robotics/platform/tree/main/src/planners/tool_path_planner/docs/SkipRetractionTries.md)",
+          "minimum": 1
+        },
+        "state_based_reconstruction": {
+          "type": "boolean",
+          "default": true,
+          "title": "State-Based Reconstruction",
+          "markdownDescription": "**Scope**: part-class | **Default**: `true`\n\nEnables state-based trajectory reconstruction."
+        },
+        "always_compute_seed_indices": {
+          "type": "boolean",
+          "default": false,
+          "title": "Always Compute Seed Indices",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nIf true, the trajectory planner performs seed analysis on every planning call (more time, marginally fewer jumps)."
+        },
+        "sanity_check_relaxation_factor": {
+          "type": "number",
+          "default": 1.5,
+          "title": "Sanity Check Relaxation Factor",
+          "markdownDescription": "**Scope**: part-class | **Default**: `1.5`\n\nMultiplier of `continuity_distance` used for sanity check threshold.",
+          "exclusiveMinimum": 0
+        },
+        "skip_n_trajectory_pts": {
+          "type": "integer",
+          "default": 0,
+          "title": "Skip N Trajectory Points",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0`\n\n*Requires advance mode.* Skips N trajectory points in output.",
+          "minimum": 0
+        },
+        "z_height_offset_all_waypoints": {
+          "type": "number",
+          "default": 0.0,
+          "title": "Z Height Offset All Waypoints",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.0` | **Unit**: meters\n\nUniform Z offset applied to all waypoints."
+        },
+        "world_x_offset": {
+          "type": "number",
+          "default": 0.0,
+          "title": "World X Offset",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.0` | **Unit**: meters\n\nShifts the input pre-segmentation cloud along X."
+        },
+        "world_y_offset": {
+          "type": "number",
+          "default": 0.0,
+          "title": "World Y Offset",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.0` | **Unit**: meters\n\nShifts the input pre-segmentation cloud along Y."
+        },
+        "world_z_offset": {
+          "type": "number",
+          "default": 0.0,
+          "title": "World Z Offset",
+          "markdownDescription": "**Scope**: part-class | **Default**: `0.0` | **Unit**: meters\n\nShifts the input pre-segmentation cloud along Z."
+        },
+        "boundary_est_is_omp_else_tbb": {
+          "type": "boolean",
+          "default": false,
+          "title": "Boundary Estimation: OMP (else TBB)",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nIf true, uses OpenMP for boundary estimation; if false, uses TBB.\n\n[→ Documentation](https://github.com/GrayMatter-Robotics/platform/tree/main/src/planners/tool_path_planner/docs/ParallelizedBoundaryEstimation.md)"
+        },
+        "fillpts_gen_is_omp_else_tbb": {
+          "type": "boolean",
+          "default": false,
+          "title": "Fill Points Generation: OMP (else TBB)",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nIf true, uses OpenMP for fill point generation; if false, uses TBB.\n\n[→ Documentation](https://github.com/GrayMatter-Robotics/platform/tree/main/src/planners/tool_path_planner/docs/FillptGenDualParOption.md)"
+        },
+        "override_surface_normals": {
+          "type": "boolean",
+          "default": false,
+          "title": "Override Surface Normals",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nIf true, overrides computed surface normals with alternative values."
+        },
+        "shape_following_path": {
+          "type": "boolean",
+          "default": false,
+          "title": "Shape Following Path",
+          "markdownDescription": "**Scope**: part-class | **Feature flag** | **Default**: `false`\n\nEnables centred path following for surface pass. When true, `offset_values_for_shape_following` and `threshold_for_ignoring_rows` are compulsory.\n\n[→ Documentation](https://github.com/GrayMatter-Robotics/platform/tree/main/src/planners/tool_path_planner/docs/CenteredShapeFollowing.md)"
+        },
+        "offset_values_for_shape_following": {
+          "type": "array",
+          "title": "Offset Values for Shape Following",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `shape_following_path: true`** | **Default**: `[-0.02, 0.0, 0.02]` | **Unit**: meters\n\nOffset distances from the centre line for parallel shape-following paths.",
+          "default": [
+            -0.02,
+            0.0,
+            0.02
+          ],
+          "allOf": [
+            {
+              "items": {
+                "type": "number"
+              }
+            }
+          ]
+        },
+        "threshold_for_ignoring_rows": {
+          "type": "number",
+          "title": "Threshold for Ignoring Rows",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `shape_following_path: true`** | **Default**: `0.0`\n\nIgnore fill-point rows shorter than `threshold \u00d7 max_row_length` when generating the centre path.",
+          "default": 0.0,
+          "minimum": 0
+        },
+        "keep_shifting_start_pts_around_corners": {
+          "type": "boolean",
+          "default": false,
+          "title": "Keep Shifting Start Points Around Corners",
+          "markdownDescription": "**Scope**: part-class | **Feature flag** | **Default**: `false`\n\nWhen true, `extra_jumps_allowed_for_shifting_pts` is compulsory.\n\n[→ Documentation](https://github.com/GrayMatter-Robotics/platform/tree/main/src/planners/tool_path_planner/docs/ShiftStartPoints.md)"
+        },
+        "extra_jumps_allowed_for_shifting_pts": {
+          "type": "integer",
+          "title": "Extra Jumps Allowed for Shifting Points",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `keep_shifting_start_pts_around_corners: true`** | **Default**: `0`\n\nAdditional jumps allowed when shifting start points around corners.",
+          "default": 0,
+          "minimum": 0
+        }
+      }
+    },
+    "beta_features": {
+      "type": "object",
+      "title": "Beta Features",
+      "markdownDescription": "**Scope**: part-class \u2014 experimental features, each gated by its own boolean flag.\n\nActivation: set the feature flag to `true`. Some features then require additional sub-parameters.",
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "optimal_path_shift": {
+                "const": true
+              }
+            },
+            "required": [
+              "optimal_path_shift"
+            ]
+          },
+          "then": {
+            "required": [
+              "good_major_proportion_start",
+              "good_major_proportion_end"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "correct_obb_edge_case": {
+                "const": true
+              }
+            },
+            "required": [
+              "correct_obb_edge_case"
+            ]
+          },
+          "then": {
+            "required": [
+              "obb_dot_threshold_for_correction"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "boundary_pass_away_from_bbox": {
+                "const": true
+              }
+            },
+            "required": [
+              "boundary_pass_away_from_bbox"
+            ]
+          },
+          "then": {
+            "required": [
+              "distance_from_bbox",
+              "ignore_dimensions"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "augment_surface_normals": {
+                "const": true
+              }
+            },
+            "required": [
+              "augment_surface_normals"
+            ]
+          },
+          "then": {
+            "required": [
+              "min_length_proportion_percent_of_line",
+              "keep_lines_at_percent"
+            ]
+          }
+        }
+      ],
+      "properties": {
+        "optimal_path_shift": {
+          "type": "boolean",
+          "default": false,
+          "title": "Optimal Path Shift",
+          "markdownDescription": "**Scope**: part-class | **Feature flag** | **Default**: `false`\n\nWhen true, `good_major_proportion_start` and `good_major_proportion_end` are compulsory."
+        },
+        "good_major_proportion_start": {
+          "type": "number",
+          "default": 0.8,
+          "title": "Good Major Proportion Start",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `optimal_path_shift: true`** | **Default**: `0.8` | **Range**: 0\u20131",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "good_major_proportion_end": {
+          "type": "number",
+          "default": 0.4,
+          "title": "Good Major Proportion End",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `optimal_path_shift: true`** | **Default**: `0.4` | **Range**: 0\u20131",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "correct_obb_edge_case": {
+          "type": "boolean",
+          "default": false,
+          "title": "Correct OBB Edge Case",
+          "markdownDescription": "**Scope**: part-class | **Feature flag** | **Default**: `false`\n\nWhen true, `obb_dot_threshold_for_correction` is compulsory."
+        },
+        "obb_dot_threshold_for_correction": {
+          "type": "number",
+          "default": 0.9,
+          "title": "OBB Dot Threshold for Correction",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `correct_obb_edge_case: true`** | **Default**: `0.9` | **Range**: 0\u20131\n\nHigher = more aggressive OBB edge correction.",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "use_roller_for_segment_ordering": {
+          "type": "boolean",
+          "default": false,
+          "title": "Use Roller for Segment Ordering",
+          "markdownDescription": "**Scope**: part-class | **Feature flag** | **Default**: `false`\n\nNo sub-parameters required."
+        },
+        "boundary_pass_away_from_bbox": {
+          "type": "boolean",
+          "default": false,
+          "title": "Boundary Pass Away from Bounding Box",
+          "markdownDescription": "**Scope**: part-class | **Feature flag** | **Default**: `false`\n\nWhen true, `distance_from_bbox` and `ignore_dimensions` are compulsory."
+        },
+        "distance_from_bbox": {
+          "type": "number",
+          "default": 0.02,
+          "title": "Distance from Bounding Box",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `boundary_pass_away_from_bbox: true`** | **Default**: `0.02` | **Unit**: meters\n\nBoundary pass points within this distance from the bounding box are removed.",
+          "exclusiveMinimum": 0
+        },
+        "ignore_dimensions": {
+          "type": "array",
+          "title": "Ignore Dimensions",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `boundary_pass_away_from_bbox: true`** | **Default**: `[false, false, false]`\n\n`[ignore_x, ignore_y, ignore_z]` \u2014 dimensions to ignore when computing distance to bounding box.",
+          "default": [
+            false,
+            false,
+            false
+          ],
+          "allOf": [
+            {
+              "items": {
+                "type": "boolean"
+              },
+              "minItems": 3,
+              "maxItems": 3
+            }
+          ]
+        },
+        "truncate_sanding_lines": {
+          "type": "boolean",
+          "default": false,
+          "title": "Truncate Sanding Lines",
+          "markdownDescription": "**Scope**: part-class | **Feature flag** | **Default**: `false`\n\nNo sub-parameters required."
+        },
+        "augment_surface_normals": {
+          "type": "boolean",
+          "default": false,
+          "title": "Augment Surface Normals",
+          "markdownDescription": "**Scope**: part-class | **Feature flag** | **Default**: `false`\n\nWhen true, `min_length_proportion_percent_of_line` and `keep_lines_at_percent` are compulsory.\n\n[→ Documentation](https://github.com/GrayMatter-Robotics/platform/tree/main/src/planners/tool_path_planner/docs/AugmentedSurfaceNormals2D.md)"
+        },
+        "min_length_proportion_percent_of_line": {
+          "type": "number",
+          "default": 80,
+          "title": "Min Length Proportion Percent of Line",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `augment_surface_normals: true`** | **Default**: `80`",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "keep_lines_at_percent": {
+          "title": "Keep Lines at Percent",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when `augment_surface_normals: true`** | **Default**: `[0, 45, 100]`\n\n1D form: `[pct, pct, ...]` \u2014 keep lines at these percentages of segment width.\n2D form: `[[pct, ...], [pct, ...]]` \u2014 one list per pass (enables `edge_sanding_order`).\n\n> **Note**: The 2D form requires RSW approval before deploying at a customer site.",
+          "oneOf": [
+            {
+              "type": "array",
+              "allOf": [
+                {
+                  "items": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  }
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "allOf": [
+                {
+                  "items": {
+                    "type": "array",
+                    "allOf": [
+                      {
+                        "items": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 100
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "edge_sanding_order": {
+          "type": "array",
+          "title": "Edge Sanding Order",
+          "markdownDescription": "**Scope**: part-class | **Optional when `keep_lines_at_percent` is 2D form**\n\n`[[segment_id, pass_id], ...]` \u2014 defines the order in which edge sanding passes are executed.",
+          "allOf": [
+            {
+              "items": {
+                "type": "array",
+                "allOf": [
+                  {
+                    "items": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "try_to_skip_p2p": {
+      "type": "object",
+      "title": "Try to Skip Point-to-Point",
+      "markdownDescription": "**Feature opt-in** \u2014 set `activate: true`. `euclidean_distance_threshold`, `joint_angle_discontinuity_threshold`, and `extender_discontinuity_threshold` are compulsory when activated. `entry_exit_reduction_distance` is optional.\n\n> **Note**: Requires RSW approval before deploying at a customer site.\n\n[→ Documentation](https://github.com/GrayMatter-Robotics/platform/tree/main/src/planners/tool_path_planner/docs/TryToSkipP2P.md)",
+      "additionalProperties": false,
+      "if": {
+        "properties": {
+          "activate": {
+            "const": true
+          }
+        },
+        "required": [
+          "activate"
+        ]
+      },
+      "then": {
+        "required": [
+          "euclidean_distance_threshold",
+          "joint_angle_discontinuity_threshold",
+          "extender_discontinuity_threshold"
+        ]
+      },
+      "properties": {
+        "activate": {
+          "type": "boolean",
+          "default": false,
+          "title": "Activate Skip P2P",
+          "markdownDescription": "**Scope**: part-class | **Default**: `false`\n\nWhen true, attempts to skip point-to-point moves where safe."
+        },
+        "entry_exit_reduction_distance": {
+          "type": "number",
+          "default": 0.0,
+          "title": "Entry/Exit Reduction Distance",
+          "markdownDescription": "**Scope**: part-class | **Optional when activated** | **Default**: `0.0` | **Unit**: meters\n\nReduces the entry/exit path length by this amount.",
+          "minimum": 0
+        },
+        "euclidean_distance_threshold": {
+          "type": "number",
+          "default": 0.03,
+          "title": "Euclidean Distance Threshold",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.03` | **Unit**: meters\n\nMaximum Euclidean distance between corresponding sanding points for a skip to be attempted.",
+          "exclusiveMinimum": 0
+        },
+        "joint_angle_discontinuity_threshold": {
+          "type": "number",
+          "default": 0.5,
+          "title": "Joint Angle Discontinuity Threshold",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.5` | **Unit**: radians\n\nMaximum joint angle discontinuity allowed when skipping P2P.",
+          "exclusiveMinimum": 0
+        },
+        "extender_discontinuity_threshold": {
+          "type": "number",
+          "default": 0.1,
+          "title": "Extender Discontinuity Threshold",
+          "markdownDescription": "**Scope**: part-class | **Compulsory when activated** | **Default**: `0.1` | **Unit**: meters\n\nMaximum extender axis discontinuity allowed when skipping P2P.",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "trajectory_planner": {
+      "type": "object",
+      "title": "Trajectory Planner",
+      "markdownDescription": "**Scope**: part-class \u2014 only `ori_options` belongs here. `reachability_service_attempts` is global-only.",
+      "additionalProperties": false,
+      "properties": {
+        "ori_options": {
+          "type": "array",
+          "title": "Orientation Options",
+          "markdownDescription": "**Scope**: part-class | **Default**: `[false, false, false]`\n\n`[x, y, z]` booleans controlling which axes the trajectory planner uses for orientation solving. If all false, the solver uses `solver_settings`.",
+          "default": [
+            false,
+            false,
+            false
+          ],
+          "allOf": [
+            {
+              "items": {
+                "type": "boolean"
+              },
+              "minItems": 3,
+              "maxItems": 3
+            }
+          ]
+        }
+      }
+    }
+  }
+}

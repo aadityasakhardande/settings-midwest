@@ -1,0 +1,433 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "doc": {
+            "type": "object",
+            "properties": {
+                "purpose": {
+                    "type": "string",
+                    "default": "This file is called when stitching the pointclouds that are scanned, and what are preprocessing functions should be applied on the incoming cloud."
+                },
+                "Notes": {
+                    "type": "string",
+                    "default": "Currently we do not support the functions: NormalComputation (use PCLNormalComputation instead), XRemoval, so changing those parameters will not effect anything"
+                }
+            },
+            "required": [
+                "purpose",
+                "Notes"
+            ]
+        },
+        "DB_Scan": {
+            "type": "object",
+            "properties": {
+                "dbScanToggle": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "ClusterTolerance": {
+                    "type": "number",
+                    "default": 0.023
+                },
+                "ClusterCorePoints": {
+                    "type": "integer",
+                    "default": 21
+                }
+            },
+            "required": [
+                "dbScanToggle",
+                "ClusterTolerance",
+                "ClusterCorePoints"
+            ]
+        },
+        "MeshCreation": {
+            "type": "object",
+            "properties": {
+                "meshCreation_LeafSize": {
+                    "type": "number",
+                    "default": 0.02
+                },
+                "meshCreation_SearchRadius": {
+                    "type": "number",
+                    "default": 0.12
+                },
+                "meshCreation_Mu": {
+                    "type": "number",
+                    "default": 4.0
+                },
+                "meshCreation_MaximumNearestNeighbors": {
+                    "type": "integer",
+                    "default": 100
+                },
+                "meshCreation_MaximumSurfaceAngleDiv": {
+                    "type": "number",
+                    "default": 1.0
+                },
+                "meshCreation_MinimumAngleDiv": {
+                    "type": "number",
+                    "default": 18
+                },
+                "meshCreation_MaximumAngleDiv": {
+                    "type": "number",
+                    "default": 1.0
+                }
+            },
+            "required": [
+                "meshCreation_LeafSize",
+                "meshCreation_SearchRadius",
+                "meshCreation_Mu",
+                "meshCreation_MaximumNearestNeighbors",
+                "meshCreation_MaximumSurfaceAngleDiv",
+                "meshCreation_MinimumAngleDiv",
+                "meshCreation_MaximumAngleDiv"
+            ]
+        },
+        "MLSFilter": {
+            "type": "object",
+            "properties": {
+                "kPolynomialOrderMLS": {
+                    "type": "integer",
+                    "default": 3
+                },
+                "kSpacingForMLS": {
+                    "type": "number",
+                    "default": 0.004
+                },
+                "kNeighborhoodRadiusMLS": {
+                    "type": "number",
+                    "default": 0.005
+                }
+            },
+            "required": [
+                "kPolynomialOrderMLS",
+                "kSpacingForMLS",
+                "kNeighborhoodRadiusMLS"
+            ]
+        },
+        "GaussianFilter": {
+            "type": "object",
+            "properties": {
+                "kSpacingForGaussian": {
+                    "type": "number",
+                    "default": 0.004
+                },
+                "kKernelWidthGaussianFilter": {
+                    "type": "number",
+                    "default": 0.008
+                }
+            },
+            "required": [
+                "kSpacingForGaussian",
+                "kKernelWidthGaussianFilter"
+            ]
+        },
+        "removeOutliers": {
+            "type": "object",
+            "properties": {
+                "removeOutliersToggle_EachSegment": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "removeOutliersMeanK": {
+                    "type": "integer",
+                    "default": 10
+                },
+                "removeOutliersStddevMulThresh": {
+                    "type": "number",
+                    "default": 2
+                },
+                "removeOutliersToggle_MrgdCld": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "removeOutliersMeanK_MrgdCld": {
+                    "type": "integer",
+                    "default": 10
+                },
+                "removeOutliersStddevMulThresh_MrgdCld": {
+                    "type": "number",
+                    "default": 2
+                }
+            },
+            "required": [
+                "removeOutliersToggle_EachSegment",
+                "removeOutliersMeanK",
+                "removeOutliersStddevMulThresh",
+                "removeOutliersToggle_MrgdCld",
+                "removeOutliersMeanK_MrgdCld",
+                "removeOutliersStddevMulThresh_MrgdCld"
+            ]
+        },
+        "NormalComputation": {
+            "type": "object",
+            "properties": {
+                "normal_iterations": {
+                    "type": "number",
+                    "default": 4
+                },
+                "normal_constant1": {
+                    "type": "number",
+                    "default": 0.1
+                },
+                "normal_constant2": {
+                    "type": "number",
+                    "default": 0.01
+                },
+                "normal_eps": {
+                    "type": "number",
+                    "default": 0.1
+                },
+                "normal_noise_std_dev": {
+                    "type": "number",
+                    "default": 0.001
+                },
+                "normal_maxNeighbors": {
+                    "type": "number",
+                    "default": 175
+                },
+                "normal_RiemanGraphNeighbors": {
+                    "type": "number",
+                    "default": 15
+                }
+            },
+            "required": [
+                "normal_iterations",
+                "normal_constant1",
+                "normal_constant2",
+                "normal_eps",
+                "normal_noise_std_dev",
+                "normal_maxNeighbors",
+                "normal_RiemanGraphNeighbors"
+            ]
+        },
+        "PCLNormalComputation": {
+            "type": "object",
+            "properties": {
+                "pcl_normal_estimation_radius": {
+                    "type": "number",
+                    "default": 0.015
+                }
+            },
+            "required": [
+                "pcl_normal_estimation_radius"
+            ]
+        },
+        "EuclideanCluster": {
+            "type": "object",
+            "properties": {
+                "euclClusterToggle_MrgdCld": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "euclCluster_min_cluster_size_MrgdCld": {
+                    "type": "integer",
+                    "default": 0
+                },
+                "euclCluster_cluster_tolerance_MrgdCld": {
+                    "type": "number",
+                    "default": 0.01
+                }
+            },
+            "required": [
+                "euclClusterToggle_MrgdCld",
+                "euclCluster_min_cluster_size_MrgdCld",
+                "euclCluster_cluster_tolerance_MrgdCld"
+            ]
+        },
+        "downsample": {
+            "type": "object",
+            "properties": {
+                "downsamplingLeafSize": {
+                    "type": "number",
+                    "default": 0.005
+                }
+            },
+            "required": [
+                "downsamplingLeafSize"
+            ]
+        },
+        "visualizeDownsample": {
+            "type": "object",
+            "properties": {
+                "visualizationdownsamplingLeafSize": {
+                    "type": "number",
+                    "default": 0.008
+                }
+            },
+            "required": [
+                "visualizationdownsamplingLeafSize"
+            ]
+        },
+        "XRemoval": {
+            "type": "object",
+            "properties": {
+                "remove_x_masked_points": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "boundary_search_radius": {
+                    "type": "number",
+                    "default": 0.015
+                },
+                "boundary_cluster_tolerance": {
+                    "type": "number",
+                    "default": 0.03
+                },
+                "boundary_min_cluster_size": {
+                    "type": "integer",
+                    "default": 100
+                },
+                "boundary_max_cluster_size": {
+                    "type": "integer",
+                    "default": 10000000
+                },
+                "eucl_cluster_tolerance": {
+                    "type": "number",
+                    "default": 0.01
+                },
+                "eucl_cluster_min_size": {
+                    "type": "integer",
+                    "default": 100
+                },
+                "eucl_cluster_max_size": {
+                    "type": "integer",
+                    "default": 10000000
+                }
+            },
+            "required": [
+                "remove_x_masked_points",
+                "boundary_search_radius",
+                "boundary_cluster_tolerance",
+                "boundary_min_cluster_size",
+                "boundary_max_cluster_size",
+                "eucl_cluster_tolerance",
+                "eucl_cluster_min_size",
+                "eucl_cluster_max_size"
+            ]
+        },
+        "AddCustomCollisionModelToWorkpiece": {
+            "type": "object",
+            "properties": {
+                "activate": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "cloud_file_path": {
+                    "type": "string",
+                    "description": "example: '/collision_models/collision_cloud.ply' , refer to platform/src/scan_module/pointcloud_handler/docs/add_custom_collision_model.md to know more details",
+                    "default": ""
+                }
+            },
+            "required": [
+                "activate",
+                "cloud_file_path"
+            ]
+        },
+        "ShadowMeshGenerator": {
+            "type": "object",
+            "properties": {
+                "activate": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "alpha": {
+                    "type": "number",
+                    "default": 0.3
+                },
+                "downsample_leaf_size": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 3,
+                    "maxItems": 3,
+                    "default": [
+                        0.1,
+                        0.1,
+                        0.1
+                    ]
+                },
+                "voxel_size": {
+                    "type": "number",
+                    "default": 0.1
+                },
+                "point_spacing": {
+                    "type": "number",
+                    "default": 0.3
+                },
+                "max_ray_distance": {
+                    "type": "number",
+                    "default": 6.0
+                },
+                "intersection_radius": {
+                    "type": "number",
+                    "default": 0.1
+                },
+                "min_cluster_size": {
+                    "type": "integer",
+                    "default": 100
+                },
+                "max_cluster_size": {
+                    "type": "integer",
+                    "default": 2500000
+                },
+                "cluster_tolerance": {
+                    "type": "number",
+                    "default": 0.3
+                },
+                "view_points": {
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        },
+                        "minItems": 3,
+                        "maxItems": 3
+                    },
+                    "default": [
+                        [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        [
+                            1.0,
+                            1.0,
+                            1.0
+                        ]
+                    ]
+                }
+            },
+            "required": [
+                "activate",
+                "alpha",
+                "downsample_leaf_size",
+                "voxel_size",
+                "point_spacing",
+                "max_ray_distance",
+                "intersection_radius",
+                "min_cluster_size",
+                "max_cluster_size",
+                "cluster_tolerance",
+                "view_points"
+            ]
+        }
+    },
+    "required": [
+        "doc",
+        "DB_Scan",
+        "MeshCreation",
+        "MLSFilter",
+        "GaussianFilter",
+        "removeOutliers",
+        "PCLNormalComputation",
+        "EuclideanCluster",
+        "downsample",
+        "visualizeDownsample",
+        "XRemoval",
+        "AddCustomCollisionModelToWorkpiece",
+        "ShadowMeshGenerator"
+    ]
+}

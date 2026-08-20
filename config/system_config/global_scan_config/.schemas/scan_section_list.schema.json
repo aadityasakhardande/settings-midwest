@@ -1,0 +1,76 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://graymatter-robotics.com/scan_plan_handler/test/data/.schemas/scan_section_list.schema.json",
+    "type": "object",
+    "required": [
+        "scan_sections"
+    ],
+    "properties": {
+        "$schema": {
+            "type": "string",
+            "description": "Schema identifier (not part of actual data)"
+        },
+        "scan_sections": {
+            "type": "array",
+            "description": "List of scan sections containing scanning parameters.",
+            "items": {
+                "type": "object",
+                "required": [
+                    "scan_type",
+                    "encoder_start",
+                    "encoder_end",
+                    "scan_pose",
+                    "ext_start",
+                    "ext_end"
+                ],
+                "properties": {
+                    "scan_type": {
+                        "type": "integer",
+                        "enum": [
+                            0,
+                            1
+                        ],
+                        "description": "Type of scan (0: LINE_SCAN, 1: SHOT_SCAN)."
+                    },
+                    "encoder_start": {
+                        "type": "integer",
+                        "description": "Start position of the encoder for the scan."
+                    },
+                    "encoder_end": {
+                        "type": "integer",
+                        "description": "End position of the encoder for the scan."
+                    },
+                    "scan_pose": {
+                        "type": "array",
+                        "description": "Robot joint positions (J1 to J6) for the scan, in radians.",
+                        "items": {
+                            "type": "number"
+                        },
+                        "minItems": 6,
+                        "maxItems": 6
+                    },
+                    "ext_start": {
+                        "type": "array",
+                        "description": "Start positions for the extender during a scan.",
+                        "items": {
+                            "type": "number"
+                        },
+                        "minItems": 3,
+                        "maxItems": 3
+                    },
+                    "ext_end": {
+                        "type": "array",
+                        "description": "End positions for the extender during a scan.",
+                        "items": {
+                            "type": "number"
+                        },
+                        "minItems": 3,
+                        "maxItems": 3
+                    }
+                },
+                "additionalProperties": false
+            }
+        }
+    },
+    "additionalProperties": false
+}

@@ -1,0 +1,111 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Process Tool Settings",
+    "description": "Define tool settings according to process definition heirarchy",
+    "type": "object",
+    "properties": {
+        "$schema": {
+            "type": "string"
+        },
+        "tool_info": {
+            "description": "A list of available tool settings in this setup",
+            "type": "array",
+            "$ref": "#/$defs/tool_info_properties"
+        },
+        "data": {
+            "description": "A collection of available tools for different process type and section type",
+            "type": "object",
+            "properties": {
+                "0": {
+                    "description": "Available tools for sanding process (processType = 0)",
+                    "type": "object",
+                    "$ref": "#/$defs/sanding_properties"
+                },
+                "1": {
+                    "description": "Available tools for polish process (processType = 1)",
+                    "type": "object",
+                    "$ref": "#/$defs/polish_properties"
+                }
+            }
+        }
+    },
+    "$defs": {
+        "tool_info_properties": {
+            "items": {
+                "description": "tool data. The first one in the list will be used as defaul tool for Scanning, GoTarget, etc.",
+                "type": "object",
+                "required": [
+                    "filename",
+                    "tcp_count"
+                ],
+                "properties": {
+                    "filename": {
+                        "type": "string",
+                        "description": "Name of the file (without extension) pointing toward /configs. "
+                    },
+                    "tcp_count": {
+                        "type": "integer",
+                        "description": "Number of tcps contained in the /configs/<filename>.yaml. To add more tcp, just make the tcpFile parameter into a list in the yaml file."
+                    }
+                }
+            }
+        },
+        "sanding_properties": {
+            "type": "object",
+            "properties": {
+                "0": {
+                    "description": "A list of available tool for sanding section (sectionType = 0)",
+                    "$ref": "#/$defs/tool_display_properties"
+                },
+                "7": {
+                    "description": "A list of available tool for grind section (sectionType = 7)",
+                    "$ref": "#/$defs/tool_display_properties"
+                }
+            }
+        },
+        "polish_properties": {
+            "type": "object",
+            "properties": {
+                "4": {
+                    "description": "A list of available tool for spatter section (sectionType = 4)",
+                    "$ref": "#/$defs/tool_display_properties"
+                },
+                "5": {
+                    "description": "A list of available tool for polish section (sectionType = 5)",
+                    "$ref": "#/$defs/tool_display_properties"
+                }
+            }
+        },
+        "tool_display_properties": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "description": "Info for different tools. (A list of object)",
+                "properties": {
+                    "display_name": {
+                        "description": "Displayed name on GUI",
+                        "type": "string"
+                    },
+                    "tool_id": {
+                        "description": "Tool index that matches the index of [tool_info]",
+                        "type": "integer"
+                    },
+                    "tcp_id": {
+                        "description": "Tcp index that matches the index of [tcpFile] under /tools/configs/[tool_info.filename].yaml",
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "display_name",
+                    "tool_id",
+                    "tcp_id"
+                ]
+            }
+        }
+    },
+    "required": [
+        "tool_info",
+        "data"
+    ],
+    "additionalProperties": false
+}

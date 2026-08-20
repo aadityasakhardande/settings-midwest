@@ -1,0 +1,52 @@
+{
+  "devices" : {
+    "spindle_flow_sensor: " : {
+    "instruction": "change me",
+    "image_path": "/config/system_config/gui_config/img/precheck_instruction_img/no_image.png"
+    },
+    "pressure_sensor" : {
+      "instruction": "change me",
+      "image_path": "/config/system_config/gui_config/img/precheck_instruction_img/no_image.png"
+    },
+    "fluid_level_sensor": {
+      "instruction": "change me",
+      "image_path": "/config/system_config/gui_config/img/precheck_instruction_img/no_image.png"
+    },
+    "afd_purge_pressure_sensor" : {
+      "instruction": "change me",
+      "image_path": "/config/system_config/gui_config/img/precheck_instruction_img/no_image.png"
+    },
+    "afd_force_sensor": {
+      "instruction": "change me",
+      "image_path": "/config/system_config/gui_config/img/precheck_instruction_img/no_image.png"
+    },
+    "wet_sanding_nozzle_flow_sensor": {
+      "instruction": "change me",
+      "image_path": "/config/system_config/gui_config/img/precheck_instruction_img/no_image.png"
+    },
+    "robot_at_home_sensor": {
+      "instruction": "change me",
+      "image_path": "/config/system_config/gui_config/img/precheck_instruction_img/no_image.png"
+    },
+    "spc_stage_check_sensor": {
+      "instruction": "change me",
+      "image_path": "/config/system_config/gui_config/img/precheck_instruction_img/no_image.png"
+    },
+    "compound_readiness_sensor": {
+      "instruction": "change me",
+      "image_path": "/config/system_config/gui_config/img/precheck_instruction_img/no_image.png"
+    },
+    "overpressure_nozzles_sensor": {
+      "instruction": "change me",
+      "image_path": "/config/system_config/gui_config/img/precheck_instruction_img/no_image.png"
+    },
+    "fixture_sensor": {
+      "instruction": "change me",
+      "image_path": "/config/system_config/gui_config/img/precheck_instruction_img/no_image.png"
+    },
+    "tool_timer_sensor": {
+      "instruction": "change me",
+      "image_path": "/config/system_config/gui_config/img/precheck_instruction_img/no_image.png"
+    }
+  }
+}

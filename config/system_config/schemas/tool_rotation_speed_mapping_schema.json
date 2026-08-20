@@ -1,0 +1,34 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Tool Rotation Speed Mapping",
+    "description": "Schema for mapping between tool rotation speed (RPM) and register values.",
+    "type": "object",
+    "properties": {
+        "min_rpm": {
+            "description": "The minimum rotation speed in RPM.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "max_rpm": {
+            "description": "The maximum rotation speed in RPM.",
+            "type": "integer",
+            "minimum": 1
+        },
+        "min_reg_val": {
+            "description": "The register value corresponding to the minimum rotation speed.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "max_reg_val": {
+            "description": "The register value corresponding to the maximum rotation speed.",
+            "type": "integer",
+            "minimum": 1
+        }
+    },
+    "required": [
+        "min_rpm",
+        "max_rpm",
+        "min_reg_val",
+        "max_reg_val"
+    ]
+}

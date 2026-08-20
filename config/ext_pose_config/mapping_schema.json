@@ -1,0 +1,130 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Extra DOF Mapping Config",
+    "description": "The mapping config for extra degree of freedoms (ie, J7, J8, J9 for a fanuc robot)",
+    "type": "object",
+    "properties": {
+        "J7": {
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/joint_properties"
+                },
+                {
+                    "properties": {},
+                    "additionalProperties": false
+                }
+            ]
+        },
+        "J8": {
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/joint_properties"
+                },
+                {
+                    "properties": {},
+                    "additionalProperties": false
+                }
+            ]
+        },
+        "J9": {
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/joint_properties"
+                },
+                {
+                    "properties": {},
+                    "additionalProperties": false
+                }
+            ]
+        }
+    },
+    "definitions": {
+        "joint_properties": {
+            "description": "The mapping config for joint",
+            "type": "object",
+            "properties": {
+                "transform_type": {
+                    "description": "the transform type of this joint or DOF",
+                    "type": "integer",
+                    "anyOf": [
+                        {
+                            "const": 0,
+                            "description": "Linear transform type"
+                        },
+                        {
+                            "const": 1,
+                            "description": "Rotary transform type"
+                        }
+                    ]
+                },
+                "axis": {
+                    "description": "the transform axis of this joint or DOF",
+                    "type": "integer",
+                    "anyOf": [
+                        {
+                            "const": 0,
+                            "description": "X-axis"
+                        },
+                        {
+                            "const": 1,
+                            "description": "Y-axis"
+                        },
+                        {
+                            "const": 2,
+                            "description": "Z-axis"
+                        }
+                    ]
+                },
+                "direction": {
+                    "description": "the transform direction of this joint or DOF",
+                    "type": "boolean",
+                    "anyOf": [
+                        {
+                            "const": true,
+                            "description": "Positive direction"
+                        },
+                        {
+                            "const": false,
+                            "description": "Negative direction"
+                        }
+                    ]
+                },
+                "parent_frame": {
+                    "description": "the prante frame for this joint or DOF",
+                    "type": "string"
+                },
+                "child_frame": {
+                    "description": "the child frame for this joint or DOF",
+                    "type": "string"
+                },
+                "basic_transform": {
+                    "description": "the static transform applied from the parent frame to child frame, the 7 numbers represent x, y, z, qx, qy, qz, qw",
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 7,
+                    "maxItems": 7,
+                    "default": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "required": [
+                "transform_type",
+                "axis",
+                "direction",
+                "parent_frame",
+                "child_frame",
+                "basic_transform"
+            ],
+            "additionalProperties": false
+        }
+    }
+}

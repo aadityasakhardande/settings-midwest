@@ -1,0 +1,34 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://graymatter-robotics.com/task_manager/task_manager_config.schema.json",
+    "title": "Task Manager Configuration",
+    "description": "Configuration for the Task Manager, including options for process sorting and task creation strategies.",
+    "type": "object",
+    "properties": {
+        "activate_extended_scan": {
+            "type": "boolean",
+            "description": "Enables extended line scanning, typically used for parts with horizontal rollers. Set to true to activate this feature.",
+            "default": false
+        },
+        "process_sorter_name": {
+            "type": "string",
+            "description": "Specifies the name of the process sorter plugin. Available options include: \n- `FcfsProcessSorter`: Orders processes based on a first-come-first-serve principle, respecting the profile order. \n- `InterleavedProcessSorter`: Interleaves processes from each profile, cycling through them to create a balanced process order.",
+            "enum": [
+                "FcfsProcessSorter",
+                "InterleavedProcessSorter"
+            ]
+        },
+        "task_creator_name": {
+            "type": "string",
+            "description": "Specifies the name of the task creator plugin. Available options include: \n- `DefaultTaskCreator`: Generates scan task tickets for each profile in the sorted process list, and creates preparation subtasks before each process task. All tasks have their `is_dry_run` flag set to false.",
+            "enum": [
+                "DefaultTaskCreator"
+            ]
+        }
+    },
+    "required": [
+        "activate_extended_scan",
+        "process_sorter_name",
+        "task_creator_name"
+    ]
+}

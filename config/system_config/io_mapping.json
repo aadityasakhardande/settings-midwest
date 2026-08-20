@@ -1,0 +1,5 @@
+{
+    "$schema": "./schemas/io_mapping.schema.json",
+    "planner": "default_io_mapping::Planner",
+    "scan": "default_io_mapping::Scan"
+}

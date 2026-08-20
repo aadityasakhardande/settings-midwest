@@ -1,0 +1,18 @@
+{
+    "$schema": "./schemas/sandpaper_settings.schema.json",
+    "groups": {
+        "0": {
+            "grit": 220,
+            "material": 0,
+            "sanding_life_length": 60.0
+        },
+        "1": {
+            "grit": 320,
+            "material": 0,
+            "sanding_life_length": 70.0
+        }
+    },
+    "doc": "All the lengths are in meters",
+    "cases_doc": "For no sandpaper changing, make the values -1 or zero",
+    "material_doc": "Assign a values from the ProfileMaterial message type"
+}

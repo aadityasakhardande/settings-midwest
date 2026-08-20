@@ -1,0 +1,44 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "role based control",
+    "type": "object",
+    "properties": {
+        "super_user_tier": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/userObject"
+          }
+        },
+        "operator_tier": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/userObject"
+          }
+        },
+        "settings": {
+          "type": "object",
+          "required": ["name_regex"],
+          "properties": {
+            "name_regex": {
+              "type": "string",
+              "description": "The string rule thats going to apply on user name field"
+            }
+          }
+        }
+      },
+      "definitions": {
+        "userObject": {
+          "type": "object",
+          "required": ["name", "password"],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string",
+              "description": "To generate code, you can use command line tool `mkpasswd -m sha512crypt`"
+            }
+          }
+        }
+      }
+  }

@@ -1,0 +1,172 @@
+/**:
+  ros__parameters:
+    collision_offsets:
+      env_collision_offset: 0.03
+      self_collision_offset: 0.01
+      wp_collision_offset: 0.03
+    extender_optimizer:
+      change_graduation: 1.0e-06
+    joint_optimizer:
+      error_equalizer: 1.0e-07
+banner_safety_hdlr:
+  ros__parameters:
+    devices: |
+      - name: Light Curtain
+        type: 1
+        bit: 5
+      - name: ESTOP 1
+        type: 0
+        bit: 6
+      - name: ESTOP 2
+        type: 0
+        bit: 7
+      - name: ESTOP Pendant
+        type: 0
+        bit: 8
+    ignore_alert:
+    - Light Curtain
+fanuc_motion_hdlr:
+  ros__parameters:
+    override_speed: false
+force_module:
+  ros__parameters:
+    payload: 18.15
+jump_node:
+  ros__parameters:
+    diagnostics: true
+    passtopass:
+      activate: true
+multi_robot_visualization_node:
+  ros__parameters:
+    flip_orientation: true
+reachability_node:
+  ros__parameters:
+    debug_reachability_output: true
+    diagnostics: true
+    instance:
+      joint_discontinuity_threshold: 0.3
+    pct:
+      discrete_collision: false
+      env_collision_offset: 0.02
+      mesh_to_mesh_collision: true
+      multiple_threads: true
+      wp_collision_offset: 0.005
+    search:
+      num_threads: 16
+      srdf_path: file:///etc/ss/robots/fanuc_m710/robot.srdf
+solver_node:
+  ros__parameters:
+    joint_optimizer:
+      ori_options:
+      - true
+      - false
+      - true
+    pose_tolerance: 0.02
+system_readiness_monitor:
+  ros__parameters:
+    devices: >
+      [
+        {
+          "name": "robot_at_home_sensor",
+          "alert_policy": "STABLE",
+          "enabled": true,
+          "interrupt_type": "RESUMABLE",
+          "stable_count_threshold": 1,
+          "pre_process_readiness_monitor": true,
+          "in_process_readiness_monitor": false,
+          "continuous_readiness_monitor": false
+        },
+        {
+          "name": "pressure_sensor",
+          "alert_policy": "STABLE",
+          "enabled": true,
+          "interrupt_type": "RESUMABLE",
+          "stable_count_threshold": 1,
+          "pre_process_readiness_monitor": true,
+          "in_process_readiness_monitor": false,
+          "continuous_readiness_monitor": false
+        },
+        {
+          "name": "spc_stage_check_sensor",
+          "alert_policy": "STABLE",
+          "enabled": false,
+          "interrupt_type": "RESUMABLE",
+          "stable_count_threshold": 1,
+          "pre_process_readiness_monitor": true,
+          "in_process_readiness_monitor": false,
+          "continuous_readiness_monitor": false
+        },
+        {
+          "name": "compound_readiness_sensor",
+          "alert_policy": "STABLE",
+          "enabled": false,
+          "interrupt_type": "RESUMABLE",
+          "stable_count_threshold": 1,
+          "pre_process_readiness_monitor": true,
+          "in_process_readiness_monitor": false,
+          "continuous_readiness_monitor": false
+        },
+        {
+          "name": "overpressure_nozzles_sensor",
+          "alert_policy": "STABLE",
+          "enabled": false,
+          "interrupt_type": "RESUMABLE",
+          "stable_count_threshold": 1,
+          "pre_process_readiness_monitor": true,
+          "in_process_readiness_monitor": false,
+          "continuous_readiness_monitor": false
+        },
+        {
+          "name": "spindle_flow_sensor",
+          "alert_policy": "STABLE",
+          "enabled": false,
+          "interrupt_type": "RESUMABLE",
+          "stable_count_threshold": 1,
+          "pre_process_readiness_monitor": true,
+          "in_process_readiness_monitor": false,
+          "continuous_readiness_monitor": false
+        },
+        {
+          "name": "afd_purge_pressure_sensor",
+          "alert_policy": "STABLE",
+          "enabled": false,
+          "interrupt_type": "RESUMABLE",
+          "stable_count_threshold": 1,
+          "pre_process_readiness_monitor": true,
+          "in_process_readiness_monitor": false,
+          "continuous_readiness_monitor": false
+        },
+        {
+          "name": "spindle_flow_sensor",
+          "alert_policy": "NEVER",
+          "enabled": false,
+          "interrupt_type": "RESUMABLE",
+          "stable_count_threshold": 0,
+          "pre_process_readiness_monitor": false,
+          "in_process_readiness_monitor": true,
+          "continuous_readiness_monitor": false
+        },
+        {
+          "name": "afd_purge_pressure_sensor",
+          "alert_policy": "NEVER",
+          "enabled": false,
+          "interrupt_type": "RESUMABLE",
+          "stable_count_threshold": 0,
+          "pre_process_readiness_monitor": false,
+          "in_process_readiness_monitor": true,
+          "continuous_readiness_monitor": false
+        },
+        {
+          "name": "afd_force_sensor",
+          "alert_policy": "NEVER",
+          "enabled": false,
+          "interrupt_type": "RESUMABLE",
+          "stable_count_threshold": 3,
+          "pre_process_readiness_monitor": false,
+          "in_process_readiness_monitor": false,
+          "continuous_readiness_monitor": false
+        }
+      ]
+zivid_camera_hdlr:
+  ros__parameters:
+    save_raw_scans: true

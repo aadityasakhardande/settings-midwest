@@ -1,0 +1,75 @@
+{
+    "header": {
+        "angleUnits": "d",
+        "timeUnits": "ms"
+    },
+    "path": [
+        {
+            "type": "movej",
+            "target": [
+                8.152,
+                -1.322,
+                -42.989,
+                -11.977,
+                42.630,
+                9.611
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 150,
+            "CNT": 80,
+            "RPM": 0,
+            "motion_type": 0,
+            "tool_status": false,
+            "force": 0
+        },
+        {
+            "type": "movej",
+            "target": [
+                -6.534,
+                15.808,
+                -48.626,
+                7.292,
+                64.908,
+                -2.440
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 300,
+            "CNT": 80,
+            "RPM": 0,
+            "motion_type": 0,
+            "tool_status": false,
+            "force": 10
+        },
+        {
+            "type": "movej",
+            "target": [
+                -6.242,
+                17.857,
+                -48.494,
+                6.869,
+                66.793,
+                -2.054
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 800,
+            "CNT": 80,
+            "RPM": 0,
+            "motion_type": 0,
+            "tool_status": false,
+            "force": 10
+        }
+    ],
+    "comment": "From home to cam type 1."
+}

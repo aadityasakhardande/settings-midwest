@@ -1,0 +1,23 @@
+{
+    "$schema": "./schemas/compound_parameters_schema.json",
+    "num_compound_pots": 2,
+    "desired_compound_pressure": 15,
+    "pressurize_countdown": 120,
+    "custom_config": [
+        {
+            "desired_flow_speed": 300,
+            "max_sensor_distance": 200,
+            "max_nozzle_pressure": 80,
+            "purge_target_pressure": 40,
+            "max_working_pressure": 60
+        },
+        {
+            "desired_flow_speed": 20,
+            "max_sensor_distance": 215,
+            "max_nozzle_pressure": 80,
+            "purge_target_pressure": 40,
+            "max_working_pressure": 60
+        }
+    ],
+    "system_timeout_duration": 25
+}

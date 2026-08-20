@@ -1,0 +1,41 @@
+{
+    "$schema": "../../../schemas/segmentation.schema.json",
+    "globals": {
+        "debug_mode": true
+    },
+    "functions": [
+        {
+            "function": "eucledian_clustering",
+            "params": {
+                "cluster_tolerance": 0.01,
+                "min_cluster_size": 10000,
+                "max_cluster_size": 10000000,
+                "save_debug": true
+            }
+        },
+        {
+            "function": "compute_normal",
+            "params": {
+                "use_pcl": true,
+                "use_jet": false,
+                "use_radius": true,
+                "use_gpu": true,
+                "K": 500,
+                "radius_normal": 0.04,
+                "viewpoint_normal": [
+                    1,
+                    1.5,
+                    2
+                ],
+                "flip_normals": false,
+                "maintain_normals": true,
+                "colourize": true,
+                "field": 1,
+                "eucledian_cluster": false,
+                "cluster_tolerance": 0.01,
+                "min_cluster_size": 10,
+                "max_cluster_size": 10000000
+            }
+        }
+    ]
+}

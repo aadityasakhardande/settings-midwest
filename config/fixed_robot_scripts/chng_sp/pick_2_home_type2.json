@@ -1,0 +1,97 @@
+{
+    "header": {
+        "angleUnits": "d",
+        "timeUnits": "ms"
+    },
+    "path": [
+        {
+            "type": "movej",
+            "target": [
+                3.514,
+                13.818,
+                -56.136,
+                -11.071,
+                70.279,
+                3.824
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 1000,
+            "CNT": 80,
+            "RPM": 0,
+            "motion_type": 0,
+            "tool_status": false,
+            "force": 15
+        },
+        {
+            "type": "movej",
+            "target": [
+                3.514,
+                10.152,
+                -56.181,
+                -11.349,
+                66.721,
+                4.582
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 500,
+            "CNT": 80,
+            "RPM": 0,
+            "motion_type": 0,
+            "tool_status": false,
+            "force": 10
+        },
+        {
+            "type": "movej",
+            "target": [
+                3.514,
+                3.735,
+                -55.789,
+                -12.042,
+                60.050,
+                6.122
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 500,
+            "CNT": 80,
+            "RPM": 0,
+            "motion_type": 0,
+            "tool_status": false,
+            "force": 10
+        },
+        {
+            "type": "movej",
+            "target": [
+                8.152,
+                -1.322,
+                -42.989,
+                -11.977,
+                42.630,
+                9.611
+            ],
+            "ext_state": [
+                0.5,
+                0,
+                0
+            ],
+            "time": 150,
+            "CNT": 80,
+            "RPM": 0,
+            "motion_type": 0,
+            "tool_status": false,
+            "force": 0
+        }
+    ],
+    "comment": "From pick type 2 to home."
+}
