@@ -2,7 +2,7 @@
 <robot name="rail" xmlns:xacro="http://wiki.ros.org/xacro">
   <link name="rail_origin">
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>gic: a first pass that breaks through the top coat and primer layer at higher aggressiveness, followed by 1 subsequent pass at reduced aggressiveness to sand over residuals and bring the surface to desirable
       	<geometry>
             <mesh filename="file:///etc/ss/rails/models/10M_RAIL_520.STL" scale="1 1 1"/> 
       	</geometry>

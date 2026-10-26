@@ -19,7 +19,7 @@
         "extender": {
             "extenderOptMaxTime": 0.2,
             "extenderChangeGraduation": 1e-6,
-            "enableCloseProximityOptimization": true
+            "enableCloseProximityOptimization": false
         }
     },
     "reachability": {
@@ -34,29 +34,14 @@
             "extDiscontinuityThreshold": 0.1,
             "jointDiscontinuityThreshold": 0.1,
             "seedCandidates": [
+                [ 0, 0, 0, 0, 0, 0],
                 [
-                    0,
-                    0,
-                    0,
+                    -1.57,
+                    -0.524,
+                    -0.524,
                     0,
                     0,
                     0
-                ],
-                [
-                    0.05,
-                    0.05,
-                    -0.14,
-                    0.00,
-                    0.00,
-                    -1.35
-                ],
-                [
-                    0.18,
-                    0.05,
-                    -0.14,
-                    0.00,
-                    0.00,
-                    1.35
                 ]
             ],
             "rollerSeeds": [

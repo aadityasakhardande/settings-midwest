@@ -20,8 +20,8 @@ line_scan_setting: {
 }
 
 zivid_hdlr: {
-  save_raw_scans: false,
+  save_raw_scans: true,
   downsampling_mode: 2,   # 0: Downsample 2x2,  1: Downsample 3x3,  2: Downsample 4x4
-  default_scan_settings_path: ""
+  default_scan_settings_path: "/home/gmr/midwest/dev-docker/ss/src/settings/config/system_config/capture_settings/ZIVID3_new.yml"
 }
 

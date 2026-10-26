@@ -1,0 +1,91 @@
+{
+    "$schema": "/etc/ss/config/system_config/schemas/segmentation.schema.json",
+    "globals": {
+        "debug_mode": true
+    },
+    "functions": [
+        {
+            "function": "mls_smoothening",
+            "params": {
+                "algorithm": "NONE",
+                "polynomial_order": 2,
+                "search_radius": 0.01,
+                "upsampling_radius": 0.04,
+                "upsampling_step_size": 0.001,
+                "point_density": 20,
+                "dilation_iterations": 5,
+                "voxel_size": 0.01,
+                "compute_normal": false
+            }
+        },
+
+
+        {
+            "function": "area_detection_filter",
+            "params": {
+                "masks": [
+                   255, 0, 0, 255, 0, 0
+                ],
+                "mask_cluster_tolerance": 0.020,
+                "mask_min_cluster_size":1,
+                "mask_search_radius": 0.015,
+                "boundary_detection_radius": 0.06,
+                "hidden_point_removal_radius": 300,
+                "outer_boundary_cluster_tolerance": 0.02,
+                "boundary_continuity_dist": 0.1,
+                "boundary_dist_2_nxt_pt": 0.01,
+                "min_dist_indv_boundary_pths": 0.05,
+                "translate_in_z": -2.0
+            }
+        },
+        {
+        "function": "downsample",
+        "params": {
+            "leaf_sizes": [
+                0.007,
+                0.007,
+                0.007
+            ]
+        }
+        },
+        {
+            "function": "mls_smoothening",
+            "params": {
+                "algorithm": "NONE",
+                "polynomial_order": 2,
+                "search_radius": 0.04,
+                "upsampling_radius": 0.04,
+                "upsampling_step_size": 0.01,
+                "point_density": 20,
+                "dilation_iterations": 5,
+                "voxel_size": 0.01,
+                "compute_normal": false
+            }
+        },
+        {
+            "function": "compute_normal",
+            "params": {
+                "use_pcl": true,
+                "use_jet": false,
+                "use_radius": true,
+                "K": 60,
+                "radius_normal": 0.025,
+                "viewpoint_normal": [
+                    0.0,
+                    4.0,
+                    5.0
+                ],
+                "flip_normals": false,
+                "maintain_normals": true,
+                "colourize": true,
+                "field": 1,
+                "eucledian_cluster": true,
+                "cluster_tolerance": 0.01,
+                "min_cluster_size": 500,
+                "max_cluster_size": 10000000,
+                "use_gpu": true
+            }
+        }
+              
+    ]
+}

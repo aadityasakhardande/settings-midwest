@@ -1,13 +1,13 @@
 lmi_settings: {
   encoder_spacing: 1, # mm (decimal) Default: 1
-  exposure: 500, # ums (non decimal)
+  exposure: 1000, # ums (non decimal)
   XSubsampling: 1, # e.g. 1 - full res, 2 - half res, 3 - one third res, 4 - quarter res
   ZSubsampling: 1, # e.g. 1 - full res, 2 - half res, 3 - one third res, 4 - quarter res
-  Density: 'balanced', # speed, balanced, resolution Default: speed
+  Density: 'speed', # speed, balanced, resolution Default: speed
   spotThreshold: 15, # 1 - 255
   spotWidthMax: 25, # 1 - 127
   intensityThreshold: 15,
-  scan_speed: 125,
+  scan_speed: 35,
   use_spike_removal: false
 }
 lmi_advanced_settings: {

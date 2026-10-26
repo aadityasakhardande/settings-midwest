@@ -74,12 +74,12 @@ collision_spheres:
         - center: [-0.007, -0.061, 0.259]
           radius: 0.056
 #   - interface_pad:
-        - center: [-0.285, 0.000, 0.266]
-          radius: 0.062
-        - center: [-0.223, 0.000, 0.266]
-          radius: 0.062
-        - center: [-0.160, 0.000, 0.266]
-          radius: 0.062
+        # - center: [-0.285, 0.000, 0.266]
+        #   radius: 0.062
+        # - center: [-0.223, 0.000, 0.266]
+        #   radius: 0.062
+        # - center: [-0.160, 0.000, 0.266]
+        #   radius: 0.062
 
 
 #   - zal sphere addition
@@ -102,19 +102,19 @@ collision_spheres:
 
 
  #   - vaccum housing 
-        - center: [0.009, -0.250, 0.128]
-          radius: 0.110
-        - center: [-0.007, -0.243, 0.207]
-          radius: 0.120
-        - center: [0.007, -0.244, -0.017]
-          radius: 0.087
+#         - center: [0.009, -0.250, 0.128]
+#           radius: 0.110
+#         - center: [-0.007, -0.243, 0.207]
+#           radius: 0.120
+#         - center: [0.007, -0.244, -0.017]
+#           radius: 0.087
 
 #   - vaccum hose
-        - center: [-0.277, -0.1, 0.266]
-          radius: 0.072
-        - center: [-0.215, -0.1, 0.266]
-          radius: 0.072
-        - center: [-0.277, -0.2, 0.266]
-          radius: 0.072
-        - center: [-0.215, -0.2, 0.266]
-          radius: 0.072   
+        # - center: [-0.277, -0.1, 0.266]
+        #   radius: 0.072
+        # - center: [-0.215, -0.1, 0.266]
+        #   radius: 0.072
+        # - center: [-0.277, -0.2, 0.266]
+        #   radius: 0.072
+        # - center: [-0.215, -0.2, 0.266]
+        #   radius: 0.072   

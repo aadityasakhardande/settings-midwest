@@ -1,0 +1,132 @@
+{
+    "$schema": "/etc/ss/config/system_config/schemas/segmentation.schema.json",
+    "globals": {
+        "debug_mode": true
+    },
+    "functions": [
+        {
+            "function": "mls_smoothening",
+            "params": {
+                "algorithm": "NONE",
+                "polynomial_order": 2,
+                "search_radius": 0.005,
+                "upsampling_radius": 0.02,
+                "upsampling_step_size": 0.001,
+                "point_density": 20,
+                "dilation_iterations": 5,
+                "voxel_size": 0.01,
+                "compute_normal": false
+            }
+        },
+        {
+            "function": "curvature_segmentation",
+            "params": {
+                "curvature_threshold": [0.0089, 0.152],
+                "princ_curv_radius": 0.003,
+                "cluster_tolerance": 0.01,
+                "min_cluster_size": 500,
+                "max_cluster_size": 10000000,
+                "noise_max_size": 50,
+                "distribute": false,
+                "cluster": true,
+                "keep_only_high_curvatures": false,
+                "debug": true,
+                "ignore_lower_percentage": 0,
+                "ignore_top_percentage": 100,
+                "leaf_size": [
+                    0.01,
+                    0.01,
+                    0.01
+                ],
+                "split_by_thin": false,
+                "thin_feature_measure": 0.1,
+                "boundary_detection_tol": 0.02,
+                "preserve_corners": false,
+                "min_regular_cluster": 100,
+                "approx_density_measure": 0.01,
+                "use_gpu": true
+            }
+        },
+        {
+            "function": "area_detection_filter",
+            "params": {
+                "masks": [
+                   255, 0, 0, 255, 0, 0
+                ],
+                "mask_cluster_tolerance": 0.03,
+                "mask_min_cluster_size":1,
+                "mask_search_radius": 0.03,
+                "boundary_detection_radius": 0.6,
+                "hidden_point_removal_radius": 300,
+                "outer_boundary_cluster_tolerance": 0.03,
+                "boundary_continuity_dist": 0.2,
+                "boundary_dist_2_nxt_pt": 0.01,
+                "min_dist_indv_boundary_pths": 0.05,
+                "translate_in_z": -2.0
+            
+            }
+        },
+        {
+            "function": "mls_smoothening",
+            "params": {
+                "algorithm": "NONE",
+                "polynomial_order": 2,
+                "search_radius": 0.04,
+                "upsampling_radius": 0.04,
+                "upsampling_step_size": 0.01,
+                "point_density": 20,
+                "dilation_iterations": 5,
+                "voxel_size": 0.01,
+                "compute_normal": false
+            }
+        }
+              
+    ],
+    "examples": [
+        
+        {
+            "function": "projection_segmentation",
+            "params": {
+                "algorithm": 4,
+                "maxAngleDeviation": 40,
+                "custom_seed_activate": false,
+                "custom_first_seed": [
+                    0,
+                    0,
+                    1
+                ],
+                "cluster_tolerance": 0.014,
+                "min_cluster_size": 5000,
+                "max_cluster_size": 10000000,
+                "noise_max_size": 50,
+                "introduce_overlap": true,
+                "overlap_radius": 0.1,
+                "boundary_radius": 0.01,
+                "overlap_mode": 2,
+                "debug": true,
+                "remove_clouds_along": [
+                    5
+                ],
+                "leaf_size": [
+                    0.01,
+                    0.01,
+                    0.01
+                ],
+                "multiple_custom_seeds": [
+                    [
+                        0,
+                        0,
+                        1
+                    ],
+                    [
+                        1,
+                        0,
+                        0
+                    ]
+                ],
+                "do_alignment_correction": false,
+                "use_gpu": false
+            }
+        }
+    ]
+}

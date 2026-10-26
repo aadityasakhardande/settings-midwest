@@ -4,7 +4,7 @@
 # ─── SANDING BEHAVIOUR ──────────────────────────────────────────────────────
 tpp_sanding_behaviour: {
   turn_on_sander_above_part: false,              # Turn the sander on while hovering above the part, before making contact
-  outer_boundary_subtraction: 0.01,             # Shrink the path inward from the outer edge of the part to avoid running off
+  outer_boundary_subtraction: 0.05,             # Shrink the path inward from the outer edge of the part to avoid running off
   inner_boundary_subtraction: 0.01,             # Shrink the path inward from inner boundaries (holes, cutouts)
   entry_exit_offset: 0.1,                        # Height above the surface the robot lifts to when entering or exiting a path
   entry_exit_inclination_angle: [[0.0, 0.0]],   # Approach/departure tilt angle [x_deg, y_deg] as the tool touches down or lifts off
@@ -25,7 +25,7 @@ tpp_planning_parameters: {
   pathgap_sanding_line: 0.01,                        # Point spacing along the main sanding passes — smaller means more waypoints and a smoother path
   pathgap_connection_line: 0.01,                     # Point spacing along connection lines (moves between sanding passes)
   pathgap_entry_exit_line: 0.01,                     # Point spacing on entry and exit approach lines
-  continuity_distance: 0.06,                         # Max distance between consecutive points before they are treated as a jump or discontinuity
+  continuity_distance: 0.02,                         # Max distance between consecutive points before they are treated as a jump or discontinuity
   boundary_detection_dist: 0.03,                     # Distance threshold used to decide whether a point is close enough to the boundary to matter
   cnt_sanding_line: 90,                              # Continuity quality score (1–100) required to keep a sanding line — lower is more lenient
   cnt_connection_line: 90,                           # Continuity quality score required to keep a connection line
@@ -197,7 +197,7 @@ tpp_advanced_planning_params: {
   record_surface_normal_frame: 'tool1',             # Which tool frame to use when recording surface normal orientations
   override_surface_normals: false,                  # Replace computed surface normals with the fixed TCP rotation angles defined below
   tcp_rotation_angle_0: 0.0,                       # Fixed rotation for z+ surface normal face (top) — used when override_surface_normals is true
-  tcp_rotation_angle_1: 0.0,                       # Fixed rotation for x- surface normal face
+  tcp_rotation_angle_1: -90.0,                     # Fixed rotation for x- surface normal face
   tcp_rotation_angle_2: -90.0,                     # Fixed rotation for y- surface normal face
   tcp_rotation_angle_3: 0.0,                       # Fixed rotation for x+ surface normal face
   tcp_rotation_angle_4: 90.0,                      # Fixed rotation for y+ surface normal face

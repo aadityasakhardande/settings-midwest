@@ -7,9 +7,9 @@ lens_f_stop = 8.0 # f stop (aperature) of camera
 [camera]
 PixelFormat = "VmbPixelFormatBgr8"
 ExposureAuto = 0 		# 0->Off, 1->Once, 2->Continuous
-ExposureTime = 20000.0 # initial exposure time (shutter speed) in us
+ExposureTime = 60000.0 # initial exposure time (shutter speed) in us
 GainAuto = 0 			# 0->Off, 1->Once, 2->Continuous
-Gain = 8.0 				# inital gain on camera in dB 
+Gain = 22.0 				# inital gain on camera in dB 
 BalanceWhiteAuto = 0    # auto white balance mode: 0->Off, 1->Once, 2->Continuous
 GVSPPacketSize = 9190   # Limits:  min value = 1500, max value = 9190, for now keep this value to 9190
 

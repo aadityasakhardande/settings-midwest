@@ -35,7 +35,7 @@ jump_node:
   ros__parameters:
     diagnostics: true
     passtopass:
-      activate: true
+      activate: false
 multi_robot_visualization_node:
   ros__parameters:
     flip_orientation: true
@@ -47,11 +47,12 @@ reachability_node:
       joint_discontinuity_threshold: 0.3
     pct:
       discrete_collision: false
-      env_collision_offset: 0.02
-      mesh_to_mesh_collision: true
+      env_collision_offset: 0.001
+      mesh_to_mesh_collision: false
       multiple_threads: true
-      wp_collision_offset: 0.005
+      wp_collision_offset: 0.001
     search:
+      activate: false
       num_threads: 16
       srdf_path: file:///etc/ss/robots/fanuc_m710/robot.srdf
 solver_node:
@@ -79,7 +80,7 @@ system_readiness_monitor:
         {
           "name": "pressure_sensor",
           "alert_policy": "STABLE",
-          "enabled": true,
+          "enabled": false,
           "interrupt_type": "RESUMABLE",
           "stable_count_threshold": 1,
           "pre_process_readiness_monitor": true,
@@ -170,3 +171,21 @@ system_readiness_monitor:
 zivid_camera_hdlr:
   ros__parameters:
     save_raw_scans: true
+
+# pointcloud_color_mask:
+#   ros__parameters:
+#     min_hsv_threshold: [35, 40, 40]
+#     max_hsv_threshold: [85, 255, 255]
+#     rgb_tags: [0, 255, 0]
+
+# pointcloud_color_mask:
+#   ros__parameters:
+#     min_hsv_threshold: [120, 40, 40, 35, 40, 40]
+#     max_hsv_threshold: [150, 255, 255, 85, 255, 255]
+#     rgb_tags: [255, 0, 0, 0, 255, 0]
+    
+# pointcloud_color_mask:     #Purple
+#   ros__parameters:
+#     min_hsv_threshold: [120, 40, 40]
+#     max_hsv_threshold: [150, 255, 255]
+#     rgb_tags: [360, 30, 140]

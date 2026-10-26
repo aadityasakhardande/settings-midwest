@@ -114,7 +114,7 @@ collision_spheres:
         radius: 0.062
       - center: [-0.155, 0, 0.258]
         radius: 0.062
-      - center: [-0.155, -0.2, 0.258]
+      - center: [-0.155, -0.2, 0.58]
         radius: 0.062
       - center: [-0.155, -0.1, 0.258]
         radius: 0.062

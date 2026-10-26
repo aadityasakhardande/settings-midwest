@@ -48,12 +48,12 @@
     "pcl_normal_estimation_radius": 0.015
   },
   "EuclideanCluster": {
-    "euclClusterToggle_MrgdCld": true,
-    "euclCluster_min_cluster_size_MrgdCld": 10000,
-    "euclCluster_cluster_tolerance_MrgdCld": 0.01
+    "euclClusterToggle_MrgdCld": false,
+    "euclCluster_min_cluster_size_MrgdCld": 5000,
+    "euclCluster_cluster_tolerance_MrgdCld": 0.02
   },
   "downsample": {
-    "downsamplingLeafSize": 0.005
+    "downsamplingLeafSize": 0.002
   },
   "visualizeDownsample": {
     "visualizationdownsamplingLeafSize": 0.008

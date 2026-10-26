@@ -1,0 +1,26 @@
+# Default configuration for zivid_color_detection's ColorMaskConfig.
+# Field names match pointcloud_color_mask's ColorMaskStruct exactly; values
+# mirror pointcloud_color_mask's config/default_params.yaml defaults.
+
+# HSV color thresholds for color segmentation (one [H, S, V] entry per color tag).
+# HSV ranges: H: 0-179, S: 0-255, V: 0-255
+min_hsv_threshold = [[35, 40, 40]]
+max_hsv_threshold = [[85, 255, 255]]
+
+# RGB tags for color identification (one [R, G, B] entry per color tag, 0-255 each).
+rgb_tags = [[0, 255, 0]]
+
+# Statistical outlier removal
+perform_statistical_outlier_removal = false
+sor_mean_k = 50
+sor_stddev_mul_thresh = 1.0
+
+# Radius outlier removal
+perform_radius_outlier_removal = false
+radius_outlier_removal_radius = 0.05
+radius_outlier_removal_min_neighbors = 5
+
+# Morphological erosion
+perform_erosion = false
+erosion_radius = 0.01
+apply_per_color_erosion = false

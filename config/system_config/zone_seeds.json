@@ -1,25 +1,12 @@
+
 {
-    "$schema": "/etc/ss/config/system_config/schemas/zone_seeds.schema.json",
+    "$schema": "../../../schemas/zone_seeds.schema.json",
     "0": {
         "seeds": [
-            [
-                0.6,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0
-            ],
-            [
-                1.3,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0
-            ]
+            [-1.57, 0.0, 0.0, 0.0, 0.0, 0.0],
+            [-0.52, 1.06, 0.21, 1.257, 0.153, 0.373],
+            [-2.5, 0.99, -0.46, 1.5, -1.56, 1.66]
         ],
-        "rollerSeeds": [],
-        "ignoredEnvObjects": []
+        "ignoredEnvObjects": ["door_COLL","hood_COLL","fence_COLL"]
     }
 }

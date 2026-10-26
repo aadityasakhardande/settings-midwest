@@ -1,18 +1,18 @@
 {
     "$schema": "../schema/fixed_robot_scripts_schema.json",
-    "title": "Joint Motion Script for Manual Tool Change Exit",
+    "title": "Joint Motion Script for Manual Tool Change Entry",
     "path": [
         {
             "target": [
+                -90,
+                40,
+                -51.018,
                 0,
-                0,
-                0,
-                0,
-                0,
-                0
+                91.34,
+                -180
             ],
             "ext_state": [
-                0,
+                3.75,
                 0,
                 0
             ],
@@ -25,15 +25,57 @@
         },
         {
             "target": [
+                -90,
+                40,
+                -51.018,
                 0,
-                0,
-                0,
-                0,
+                91.34,
+                -90
+            ],
+            "ext_state": [
+                3.75,
                 0,
                 0
             ],
-            "ext_state": [
+            "tool_status": false,
+            "force": 25,
+            "time": 1000,
+            "CNT": 70,
+            "RPM": 0,
+            "motion_type": 0
+        },
+        {
+            "target": [
+                -90,
+                40,
+                -51.018,
                 0,
+                91.34,
+                0
+            ],
+            "ext_state": [
+                3.75,
+                0,
+                0
+            ],
+            "tool_status": false,
+            "force": 25,
+            "time": 1000,
+            "CNT": 0,
+            "RPM": 0,
+            "motion_type": 0
+        },        
+        {
+            "target": [
+                -90,
+                0,
+                -55,
+                0,
+                55,
+                0
+            ],
+            "ext_state": [
+                3.75,
                 0,
                 0
             ],
@@ -46,15 +88,15 @@
         },
         {
             "target": [
-                0,
-                0,
-                0,
+                -90,
+                -30,
+                -30,
                 0,
                 0,
                 0
             ],
             "ext_state": [
-                0,
+                3.75,
                 0,
                 0
             ],
@@ -67,9 +109,9 @@
         },
         {
             "target": [
-                0,
-                0,
-                0,
+                -90,
+                -30,
+                -30,
                 0,
                 0,
                 0
@@ -86,5 +128,6 @@
             "RPM": 0,
             "motion_type": 0
         }
+
     ]
-} 
+}

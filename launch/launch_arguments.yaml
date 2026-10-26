@@ -1,7 +1,7 @@
 mode:
   debug_mode: true
   developer_mode: true
-  online_mode: false
+  online_mode: true
   simulation_mode: false
   use_on_prem_api: false
 general:
@@ -33,18 +33,18 @@ process:
 feature_flag:
   polygon_filter: false
   color_pointcloud: false
-  rgb_line_scan: true
+  rgb_line_scan: false
   interlock_control: false
   do_registration: false
   sand_request_on: true
   enable_ambient_light_control: false
-  enable_line_scan: true
+  enable_line_scan: false
   enable_shot_scan: true
-  enable_ext_line_scan: true
+  enable_ext_line_scan: false
   protect_motion: false
   role_based_control: false
   enable_calibration: true
-  enable_alvium_calibration: true
+  enable_alvium_calibration: false
   enable_countdown: false
   use_smart_retrieve: false
   use_tool_box: true
@@ -65,25 +65,25 @@ network:
   alvium_ip: 192.168.12.92
 scanning:
   enable_ambient_light_control: false
-  rgb_scan: true
-  scan_mode: 2
+  rgb_scan: false
+  scan_mode: 0
   scan_transition_mode: 0
   scan_force: 10
   scan_speed: 300.0
   retry_scanning: false
   boundary_gap_x: 0.01
   intensity_threshold: 0.0
-  allow_featured_scan: false
+  allow_featured_scan: true
   plan_last_scan_transition: false
-  custom_wp_collision_offset: 0.03
-  custom_env_collision_offset: 0.03
-  custom_self_collision_offset: 0.03
+  custom_wp_collision_offset: 0.09
+  custom_env_collision_offset: 0.09
+  custom_self_collision_offset: 0.09
 sandpaper:
   chng_sp_num_try: 2
   sandpaper_on: false
   skip_first_reload_verification: false
   assume_first_pass_paper_on: false
-  use_cognex: true
+  use_cognex: false
 polish:
   use_compound_manager: false
   purge_time_s: 3
@@ -92,6 +92,7 @@ tool:
   use_tool_changer: 0
   is_tool_changer_fallback_needed: false
   tool_change_for_sandpaper: false
+  midpass_tool_change: false
 trajectory_planner:
   discontinuity_threshold: 0.85
   debug_mode: false
@@ -106,12 +107,12 @@ data_record:
   activate_lambda_alert: false
   customer: Midwest
   facility: Chicago
-  record_on: true
+  record_on: false
   robot: Midwest M710
 force:
   static_force: 8
 safety:
-  safeguard_on: true
+  safeguard_on: false
   safety_device: banner
   use_banner_services: true
 motion:

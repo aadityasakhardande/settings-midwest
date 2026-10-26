@@ -1,0 +1,355 @@
+# All distances in meters
+# All angles in degrees (unless noted)
+
+# ─── SANDING BEHAVIOUR ──────────────────────────────────────────────────────
+tpp_sanding_behaviour: {
+  turn_on_sander_above_part: false,              # Turn the sander on while hovering above the part, before making contact
+  outer_boundary_subtraction: 0.00,             # Shrink the path inward from the outer edge of the part to avoid running off
+  inner_boundary_subtraction: 0.00,             # Shrink the path inward from inner boundaries (holes, cutouts)
+  entry_exit_offset: 0.1,                        # Height above the surface the robot lifts to when entering or exiting a path
+  entry_exit_inclination_angle: [[0.0, 0.0],[45.0,0.0],[45.0,45.0],[0.0,45.0]],   # Approach/departure tilt angle [x_deg, y_deg] as the tool touches down or lifts off
+}
+
+# ─── THIN FEATURES ──────────────────────────────────────────────────────────
+thin_features_subtraction: {
+  activate: false,                                 # Enable special handling to avoid over-sanding thin features (ribs, flanges)
+  subtraction_value: 0.0,                          # Additional inward shrink applied around thin features
+  inner_outer_boundary_cluster_tolerance: 0.01,   # Tolerance used to tell inner and outer boundary clusters apart
+  consider_inside_boundary: true,                  # Search for disconnected internal boundaries such as islands or holes
+  feature_size: 0.0,                              # Physical thickness of the thin feature — used by algorithm 2
+  preserve_corners: true,                          # Keep sharp corners on thin features instead of rounding them — used by algorithm 2
+}
+
+# ─── CORE PLANNING PARAMETERS ───────────────────────────────────────────────
+tpp_planning_parameters: {
+  pathgap_sanding_line: 0.02,                        # Point spacing along the main sanding passes — smaller means more waypoints and a smoother path
+  pathgap_connection_line: 0.02,                     # Point spacing along connection lines (moves between sanding passes)
+  pathgap_entry_exit_line: 0.01,                     # Point spacing on entry and exit approach lines
+  continuity_distance: 0.05,                         # Max distance between consecutive points before they are treated as a jump or discontinuity
+  boundary_detection_dist: 0.08,                     # Distance threshold used to decide whether a point is close enough to the boundary to matter
+  cnt_sanding_line: 70,                              # Continuity quality score (1–100) required to keep a sanding line — lower is more lenient
+  cnt_connection_line: 80,                           # Continuity quality score required to keep a connection line
+  cnt_start_end_line: 90,                            # Continuity quality score required to keep a start/end line
+  cnt_boundary_sanding_line: 90,                     # Continuity quality score required to keep a boundary sanding line
+  remove_unreachable_pts_radius_multiplier: 0.9,       # Multiplier on the tool radius when sweeping for unreachable points — larger removes more
+  acceptable_sanding_path_length: 0.1,               # Minimum sanding path length to keep — segments shorter than this are dropped
+  acceptable_dist_2_next_line_percentage: 600,       # Max allowed gap to the next sanding line as % above nominal — 600 means up to 7x the normal gap
+  normal_estimation_radius: 0.03,                    # Radius around each point used to estimate its surface normal
+  z_estimation_radius: 0.02,                         # Radius used to estimate the local surface height at each point
+  acceptable_neighbours_in_radius: 5,                # Minimum number of neighbouring points needed within the radius for a point to be valid
+  remove_pts_outside_boundary: true,                 # Discard waypoints that fall outside the detected part boundary
+  feature_radius_boundary_estimation: 0.03,          # Radius used to compute the boundary when checking remove_pts_outside_boundary
+  path_smoothing_weight: 0.05,                       # How strongly to smooth the path — higher means smoother but may deviate from the surface
+  smoothening_repeat: 0,                             # How many times to repeat the smoothing pass — 0 means no smoothing
+  repeat_reachable_pts_analysis: 5,                  # How many times to retry the reachable-point search if some points come back unreachable
+}
+  #  2.15176994477079,   -1.21924166551479,    1.25095825537135, -0.0735436979617188,   -2.01293220943595,   -1.46940855954057,  -0.238640127787125]
+
+# ─── BOUNDARY PASS ──────────────────────────────────────────────────────────
+tpp_boundary: {
+  offset_to_actual_boundary: 0.0,                          # Extra inward offset from the detected boundary edge
+  outer_boundary_pass_coordinator_cloud: false,            # Generate an extra sanding pass that traces around the outer boundary of the part
+  allow_inner_boundary_pass_coordinator_cloud: false,      # Also generate a pass along inner boundaries — requires outer_boundary_pass_coordinator_cloud: true
+  use_stitched_tpp_input: false,                           # Use the full stitched input cloud instead of the post-bounding-box coordinator cloud
+  outer_boundary_pass_pcl_boundary_radius: 0.015,         # Search radius for detecting boundary points during the outer boundary pass
+  outer_boundary_pass_pcl_boundary_cluster_tol: 0.02,     # Clustering tolerance when grouping boundary points during the outer boundary pass
+  outer_boundary_pass_tpp_boundary_search_radius: 0.01,   # Search radius when matching TPP boundary points to the outer boundary pass
+  clip_boundary_path: false,                               # Trim the boundary path at corners to avoid over-sanding tight edges
+  clip_boundary_path_distance: 0.1,                       # How far from the corner to start and stop the trimmed boundary path
+  coordinator_cloud_cluster_tolerance: 0.03,              # Distance tolerance for clustering the merged input cloud — separates multiple parts if present
+}
+
+# ─── TOOL CHARACTERISTICS ────────────────────────────────────────────────────
+tpp_tool_characteristic: {
+  tool_contact_width: 0.07,   # Effective contact width of the tool — for orbital sanders this is the pad diameter
+}
+
+# ─── ZIGZAG PATTERN ──────────────────────────────────────────────────────────
+tpp_ZigZag_pattern: {
+  activate: false,      # Enable a side-to-side zigzag motion overlaid on the sanding path
+  amplitude: 0.05,      # Width of the zigzag oscillation
+}
+
+# ─── MULTI-TCP ───────────────────────────────────────────────────────────────
+multiTCP: {
+  activate: false,                          # Enable multi-TCP mode — use more than one virtual tool contact point per waypoint
+  activate_single_tcp_collision_check: false, # Even in single-TCP mode, remove points that could collide with the coordinator cloud
+  collision_radius: 0.08,                   # Radius around the tool used for collision checking in multi-TCP mode
+  height: 1,                                # Number of TCP layers in the vertical (surface-normal) direction
+  surface_offset: 0.004,                    # How far each TCP is offset from the surface
+  offset_radius: 0.06,                      # Radial distance of the offset TCPs from the center TCP
+  trans_shift_angles: [0, 90, 180, 270],   # Angular positions (degrees) around the center where translated TCPs are placed
+  rot_shift_angles_allAx: [[15,0,0], [0,15,0], [-15,0,0], [0,-15,0]], # Rotational offsets [x, y, z degrees] for each TCP position
+  trans_rot_only: false,                    # Only use TCPs that have both a translation and a rotation offset
+  trans_only: false,                        # Only use TCPs with pure translation offsets — no rotation
+  prefer_trans_only: false,                 # Prefer translation-only TCPs when both types are available
+  separate_mTCP_paths: false,               # Write each TCP path into its own separate file instead of a combined file
+  skip_center_tcp_swptcyl_check: false,     # Skip the swept-cylinder reachability check for the center TCP
+  is_sandblasting: false,                   # Treat this job as sandblasting — changes how free-space coverage is handled
+  allow_free_space_blasting: true,          # Allow blasting points in free space, not only on the surface
+  prefer_non_free_space_blasting: true,     # Prefer surface-contact blasting over free-space blasting when both are possible
+  do_not_blast_red_pts: true,              # Skip points flagged as red (no-go zones) during blasting
+  raytrace_cluster_tolerance: 0.01,         # Tolerance for clustering raytrace results during blasting
+}
+
+# ─── VARIABLE PATH GAP ───────────────────────────────────────────────────────
+tpp_variable_pathgap: {
+  activate: false,              # Automatically widen or narrow the path gap based on surface curvature
+  target_norm_change: 0.687,   # Target change in surface normal between consecutive points — controls how much the gap adapts
+  gap_range: [0.004, 0.03],    # Minimum and maximum allowed path gap [min, max]
+}
+
+# ─── CONTACT ANALYSIS ────────────────────────────────────────────────────────
+tpp_contact_analysis: {
+  auto_calculate_radius: false,          # Automatically compute the tool contact radius as half the distance between sanding lines
+  backing_pad_height: 0.025,             # Physical height of the sanding pad backing plate
+  force_calc_opposite_cyl_height: 0.1,  # Height of the opposite cylinder used in force geometry calculations
+  force_calc_radius_step_percent: 10,   # Step size as % of radius when iterating through radius values in force calculations
+  force_calc_angle_step: 10,            # Angular step (degrees) when iterating through angles in force calculations
+  write_all_files: false,               # Write all intermediate contact analysis files to disk — useful for debugging force models
+}
+
+# ─── BOUNDARY NORMAL RETENTION ───────────────────────────────────────────────
+boundary_normal_retention: {
+  activate: false,                  # Preserve original surface normals near the boundary instead of letting them be smoothed away
+  boundary_width: 0.035,            # Width of the zone near the boundary where original normals are kept
+  refine_normals_neighbours: 0,    # Number of neighbours used to refine normals in the retention zone — 0 means no refinement
+  removeBottomPoints: false,        # Remove waypoints that fall below the reference point (useful for blocking floor or fixture points)
+  reference_pt: [1.02, -0.15, 0.41], # 3D reference point used to define "below" for removeBottomPoints
+  plusY_angle: 60,                  # Angular cutoff on the +Y side for bottom-point removal
+  negY_angle: 60,                   # Angular cutoff on the -Y side for bottom-point removal
+}
+
+# ─── MID-PASS STOP NEAR BOUNDARY ─────────────────────────────────────────────
+midpass_SPC_near_boundary: {
+  activate: false,              # Insert a mid-pass pause event when the path gets close to the boundary
+  min_sanding_distance: 0.3,   # Minimum path length required before a near-boundary stop is inserted
+  dist_from_boundary: 0.03,    # Distance from the boundary at which the stop event is placed
+}
+
+# ─── MID-PASS STOP ANYWHERE ──────────────────────────────────────────────────
+midpass_SPC_anywhere: {
+  activate: false,                # Insert mid-pass pause events anywhere along the path, not just near boundaries
+  small_length_to_ignore: 0.2,   # Ignore path segments shorter than this when placing mid-pass stops
+}
+
+# ─── PAUSE PLANNING ──────────────────────────────────────────────────────────
+pause_planning: {
+  entry_exit_offset: 0.1,              # Height the robot lifts above the surface for entry/exit during a pause move
+  retraction_force: -20,               # Force command during retraction — negative means pulling away from the surface
+  distance_to_skip: 0.3,              # Distance to advance along the path to give the planner time during a pause
+  pathgap_entry_exit: 0.01,           # Point spacing on entry/exit paths for pause moves
+  cnt_entry_exit: 90,                  # Continuity quality score required for pause entry/exit lines (1–100)
+  boundary_dist_threshold: 0.06,      # How close to the boundary a point must be to trigger a pause — profile planning only
+  consider_only_connection_pts: true, # Only place pauses at connection points, not mid-sanding-line — profile planning only
+  instant_pause: false,               # If true, pause immediately wherever the robot is; if false, pause at the next jump or boundary
+  lookAhead_n_points: 20,             # How many points ahead to scan when looking for a suitable instant-pause location
+  skip_n_pts: 5,                      # Generate a new jump every N points for instant-pause triggering
+}
+
+# ─── DEBUG PARAMETERS ────────────────────────────────────────────────────────
+tpp_debug_parameters: {
+  ignore_discontinuity: false,                    # Ignore path discontinuities during planning — UNSAFE, only for offline debugging
+  testing_mode: false,                            # Run in lightweight test mode with less computation for faster iteration
+  run_only_segmentation: false,                    # Stop after segmentation and skip path planning entirely
+  write_report: true,                             # Write a planning summary report to disk
+  print_debugROS_msgs: false,                     # Print verbose debug messages to the ROS log
+  write_debug_files: true,                        # Write intermediate debug point cloud and path files to disk
+  write_each_vector_matrix_debug_file: false,     # Write a separate file for every vector and matrix computed — very verbose
+  write_csv: false,                               # Write point cloud data as CSV files
+  write_ply: true,                                # Write point cloud data as PLY files
+  tcp_ply_axis_num_pts: 5,                        # Number of points per axis line in TCP visualization PLY files
+  tcp_ply_axis_gap: 0.001,                        # Spacing between points on TCP visualization axis lines
+  save_transformed_complete_cloud: false,         # Save the full transformed input cloud for every segment — produces large files
+  ignore_reachability_test: false,                # Skip reachability checking entirely — requires advance mode
+}
+
+# ─── ADVANCED PLANNING PARAMETERS ────────────────────────────────────────────
+tpp_advanced_planning_params: {
+  turn_off_tool: false,                              # Force all tool states to off, overriding any default tool-on logic in the path
+  delay_tool_start: 0,                              # Shift the tool-on point by N waypoints relative to first contact — positive is later, negative is earlier
+  delay_tool_end: 0,                                # Shift the tool-off point by N waypoints relative to last contact — positive is later, negative is earlier
+  tilt_tcp_path_dir: 0,                             # Tilt the tool (degrees) in the direction of travel
+  tilt_tcp_orth_dir: 0,                             # Tilt the tool (degrees) perpendicular to the direction of travel
+  tcp_offset: 0.0,                                  # Shift the TCP along the tool axis — positive means away from the surface
+  path_following_tilt: false,                        # Continuously update the tilt direction as the path curves
+  do_not_connect_sanding_lines: false,              # Skip generating connection lines between sanding passes
+  remove_surface_connection_lines: false,           # Remove connection lines from the final output path
+  shape_following_path: false,                      # Generate a center-line-following path instead of parallel lines — useful for profiled surfaces
+  offset_values_for_shape_following: [-0.02, 0.0, 0.02], # Lateral offsets from the center line for each parallel path in shape-following mode
+  threshold_for_ignoring_rows: 0.0,                # Drop fill-point rows shorter than this fraction of the longest row — 0.0 keeps all
+  follow_path_TCP: false,                           # Always orient the TCP to point in the direction of travel
+  entry_exit_inclination_angle_n_pts_avg_dir: 5,   # Number of lookahead points to average when computing the entry/exit approach direction
+  grid_length_sanding_line_divisor: 20,             # Internal grid resolution for sanding lines = pathgap_sanding_line divided by this value
+  grid_length_connection_line_divisor: 20,          # Internal grid resolution for connection lines = pathgap_connection_line divided by this value
+  projection_mode: "obb",                           # How to project the path grid onto the surface: "obb" = optimal bounding box, "pca" = principal component, "preset" = world axes
+  state_based_reconstruction: true,                # Use a state-machine approach to reconstruct the path — more robust than linear reconstruction
+  always_compute_seed_indices: false,              # Recompute seed/start indices from scratch every time — slower but may reduce jumps
+  retraction_lookAhead_dist: 0.1,                  # How far ahead the planner looks to decide whether to insert a retraction
+  retraction_check_skip_n_pts: 5,                  # Check only every N points for needed retractions — trades precision for speed
+  reorderBtwnSegments: false,                      # Reorder processing across segments vs fully completing one segment before starting the next
+  grid_addition: 0.0,                              # Extra padding added to the planning grid boundaries
+  pca_similarity_threshold_percent: 85.0,          # How similar (%) two PCA axis orientations must be before an angle correction is triggered
+  pca_similarity_correction_angle: 45.0,           # Correction angle applied when PCA orientations are too similar to each other
+  separate_by_seed_id: false,                      # Split the output paths into separate files by seed point ID
+  separate_by_tcp_id: false,                       # Split the output paths into separate files by TCP ID
+  outer_boundary_subtraction_x_dir: 0.0,           # Extra boundary shrinkage applied in the local X direction
+  outer_boundary_subtraction_y_dir: 0.0,           # Extra boundary shrinkage applied in the local Y direction
+  record_surface_normal_frame: 'tool1',             # Which tool frame to use when recording surface normal orientations
+  override_surface_normals: false,                  # Replace computed surface normals with the fixed TCP rotation angles defined below
+  tcp_rotation_angle_0: 0.0,                       # Fixed rotation for z+ surface normal face (top) — used when override_surface_normals is true
+  tcp_rotation_angle_1: 0.0,                       # Fixed rotation for x- surface normal face
+  tcp_rotation_angle_2: 180.0,                     # Fixed rotation for y- surface normal face
+  tcp_rotation_angle_3: 0.0,                       # Fixed rotation for x+ surface normal face
+  tcp_rotation_angle_4: 0.0,                      # Fixed rotation for y+ surface normal face
+  tcp_rotation_angle_5: 0.0,                       # Fixed rotation for z- surface normal face (bottom)
+  max_reachability_requests: 36,                   # Maximum number of reachability service requests sent per planning cycle
+  z_height_offset_all_waypoints: 0.0,              # Apply a uniform Z shift to every waypoint in world coordinates
+  sanity_check_relaxation_factor: 1.5,             # Multiplier on continuity_distance for the sanity check — higher is more lenient
+  skip_n_trajectory_pts: 0,                        # Skip every N points in the final trajectory output — requires advance mode
+  parallel_planning: true,                         # Plan multiple path segments in parallel instead of one at a time
+  parallel_planning_batch_size: -1,                # How many segments to plan in parallel at once — -1 means no limit
+  max_parallel_astar_requests: 36,                 # Maximum number of concurrent A* pathfinding requests
+  boundary_est_is_omp_else_tbb: false,             # Parallelism backend for boundary estimation — true = OpenMP, false = TBB
+  fillpts_gen_is_omp_else_tbb: false,              # Parallelism backend for fill-point generation — true = OpenMP, false = TBB
+  world_x_offset: 0.0,                             # Shift the entire input cloud in the world X direction before planning
+  world_y_offset: 0.0,                             # Shift the entire input cloud in the world Y direction before planning
+  world_z_offset: 0.0,                             # Shift the entire input cloud in the world Z direction before planning
+  keep_shifting_start_pts_around_corners: true,   # Continue shifting path start points around corners rather than stopping at them
+  extra_jumps_allowed_for_shifting_pts: 0,         # How many additional jumps are allowed when shifting start points around corners
+}
+
+# ─── FORCE RAMP: ENTRY / EXIT ─────────────────────────────────────────────────
+# Smoothly ramp force up on entry and down on exit instead of stepping instantly
+# Ramp styles: "instant", "linear", "power", "inverse_power"
+ramp_force_entryexit: {
+  activate: false,
+  entry_start_value_multiplier: 0.2,    # Force at the very start of entry as a multiplier of nominal — 0.2 means start at 20%
+  entry_delay_length: -0.2,             # Distance before/after contact where the entry ramp begins — negative means before contact
+  entry_ramp_dist: 0.4,                 # Distance over which force ramps up to nominal on entry
+  entry_ramp_style: "inverse_power",    # Shape of the entry ramp curve
+  exit_end_value_multiplier: 2,         # Force at the very end of exit as a multiplier of nominal
+  exit_delay_length: -0.2,              # Distance before the last contact point where the exit ramp begins
+  exit_ramp_dist: 0.4,                  # Distance over which force ramps down on exit
+  exit_ramp_style: "linear",            # Shape of the exit ramp curve
+  ramp_style_power: 2,                  # Exponent used by the "power" and "inverse_power" ramp styles
+}
+
+# ─── FORCE RAMP: NEAR CONNECTION LINES ───────────────────────────────────────
+# Smoothly reduce and restore force around connection-line moves between passes
+# Ramp styles: "instant", "linear", "power", "inverse_power"
+ramp_force_nearconnection: {
+  activate: true,
+  entry_ramp_dist: 0.05,                   # Distance before the connection line where force starts ramping down
+  entry_ramp_style: "linear",             # Shape of the ramp going into the connection
+  connection_value_multiplier: 0.75,      # Force during the connection line as a multiplier of nominal
+  exit_ramp_dist: 0.05,                    # Distance after the connection line where force ramps back up
+  exit_ramp_style: "linear",              # Shape of the ramp coming out of the connection
+  ramp_style_power: 2,                    # Exponent used by the "power" and "inverse_power" ramp styles
+}
+
+# ─── RPM RAMP: ENTRY / EXIT ───────────────────────────────────────────────────
+# Smoothly ramp spindle RPM on entry and exit
+# Ramp styles: "instant", "linear", "power", "inverse_power"
+ramp_rpm_entryexit: {
+  activate: false,
+  entry_start_value_multiplier: -0.3,   # RPM at the start of entry as a multiplier of nominal
+  entry_delay_length: 0.2,              # Distance offset where the entry ramp begins
+  entry_ramp_dist: 0.4,                 # Distance over which RPM ramps up on entry
+  entry_ramp_style: "inverse_power",    # Shape of the entry ramp
+  exit_end_value_multiplier: 0.3,       # RPM at the end of exit as a multiplier of nominal
+  exit_delay_length: 0.0,               # Distance offset where the exit ramp begins
+  exit_ramp_dist: 0.1,                  # Distance over which RPM ramps down on exit
+  exit_ramp_style: "linear",            # Shape of the exit ramp
+  ramp_style_power: 2,                  # Exponent used by the "power" and "inverse_power" ramp styles
+}
+
+# ─── RPM RAMP: NEAR CONNECTION LINES ─────────────────────────────────────────
+# Smoothly change spindle RPM around connection-line moves
+# Ramp styles: "instant", "linear", "power", "inverse_power"
+ramp_rpm_nearconnection: {
+  activate: false,
+  entry_ramp_dist: 0.01,                  # Distance before the connection line where RPM starts changing
+  entry_ramp_style: "instant",            # Shape of the ramp going into the connection
+  connection_value_multiplier: 0.3,      # RPM during the connection line as a multiplier of nominal
+  exit_ramp_dist: -0.1,                   # Distance after the connection where RPM returns to nominal — negative means before the line ends
+  exit_ramp_style: "instant",            # Shape of the ramp coming out of the connection
+  ramp_style_power: 2,                    # Exponent used by the "power" and "inverse_power" ramp styles
+}
+
+# ─── CNT RAMP: ENTRY / EXIT ───────────────────────────────────────────────────
+# Smoothly ramp the CNT (motion blending) value on entry and exit
+# Ramp styles: "instant", "linear", "power", "inverse_power"
+ramp_cnt_entryexit: {
+  activate: false,
+  entry_start_value_multiplier: -0.3,   # CNT at the start of entry as a multiplier of nominal
+  entry_delay_length: 0.2,              # Distance offset where the entry ramp begins
+  entry_ramp_dist: 0.4,                 # Distance over which CNT ramps up on entry
+  entry_ramp_style: "inverse_power",    # Shape of the entry ramp
+  exit_end_value_multiplier: 0.3,       # CNT at the end of exit as a multiplier of nominal
+  exit_delay_length: 0.0,               # Distance offset where the exit ramp begins
+  exit_ramp_dist: 0.1,                  # Distance over which CNT ramps down on exit
+  exit_ramp_style: "linear",            # Shape of the exit ramp
+  ramp_style_power: 2,                  # Exponent used by the "power" and "inverse_power" ramp styles
+}
+
+# ─── CNT RAMP: NEAR CONNECTION LINES ─────────────────────────────────────────
+# Smoothly change CNT (motion blending) around connection-line moves
+# Ramp styles: "instant", "linear", "power", "inverse_power"
+ramp_cnt_nearconnection: {
+  activate: false,
+  entry_ramp_dist: 0.5,                   # Distance before the connection line where CNT starts changing
+  entry_ramp_style: "inverse_power",      # Shape of the ramp going into the connection
+  connection_value_multiplier: 0.3,      # CNT during the connection line as a multiplier of nominal
+  exit_ramp_dist: 0.1,                    # Distance after the connection where CNT returns to nominal
+  exit_ramp_style: "power",              # Shape of the ramp coming out of the connection
+  ramp_style_power: 2,                    # Exponent used by the "power" and "inverse_power" ramp styles
+}
+
+# ─── BOUNDARY DISTANCE BASED FORCE ───────────────────────────────────────────
+boundary_dist_based_force: {
+  activate: false,
+  force_range: [10, 30],          # Force range [min, max] in Newtons applied at the far and near ends of the distance range
+  distance_range: [0.1, 0.3],    # Distance range [min, max] over which force varies — clamped outside this range
+}
+
+# ─── BOUNDARY DISTANCE BASED RPM ─────────────────────────────────────────────
+boundary_dist_based_rpm: {
+  activate: false,
+  rpm_range: [1000, 5000],        # RPM range [min, max] applied at the far and near ends of the distance range
+  distance_range: [0.04, 0.3],   # Distance range [min, max] over which RPM varies
+}
+
+# ─── BETA FEATURES ────────────────────────────────────────────────────────────
+# Experimental features — each is individually guarded by the part class config
+beta_features: {
+  optimal_path_shift: false,                      # Shift path start points to a better position along the segment axis
+  good_major_proportion_start: 0.8,              # Upper end of the "good" start region as a proportion of the segment major axis length
+  good_major_proportion_end: 0.4,                # Lower end of the "good" start region
+  correct_obb_edge_case: false,                   # Apply a correction when the OBB orientation is borderline between two choices
+  obb_dot_threshold_for_correction: 0.1,         # How aggressively to apply the OBB correction — closer to 1.0 means more corrections
+  use_roller_for_segment_ordering: false,         # Use a rolling-window approach to determine which segment to sand next
+  boundary_pass_away_from_bbox: false,            # Remove boundary pass points that are too close to the bounding box edge
+  distance_from_bbox: 0.02,                       # Points within this distance of the bounding box are removed when boundary_pass_away_from_bbox is active
+  ignore_dimensions: [false, false, false],       # Which bounding box dimensions to ignore when computing distance to the bbox [x, y, z]
+  truncate_sanding_lines: false,                  # Cut sanding lines short at the boundary instead of extending them all the way to the edge
+  augment_surface_normals: false,                 # Blend surface normals using information from neighbouring sanding lines
+  min_length_proportion_percent_of_line: 80,     # Only include lines whose length is at least this % of the longest line when augmenting normals
+  keep_lines_at_percent: [0, 45, 100],           # Which positions along the segment width (as % from 0–100) to retain when building the center path
+}
+
+# ─── SKIP POINT-TO-POINT MOVES ───────────────────────────────────────────────
+# Attempt to skip expensive retract-move-approach cycles when consecutive sanding points are already close
+try_to_skip_p2p: {
+  activate: false,
+  entry_exit_reduction_distance: 0.0,          # Shorten entry/exit paths by this amount when a P2P skip is allowed
+  euclidean_distance_threshold: 0.03,          # Max straight-line distance between consecutive sanding points to allow skipping the P2P move
+  joint_angle_discontinuity_threshold: 0.5,   # Max joint-angle change (radians) allowed when skipping a P2P move
+  extender_discontinuity_threshold: 0.1,      # Max extender position change (meters) allowed when skipping a P2P move
+}
+
+# ─── TRAJECTORY PLANNER ──────────────────────────────────────────────────────
+trajectory_planner: {
+  ori_options: [false, false, false],   # Which Cartesian orientation axes [x, y, z] are free to vary during trajectory optimization
+  reachability_service_attempts: 9,     # How many times to retry the reachability service before giving up on a point
+}

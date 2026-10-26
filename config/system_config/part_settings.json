@@ -4,7 +4,7 @@
         "0": {
             "display_name": "Calibration",
             "colors": "Purple, Red, Silver, Yellow",
-            "path": "capture_settings/ZIVID2+_new.yml",
+            "path": "capture_settings/ZIVID3_new.yml",
             "planner_param_folder": [
                 {
                     "display_name": "Calibration",
@@ -18,7 +18,7 @@
         "1": {
             "display_name": "Midwest",
             "colors": "Purple, Red, Silver, Yellow",
-            "path": "capture_settings/ZIVID2+_new.yml",
+            "path": "capture_settings/ZIVID3_new.yml",
             "planner_param_folder": [
                 {
                     "display_name": "Nordam-Style Midwest",
@@ -27,10 +27,33 @@
                 {
                     "display_name": "RHC-Style Midwest",
                     "folder_path": "part_class_settings/midwest_rhc-style"
+                },
+                                {
+                    "display_name": "Nordam-Style Midwest disc",
+                    "folder_path": "part_class_settings/midwest_nordam-style disc"
                 }
             ],
             "lmi_settings_path": "part_class_settings/midwest_nordam-style",
             "stitch_config_path": "part_class_settings/midwest_nordam-style",
+            "intended_gsa_path": ""
+        },
+        "2": {
+            "display_name": "Colour_Test",
+            "colors": "Purple, Red, Silver, Yellow",
+            "path": "capture_settings/ZIVID3_new.yml",
+            "planner_param_folder": [
+                {
+                    "display_name": "Green",
+                    "folder_path": "part_class_settings/green-color"
+                },
+                {
+                    "display_name": "Purple",
+                    "folder_path": "part_class_settings/purple-color"
+                }
+            ],
+            "lmi_settings_path": "part_class_settings/color_test",
+            "stitch_config_path": "part_class_settings/color_test",
+            "zone_seeds_path": "part_class_settings/zone_seeds.json",
             "intended_gsa_path": ""
         }
     },

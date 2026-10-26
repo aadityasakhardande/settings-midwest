@@ -1,0 +1,27 @@
+{
+    "$schema": "/etc/ss/config/system_config/schemas/segmentation.schema.json",
+    "globals": {
+        "debug_mode": true
+    },
+    "functions": [
+
+        {
+            "function": "remove_mask_filter",
+            "params": {
+                "masks": [255, 0, 0],
+                "mask_search_radius": true,
+                "search_radius": 0.008
+            }
+        },
+        {
+        "function": "downsample",
+        "params": {
+            "leaf_sizes": [
+                0.007,
+                0.007,
+                0.007
+            ]
+        }
+        }
+    ]
+}

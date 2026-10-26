@@ -1,0 +1,42 @@
+{
+    "$schema": "/etc/ss/config/system_config/schemas/segmentation.schema.json",
+    "globals": {
+        "debug_mode": true
+    },
+    "functions": [
+        {
+            "function": "mls_smoothening",
+            "params": {
+                "algorithm": "NONE",
+                "polynomial_order": 2,
+                "search_radius": 0.01,
+                "upsampling_radius": 0.04,
+                "upsampling_step_size": 0.001,
+                "point_density": 20,
+                "dilation_iterations": 5,
+                "voxel_size": 0.01,
+                "compute_normal": false
+            }
+        },
+        {
+        "function": "downsample",
+        "params": {
+            "leaf_sizes": [
+                0.007,
+                0.007,
+                0.007
+            ]
+        }
+        },
+        {
+            "function": "eucledian_clustering",
+            "params": {
+                "cluster_tolerance": 0.02,
+                "min_cluster_size": 100,
+                "max_cluster_size": 10000000,
+                "save_debug": false
+            }
+        }
+              
+    ]
+}

@@ -119,9 +119,19 @@ tape_object_image_size = 256 # dimensions of "images" used to represent detected
 [specific_color] 
 #Colors supported are Red and Blue
   project_specific_color = true
-  min_hsv_thresholds = [[73, 5, 5]]   #[[min_threshold for color 1], [min_threshold for color 2]]
-  max_hsv_thresholds = [[111, 255, 255]]  #[[max_threshold for color 1], [max_threshold for color 2]]
-  rgb_tags = [[0,255,0]]          #[[rgb tag for color 1], [rgb tag for color 2]]
+  min_hsv_thresholds = [[87, 5, 5], [30, 100, 5]]  #[[min_threshold for color 1], [min_threshold for color 2]]
+  max_hsv_thresholds = [[0, 58, 66], [179, 255, 255]] #[[max_threshold for color 1], [max_threshold for color 2]]
+  #min_hsv_thresholds = [[30, 100, 5]]  #[[min_threshold for color 1], [min_threshold for color 2]]
+  #max_hsv_thresholds = [[179, 255, 255]] #[[max_threshold for color 1], [max_threshold for color 2]]
+  rgb_tags = [[255,0,0],[0,255,0]]          #[[rgb tag for color 1], [rgb tag for color 2]]
   erosion_x = 1
   erosion_y = 1
   contour_area_threshold = 100
+  color_detection_methods = ["hsv_based", "hsv_based"] #Available Options "ml_based" or "hsv_based". Note: len(color_detection_methods) = len(rgb_tags)
+  color_detection_model_dir = "/config/system_config/color_detection_models/" #All the models should be in color_detection_models dir (e.g. color_detection_models/bondo)
+  color_detection_models = [] #. E.g. For Bondo detection, you could add the models in a directory named bondo which consists of model.onnx. Then the entry will look like ["bondo/model.onnx"]
+  batch_size=8 #This is something that one needs to test. Run command nvtop (might need to install it) on terminal and ensure that not more than 90% of GPU memory is used for the batch value you've set
+  color_model_confidence_threshold = 0.5 #This is the threshold for the model to detect a given color
+  enable_aggregated_confidence_filtering = true #By enabling this filter, the behavior will be eliminate low frequency detections (Use this with caution, refer documentation)
+  aggregated_confidence_threshold = 0.9 #This is the threshold parameter that is used to filter out low frequency detections
+

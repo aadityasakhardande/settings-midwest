@@ -4,25 +4,35 @@
         {
             "filename": "pushcorp_STC1503",
             "tcp_count": 4
+        },
+        {
+            "filename": "pushcorp_STC1503_tool2",
+            "tcp_count": 4
         }
+        
     ],
     "data": {
         "0": {
             "0": [
                 {
-                    "display_name": "5in_disk",
+                    "display_name": "tool",
                     "tool_id": 0,
                     "tcp_id": 0
                 },
                 {
                     "display_name": "North",
                     "tool_id": 0,
-                    "tcp_id": 2
+                    "tcp_id": 1
                 },
                 {
                     "display_name": "East",
                     "tool_id": 0,
-                    "tcp_id": 1
+                    "tcp_id": 0
+                },
+                                {
+                    "display_name": "Grind",
+                    "tool_id": 0,
+                    "tcp_id": 2
                 }
             ],
             "7": [

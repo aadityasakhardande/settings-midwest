@@ -1,0 +1,141 @@
+{
+    "artefact_location": [
+        0.01,
+        0.9,
+        -0.6,
+        0.2,
+        0.2,
+        0.09
+    ],
+    "lmi": {
+        "calibration_tf": [
+            -0.000942031188559067,
+            0.99998762244979,
+            0.00488544004727849,
+            -0.126229470588201,
+            -0.987104931328817,
+            -0.00171189460921961,
+            0.160065374029419,
+            -0.334820364171818,
+            0.160071756170696,
+            -0.00467165538783583,
+            0.987094326046081,
+            -1.27690896654695,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ],
+        "view_pnt_calibration": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ]
+    },
+    "manually_picked_points": true,
+    "readme": {
+        "LMI": "calibration_tf represents robot to lmi sensor tf. view_pnt_calibration represents the world to robot transformation.",
+        "ROLLER1": "calibration_tf represents transform from world to a frame retrieved from /config/ext_pose_config/mapping.json.",
+        "ZIVID": "calibration_tf represents tool0 to zivid tf. hardware_type represents the hardware whether zivid or roller_1 or roller_2 (specify it as roller_1 if only one roller is used) is calibrated in the current pipeline.",
+        "artefact_location": "approximate world coordinates of the artefact (x,y,z), followed by length, width and height of the bounding box required for cropping",
+        "icp_params": "parameters for tuning ICP (optional)",
+        "manually_picked_points": "boolean to toggle off auto calibration and do manual calibration.",
+        "rotational_layering_tolerance": "parameters for tuning rotational layering in degrees (optional)",
+        "sac_params": "parameters for tuning SAC (optional)",
+        "translational_layering_tolerance": "parameters for tuning translational layering in meters (optional)",
+        "vcm_segmentation_params": "parameters for tuning VCM (optional)",
+        "vertical": "toggle parameter for keeping the artifact vertical (on rail) or horizontal."
+    },
+    "roller_1": {
+        "calibration_tf": [
+            -0.00101338823826547,
+            0.999997585152046,
+            -0.00195006009045559,
+            -0.123694464089804,
+            -0.988391373642717,
+            -0.000705357951040764,
+            0.151927597818251,
+            -0.324319412014159,
+            0.151925855445812,
+            0.00208138421218818,
+            0.988389701629281,
+            -1.28004929512156,
+            0,
+            0,
+            0,
+            1
+        ]
+    },
+    "roller_2": {
+        "calibration_tf": [
+            -0.00101338823826547,
+            0.999997585152046,
+            -0.00195006009045559,
+            -0.123694464089804,
+            -0.988391373642717,
+            -0.000705357951040764,
+            0.151927597818251,
+            -0.324319412014159,
+            0.151925855445812,
+            0.00208138421218818,
+            0.988389701629281,
+            -1.28004929512156,
+            0,
+            0,
+            0,
+            1
+        ]
+    },
+    "rotational_layering_tolerance": 0.15,
+    "translational_layering_tolerance": 0.005,
+    "vcm_segmentation_params": {
+        "algo_type": 1,
+        "cluster_tolerance": 0.002,
+        "convolution_radius": 0.005,
+        "direction": 1,
+        "distribute": false,
+        "max_cluster_size": 10000000,
+        "min_cluster_size": 50,
+        "min_width": 0.15,
+        "no_of_segments": 36,
+        "offset_radius": 0.02,
+        "threshold_ratio": 0.06,
+        "vis_maxValRatio": 0.1,
+        "vis_minValRatio": 0.05
+    },
+    "vertical": false,
+    "zivid": {
+        "calibration_tf": [
+            -0.99244965773034,
+            0.0194141177023292,
+            0.121106436264843,
+            0.129306897999126,
+            0.000366529220609566,
+            -0.986919564943058,
+            0.161213020531642,
+            0.230307249896546,
+            0.122652119946053,
+            0.160040196095998,
+            0.979460868593684,
+            0.143721266325641,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ],
+        "hardware_type": "zivid"
+    }
+}
