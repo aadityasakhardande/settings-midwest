@@ -28,6 +28,30 @@
             ]
         }
         },
+                {
+            "function": "compute_normal",
+            "params": {
+                "use_pcl": true,
+                "use_jet": false,
+                "use_radius": true,
+                "K": 150,
+                "radius_normal": 0.5,
+                "viewpoint_normal": [
+                    0.0,
+                    4.0,
+                    5.0
+                ],
+                "flip_normals": false,
+                "maintain_normals": true,
+                "colourize": true,
+                "field": 1,
+                "eucledian_cluster": false,
+                "cluster_tolerance": 0.01,
+                "min_cluster_size": 100,
+                "max_cluster_size": 10000000,
+                "use_gpu": true
+            }
+        }, 
         {
             "function": "eucledian_clustering",
             "params": {

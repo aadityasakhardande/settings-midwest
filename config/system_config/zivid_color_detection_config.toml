@@ -1,14 +1,22 @@
-# Default configuration for zivid_color_detection's ColorMaskConfig.
-# Field names match pointcloud_color_mask's ColorMaskStruct exactly; values
-# mirror pointcloud_color_mask's config/default_params.yaml defaults.
+# Configuration for zivid_color_detection's ColorMaskConfig.
+#
+# There is no color definition here at all (no HSV thresholds, no RGB tags). Every scan's colors
+# are discovered fresh via k-means on that scan's own point colors (MaskUtilities::applyColorClustering):
+# every point gets painted with its discovered cluster's centroid color. num_color_clusters below
+# is just "how many distinct colors to look for", not a color value itself.
+num_color_clusters = 50
+kmeans_attempts = 3
+kmeans_max_iterations = 75
+kmeans_epsilon = 1.0
 
-# HSV color thresholds for color segmentation (one [H, S, V] entry per color tag).
-# HSV ranges: H: 0-179, S: 0-255, V: 0-255
-min_hsv_threshold = [[35, 40, 40]]
-max_hsv_threshold = [[85, 255, 255]]
-
-# RGB tags for color identification (one [R, G, B] entry per color tag, 0-255 each).
-rgb_tags = [[0, 255, 0]]
+# Hue is clustered as a circular vector, not a plain number, so it doesn't break at the 0/179
+# wraparound and fades out correctly for grey-ish (low-saturation) points. hue_weight scales that
+# vector; value_weight scales brightness (V) separately. Raise hue_weight relative to value_weight
+# if colors of the same hue but different brightness/shading (e.g. dark vs. bright yellow) are
+# landing in different clusters -- that's the default here already, since lighting/shading
+# differences usually shouldn't change which color a point is read as.
+hue_weight = 0.15
+value_weight = 0.05
 
 # Statistical outlier removal
 perform_statistical_outlier_removal = false

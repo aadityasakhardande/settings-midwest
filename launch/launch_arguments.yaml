@@ -31,6 +31,7 @@ process:
   rpm_step: 50.0
   default_rpm: 2500.0
 feature_flag:
+  enable_inspection: true  # inspection sections in the GUI (Zivid SHOT inspection, 2026-10-27)
   polygon_filter: false
   color_pointcloud: false
   rgb_line_scan: false
@@ -66,7 +67,7 @@ network:
 scanning:
   enable_ambient_light_control: false
   rgb_scan: false
-  scan_mode: 0
+  scan_mode: 1
   scan_transition_mode: 0
   scan_force: 10
   scan_speed: 300.0
@@ -110,7 +111,7 @@ data_record:
   record_on: false
   robot: Midwest M710
 force:
-  static_force: 8
+  static_force: -5
 safety:
   safeguard_on: false
   safety_device: banner
@@ -142,3 +143,10 @@ multi_robot:
   reverse_follower_profile: false
   scan_separately: true
   base_type: single
+# Zivid inspection reviewed with SAM3 (2026-10-27). rgb_scan stays false: this cell has no Alvium.
+adaptive_sanding:
+  enabled: true
+  mode: review
+  library_dir: /home/gmruser/.ss/adaptive_sanding
+  output_dir: /home/gmruser/.ss/adaptive_sanding/results
+  model_cache: /home/gmruser/.ss/adaptive_sanding/models

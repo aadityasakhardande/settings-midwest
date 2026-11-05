@@ -4,8 +4,8 @@
 # ─── SANDING BEHAVIOUR ──────────────────────────────────────────────────────
 tpp_sanding_behaviour: {
   turn_on_sander_above_part: false,              # Turn the sander on while hovering above the part, before making contact
-  outer_boundary_subtraction: 0.05,             # Shrink the path inward from the outer edge of the part to avoid running off
-  inner_boundary_subtraction: 0.05,             # Shrink the path inward from inner boundaries (holes, cutouts)
+  outer_boundary_subtraction: 0.03,             # Shrink the path inward from the outer edge of the part to avoid running off
+  inner_boundary_subtraction: 0.03,             # Shrink the path inward from inner boundaries (holes, cutouts)
   entry_exit_offset: 0.1,                        # Height above the surface the robot lifts to when entering or exiting a path
   entry_exit_inclination_angle: [[0.0, 0.0],[45.0,0.0],[45.0,45.0],[0.0,45.0]],   # Approach/departure tilt angle [x_deg, y_deg] as the tool touches down or lifts off
 }
@@ -150,7 +150,7 @@ pause_planning: {
 tpp_debug_parameters: {
   ignore_discontinuity: false,                    # Ignore path discontinuities during planning — UNSAFE, only for offline debugging
   testing_mode: false,                            # Run in lightweight test mode with less computation for faster iteration
-  run_only_segmentation: false,                   # Stop after segmentation and skip path planning entirely
+  run_only_segmentation: false,                    # Stop after segmentation and skip path planning entirely
   write_report: true,                             # Write a planning summary report to disk
   print_debugROS_msgs: false,                     # Print verbose debug messages to the ROS log
   write_debug_files: true,                        # Write intermediate debug point cloud and path files to disk
@@ -177,11 +177,11 @@ tpp_advanced_planning_params: {
   shape_following_path: false,                      # Generate a center-line-following path instead of parallel lines — useful for profiled surfaces
   offset_values_for_shape_following: [-0.02, 0.0, 0.02], # Lateral offsets from the center line for each parallel path in shape-following mode
   threshold_for_ignoring_rows: 0.0,                # Drop fill-point rows shorter than this fraction of the longest row — 0.0 keeps all
-  follow_path_TCP: false,                           # Always orient the TCP to point in the direction of travel
+  follow_path_TCP: true,                           # Always orient the TCP to point in the direction of travel
   entry_exit_inclination_angle_n_pts_avg_dir: 5,   # Number of lookahead points to average when computing the entry/exit approach direction
   grid_length_sanding_line_divisor: 5,             # Internal grid resolution for sanding lines = pathgap_sanding_line divided by this value
   grid_length_connection_line_divisor: 5,          # Internal grid resolution for connection lines = pathgap_connection_line divided by this value
-  projection_mode: "pca",                           # How to project the path grid onto the surface: "obb" = optimal bounding box, "pca" = principal component, "preset" = world axes
+  projection_mode: "obb",                           # How to project the path grid onto the surface: "obb" = optimal bounding box, "pca" = principal component, "preset" = world axes
   state_based_reconstruction: true,                # Use a state-machine approach to reconstruct the path — more robust than linear reconstruction
   always_compute_seed_indices: false,              # Recompute seed/start indices from scratch every time — slower but may reduce jumps
   retraction_lookAhead_dist: 0.1,                  # How far ahead the planner looks to decide whether to insert a retraction
@@ -223,7 +223,7 @@ tpp_advanced_planning_params: {
 # Ramp styles: "instant", "linear", "power", "inverse_power"
 ramp_force_entryexit: {
   activate: false,
-  entry_start_value_multiplier: 0.2,    # Force at the very start of entry as a multiplier of nominal — 0.2 means start at 20%
+  entry_start_value_multiplier: 0.8,    # Force at the very start of entry as a multiplier of nominal — 0.2 means start at 20%
   entry_delay_length: -0.2,             # Distance before/after contact where the entry ramp begins — negative means before contact
   entry_ramp_dist: 0.4,                 # Distance over which force ramps up to nominal on entry
   entry_ramp_style: "inverse_power",    # Shape of the entry ramp curve
@@ -238,7 +238,7 @@ ramp_force_entryexit: {
 # Smoothly reduce and restore force around connection-line moves between passes
 # Ramp styles: "instant", "linear", "power", "inverse_power"
 ramp_force_nearconnection: {
-  activate: true,
+  activate: false,
   entry_ramp_dist: 0.05,                   # Distance before the connection line where force starts ramping down
   entry_ramp_style: "linear",             # Shape of the ramp going into the connection
   connection_value_multiplier: 0.75,      # Force during the connection line as a multiplier of nominal
@@ -251,8 +251,8 @@ ramp_force_nearconnection: {
 # Smoothly ramp spindle RPM on entry and exit
 # Ramp styles: "instant", "linear", "power", "inverse_power"
 ramp_rpm_entryexit: {
-  activate: false,
-  entry_start_value_multiplier: -0.3,   # RPM at the start of entry as a multiplier of nominal
+  activate: trfalseue,
+  entry_start_value_multiplier: -0.5,   # RPM at the start of entry as a multiplier of nominal
   entry_delay_length: 0.2,              # Distance offset where the entry ramp begins
   entry_ramp_dist: 0.4,                 # Distance over which RPM ramps up on entry
   entry_ramp_style: "inverse_power",    # Shape of the entry ramp
@@ -349,6 +349,6 @@ try_to_skip_p2p: {
 
 # ─── TRAJECTORY PLANNER ──────────────────────────────────────────────────────
 trajectory_planner: {
-  ori_options: [true, false, true],   # Which Cartesian orientation axes [x, y, z] are free to vary during trajectory optimization
-  reachability_service_attempts: 5,     # How many times to retry the reachability service before giving up on a point
+  ori_options: [false, false, false],   # Which Cartesian orientation axes [x, y, z] are free to vary during trajectory optimization
+  reachability_service_attempts: 9,     # How many times to retry the reachability service before giving up on a point
 }

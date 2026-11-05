@@ -28,11 +28,11 @@ tpp_planning_parameters: {
   continuity_distance: 0.05,                         # Max distance between consecutive points before they are treated as a jump or discontinuity
   boundary_detection_dist: 0.08,                     # Distance threshold used to decide whether a point is close enough to the boundary to matter
   cnt_sanding_line: 70,                              # Continuity quality score (1–100) required to keep a sanding line — lower is more lenient
-  cnt_connection_line: 80,                           # Continuity quality score required to keep a connection line
+  cnt_connection_line: 70,                           # Continuity quality score required to keep a connection line
   cnt_start_end_line: 90,                            # Continuity quality score required to keep a start/end line
   cnt_boundary_sanding_line: 90,                     # Continuity quality score required to keep a boundary sanding line
   remove_unreachable_pts_radius_multiplier: 0.9,       # Multiplier on the tool radius when sweeping for unreachable points — larger removes more
-  acceptable_sanding_path_length: 0.1,               # Minimum sanding path length to keep — segments shorter than this are dropped
+  acceptable_sanding_path_length: 0.002,               # Minimum sanding path length to keep — segments shorter than this are dropped
   acceptable_dist_2_next_line_percentage: 600,       # Max allowed gap to the next sanding line as % above nominal — 600 means up to 7x the normal gap
   normal_estimation_radius: 0.03,                    # Radius around each point used to estimate its surface normal
   z_estimation_radius: 0.02,                         # Radius used to estimate the local surface height at each point
@@ -122,7 +122,7 @@ boundary_normal_retention: {
 
 # ─── MID-PASS STOP NEAR BOUNDARY ─────────────────────────────────────────────
 midpass_SPC_near_boundary: {
-  activate: false,              # Insert a mid-pass pause event when the path gets close to the boundary
+  activate: true,              # Insert a mid-pass pause event when the path gets close to the boundary
   min_sanding_distance: 0.3,   # Minimum path length required before a near-boundary stop is inserted
   dist_from_boundary: 0.03,    # Distance from the boundary at which the stop event is placed
 }
@@ -199,7 +199,7 @@ tpp_advanced_planning_params: {
   override_surface_normals: false,                  # Replace computed surface normals with the fixed TCP rotation angles defined below
   tcp_rotation_angle_0: 0.0,                       # Fixed rotation for z+ surface normal face (top) — used when override_surface_normals is true
   tcp_rotation_angle_1: 0.0,                       # Fixed rotation for x- surface normal face
-  tcp_rotation_angle_2: 180.0,                     # Fixed rotation for y- surface normal face
+  tcp_rotation_angle_2: 0.0,                     # Fixed rotation for y- surface normal face
   tcp_rotation_angle_3: 0.0,                       # Fixed rotation for x+ surface normal face
   tcp_rotation_angle_4: 0.0,                      # Fixed rotation for y+ surface normal face
   tcp_rotation_angle_5: 0.0,                       # Fixed rotation for z- surface normal face (bottom)
@@ -350,6 +350,6 @@ try_to_skip_p2p: {
 
 # ─── TRAJECTORY PLANNER ──────────────────────────────────────────────────────
 trajectory_planner: {
-  ori_options: [false, false, false],   # Which Cartesian orientation axes [x, y, z] are free to vary during trajectory optimization
+  ori_options: [false, true, true],   # Which Cartesian orientation axes [x, y, z] are free to vary during trajectory optimization
   reachability_service_attempts: 9,     # How many times to retry the reachability service before giving up on a point
 }

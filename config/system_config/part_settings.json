@@ -21,20 +21,24 @@
             "path": "capture_settings/ZIVID3_new.yml",
             "planner_param_folder": [
                 {
-                    "display_name": "Nordam-Style Midwest",
-                    "folder_path": "part_class_settings/midwest_nordam-style"
+                    "display_name": "Midwest",
+                    "folder_path": "part_class_settings/midwest"
                 },
                 {
                     "display_name": "RHC-Style Midwest",
                     "folder_path": "part_class_settings/midwest_rhc-style"
                 },
-                                {
-                    "display_name": "Nordam-Style Midwest disc",
+                {
+                    "display_name": "Midwest disc",
                     "folder_path": "part_class_settings/midwest_nordam-style disc"
+                },
+                {
+                    "display_name": "Midwest Color Detection",
+                    "folder_path": "part_class_settings/midwest_color_detection"
                 }
             ],
-            "lmi_settings_path": "part_class_settings/midwest_nordam-style",
-            "stitch_config_path": "part_class_settings/midwest_nordam-style",
+            "lmi_settings_path": "part_class_settings/midwest",
+            "stitch_config_path": "part_class_settings/midwest",
             "intended_gsa_path": ""
         },
         "2": {

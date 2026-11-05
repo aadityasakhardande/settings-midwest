@@ -60,6 +60,10 @@
                 "7": {
                     "description": "A list of available tool for grind section (sectionType = 7)",
                     "$ref": "#/$defs/tool_display_properties"
+                },
+                "15": {
+                    "description": "A list of available tool for inspection section (sectionType = 15). An inspection section inherits the sanding process's tools and TCPs.",
+                    "$ref": "#/$defs/tool_display_properties"
                 }
             }
         },

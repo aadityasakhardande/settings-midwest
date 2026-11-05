@@ -41,6 +41,13 @@
                     "tool_id": 0,
                     "tcp_id": 0
                 }
+            ],
+            "15": [
+                {
+                    "display_name": "default_tool",
+                    "tool_id": 0,
+                    "tcp_id": 0
+                }
             ]
         },
         "1": {

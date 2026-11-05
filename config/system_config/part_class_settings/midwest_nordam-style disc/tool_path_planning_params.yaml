@@ -169,8 +169,8 @@ tpp_advanced_planning_params: {
   delay_tool_start: 0,                              # Shift the tool-on point by N waypoints relative to first contact — positive is later, negative is earlier
   delay_tool_end: 0,                                # Shift the tool-off point by N waypoints relative to last contact — positive is later, negative is earlier
   tilt_tcp_path_dir: 0,                             # Tilt the tool (degrees) in the direction of travel
-  tilt_tcp_orth_dir: 5,                             # Tilt the tool (degrees) perpendicular to the direction of travel
-  tcp_offset: 0.080,                                  # Shift the TCP along the tool axis — positive means away from the surface
+  tilt_tcp_orth_dir: 0,                             # Tilt the tool (degrees) perpendicular to the direction of travel
+  tcp_offset: 0.0,                                  # Shift the TCP along the tool axis — positive means away from the surface
   path_following_tilt: false,                        # Continuously update the tilt direction as the path curves
   do_not_connect_sanding_lines: false,              # Skip generating connection lines between sanding passes
   remove_surface_connection_lines: false,           # Remove connection lines from the final output path

@@ -1,9 +1,9 @@
 /**:
   ros__parameters:
     collision_offsets:
-      env_collision_offset: 0.03
-      self_collision_offset: 0.01
-      wp_collision_offset: 0.03
+      env_collision_offset: 0.05
+      self_collision_offset: 0.02
+      wp_collision_offset: 0.05
     extender_optimizer:
       change_graduation: 1.0e-06
     joint_optimizer:
@@ -189,3 +189,21 @@ zivid_camera_hdlr:
 #     min_hsv_threshold: [120, 40, 40]
 #     max_hsv_threshold: [150, 255, 255]
 #     rgb_tags: [360, 30, 140]
+
+pointcloud_color_mask:
+  ros__parameters:
+    min_hsv_threshold: [0, 0, 0, 25, 40, 40]
+    max_hsv_threshold: [170, 255, 50, 85, 255, 255]
+    rgb_tags: [50, 50, 50, 180, 255, 0]
+
+# Zivid inspection: shots captured for the SAM3 segmentation review (2026-10-27)
+inspection_acquisition:
+  ros__parameters:
+    device: zivid
+    device_type: zivid
+    # Capture settings for inspection shots, relative to system_config (or absolute). Empty uses the
+    # part class's "path" in part_settings.json, as scans do (capture_settings/ZIVID3_new.yml here).
+    # zivid_settings: capture_settings/ZIVID3_new.yml
+inspection_handler:
+  ros__parameters:
+    supported_data_types: ['pointcloud', 'rgb_images']
